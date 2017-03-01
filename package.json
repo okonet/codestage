@@ -1,0 +1,16 @@
+{
+  "name": "keynote-code-hightlight",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.4.15"
+  }
+}
