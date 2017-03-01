@@ -2,15 +2,40 @@
   "name": "keynote-code-hightlight",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "keywords": [],
   "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
   "license": "ISC",
   "dependencies": {
     "electron": "^1.4.15"
+  },
+  "devDependencies": {
+    "eslint": "^3.16.1",
+    "eslint-config-okonet": "^1.2.1",
+    "husky": "^0.13.1",
+    "lint-staged": "^3.3.1"
+  },
+  "eslintConfig": {
+    "extends": "okonet",
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "script"
+    },
+    "rules": {
+      "no-console": "off",
+      "strict": ["error", "safe"]
+    }
   }
 }
