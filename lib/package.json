@@ -1,0 +1,21 @@
+{
+  "name": "highlight-rtf-renderer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^19.0.2"
+  },
+  "dependencies": {
+    "color": "^1.0.3",
+    "css-tree": "^1.0.0-alpha16",
+    "lodash": "^4.17.4",
+    "lowlight": "^1.6.0"
+  }
+}

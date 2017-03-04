@@ -1,0 +1,1251 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`colorTableToRTF should return a string 1`] = `"{\\\\colortbl;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green106\\\\blue0;\\\\red170\\\\green13\\\\blue145;}"`;
+
+exports[`getColorTable should return an object of all used colors 1`] = `
+Array [
+  Object {
+    "b": 255,
+    "g": 255,
+    "r": 255,
+  },
+  Object {
+    "b": 0,
+    "g": 106,
+    "r": 0,
+  },
+  Object {
+    "b": 145,
+    "g": 13,
+    "r": 170,
+  },
+]
+`;
+
+exports[`getSheet should return a AST object 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "loc": null,
+      "type": "Comment",
+      "value": "!
+ * Agate by Taufik Nurrohman <https://github.com/tovic>
+ * ----------------------------------------------------
+ *
+ * #ade5fc
+ * #a2fca2
+ * #c6b4f0
+ * #d36363
+ * #fcc28c
+ * #fc9b9b
+ * #ffa
+ * #fff
+ * #333
+ * #62c8f3
+ * #888
+ *
+ ",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "display",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "name": "block",
+                  "type": "Identifier",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "overflow-x",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "name": "auto",
+                  "type": "Identifier",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "padding",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "Dimension",
+                  "unit": "em",
+                  "value": "0.5",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "background",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "333",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "name": "white",
+                  "type": "Identifier",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "font-weight",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "name": "bold",
+                  "type": "Identifier",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-name",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-strong",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "font-style",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "name": "italic",
+                  "type": "Identifier",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-code",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-emphasis",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "62c8f3",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-tag",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "ade5fc",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-variable",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-template-variable",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-selector-id",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-selector-class",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "a2fca2",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-string",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-bullet",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "ffa",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-type",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-title",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-section",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-attribute",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-quote",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-built_in",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-builtin-name",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "d36363",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-number",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-symbol",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-bullet",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "fcc28c",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-keyword",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-selector-tag",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-literal",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "888",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-comment",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-deletion",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-code",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "c6b4f0",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-regexp",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-link",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "fc9b9b",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-meta",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "background-color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "fc9b9b",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "333",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-deletion",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "background-color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "a2fca2",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "type": "HexColor",
+                  "value": "333",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs-addition",
+                "type": "ClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "name": "inherit",
+                  "type": "Identifier",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs",
+                "type": "ClassSelector",
+              },
+              Object {
+                "loc": null,
+                "type": "WhiteSpace",
+                "value": " ",
+              },
+              Object {
+                "loc": null,
+                "name": "a",
+                "type": "TypeSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+    Object {
+      "block": Object {
+        "children": Array [
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "color",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "name": "inherit",
+                  "type": "Identifier",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+          Object {
+            "important": false,
+            "loc": null,
+            "property": "text-decoration",
+            "type": "Declaration",
+            "value": Object {
+              "children": Array [
+                Object {
+                  "loc": null,
+                  "name": "underline",
+                  "type": "Identifier",
+                },
+              ],
+              "loc": null,
+              "type": "Value",
+            },
+          },
+        ],
+        "loc": null,
+        "type": "Block",
+      },
+      "loc": null,
+      "selector": Object {
+        "children": Array [
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs",
+                "type": "ClassSelector",
+              },
+              Object {
+                "loc": null,
+                "type": "WhiteSpace",
+                "value": " ",
+              },
+              Object {
+                "loc": null,
+                "name": "a",
+                "type": "TypeSelector",
+              },
+              Object {
+                "children": null,
+                "loc": null,
+                "name": "focus",
+                "type": "PseudoClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+          Object {
+            "children": Array [
+              Object {
+                "loc": null,
+                "name": "hljs",
+                "type": "ClassSelector",
+              },
+              Object {
+                "loc": null,
+                "type": "WhiteSpace",
+                "value": " ",
+              },
+              Object {
+                "loc": null,
+                "name": "a",
+                "type": "TypeSelector",
+              },
+              Object {
+                "children": null,
+                "loc": null,
+                "name": "hover",
+                "type": "PseudoClassSelector",
+              },
+            ],
+            "loc": null,
+            "type": "Selector",
+          },
+        ],
+        "loc": null,
+        "type": "SelectorList",
+      },
+      "type": "Rule",
+    },
+  ],
+  "loc": null,
+  "type": "StyleSheet",
+}
+`;
+
+exports[`loadStylesheet should load highlight CSS and return a string 1`] = `
+"/*!
+ * Agate by Taufik Nurrohman <https://github.com/tovic>
+ * ----------------------------------------------------
+ *
+ * #ade5fc
+ * #a2fca2
+ * #c6b4f0
+ * #d36363
+ * #fcc28c
+ * #fc9b9b
+ * #ffa
+ * #fff
+ * #333
+ * #62c8f3
+ * #888
+ *
+ */
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #333;
+  color: white;
+}
+
+.hljs-name,
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-code,
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-tag {
+  color: #62c8f3;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #ade5fc;
+}
+
+.hljs-string,
+.hljs-bullet {
+  color: #a2fca2;
+}
+
+.hljs-type,
+.hljs-title,
+.hljs-section,
+.hljs-attribute,
+.hljs-quote,
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #ffa;
+}
+
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet {
+  color: #d36363;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal {
+  color: #fcc28c;
+}
+
+.hljs-comment,
+.hljs-deletion,
+.hljs-code {
+  color: #888;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #c6b4f0;
+}
+
+.hljs-meta {
+  color: #fc9b9b;
+}
+
+.hljs-deletion {
+  background-color: #fc9b9b;
+  color: #333;
+}
+
+.hljs-addition {
+  background-color: #a2fca2;
+  color: #333;
+}
+
+.hljs a {
+  color: inherit;
+}
+
+.hljs a:focus,
+.hljs a:hover {
+  color: inherit;
+  text-decoration: underline;
+}
+"
+`;
