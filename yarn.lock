@@ -247,6 +247,10 @@ cli-width@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.1.0.tgz#b234ca209b29ef66fc518d9b98d5847b00edf00a"
 
+clone@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.2.tgz#260b7a99ebb1edfe247538175f783243cb19d149"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -348,10 +352,6 @@ css-tree@^1.0.0-alpha16:
   dependencies:
     source-map "^0.5.3"
 
-cssom@^0.3.0:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/cssom/-/cssom-0.3.2.tgz#b8036170c79f07a90ff2f16e22284027a243848b"
-
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -392,7 +392,11 @@ decamelize@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
 
-deep-extend@~0.4.0:
+deep-equal@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/deep-equal/-/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
+
+deep-extend@^0.4.1, deep-extend@~0.4.0:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.4.1.tgz#efe4113d08085f4e6f9687759810f807469e2253"
 
@@ -449,6 +453,18 @@ electron-download@^3.0.1:
     rc "^1.1.2"
     semver "^5.3.0"
     sumchecker "^1.2.0"
+
+electron-settings@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/electron-settings/-/electron-settings-2.2.2.tgz#5e56f17f6d908987028e6d6ed21f86d98d20a1ff"
+  dependencies:
+    clone "^1.0.2"
+    debug "^2.2.0"
+    deep-equal "^1.0.1"
+    deep-extend "^0.4.1"
+    file-exists "^2.0.0"
+    fs-extra "^0.30.0"
+    key-path-helpers "^0.4.0"
 
 electron@^1.4.15:
   version "1.4.15"
@@ -768,6 +784,10 @@ file-entry-cache@^2.0.0:
   dependencies:
     flat-cache "^1.2.1"
     object-assign "^4.0.1"
+
+file-exists@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/file-exists/-/file-exists-2.0.0.tgz#a24150665150e62d55bc5449281d88d2b0810dca"
 
 find-parent-dir@^0.3.0:
   version "0.3.0"
@@ -1192,18 +1212,15 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.3.6"
 
-jss-css@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/jss-css/-/jss-css-3.0.0.tgz#e514aed5f31ff7364930dfcf59a45a848d3957a3"
-  dependencies:
-    cssom "^0.3.0"
-    lodash "^4.6.1"
-
 jsx-ast-utils@^1.0.0, jsx-ast-utils@^1.3.4:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-1.4.0.tgz#5afe38868f56bc8cc7aeaef0100ba8c75bd12591"
   dependencies:
     object-assign "^4.1.0"
+
+key-path-helpers@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/key-path-helpers/-/key-path-helpers-0.4.0.tgz#e87f6a159144adf2692e46f2a4641ce269c09119"
 
 klaw@^1.0.0:
   version "1.3.1"
@@ -1307,7 +1324,7 @@ lodash.pickby@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
 
-lodash@^4.0.0, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.6.1:
+lodash@^4.0.0, lodash@^4.15.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -1951,6 +1968,12 @@ symbol-observable@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
 
+system-font-families@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/system-font-families/-/system-font-families-1.0.0.tgz#356a4ef64a68120001244a86f2212363a7f15124"
+  dependencies:
+    ttfinfo "https://github.com/rBurgett/ttfinfo.git"
+
 table@^3.7.8:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/table/-/table-3.8.3.tgz#2bbc542f0fda9861a755d3947fefd8b3f513855f"
@@ -1998,6 +2021,10 @@ trim-newlines@^1.0.0:
 tryit@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tryit/-/tryit-1.0.3.tgz#393be730a9446fd1ead6da59a014308f36c289cb"
+
+"ttfinfo@https://github.com/rBurgett/ttfinfo.git":
+  version "0.2.0"
+  resolved "https://github.com/rBurgett/ttfinfo.git#f00e43e2a6d4c8a12a677df20b7804492d50863c"
 
 tunnel-agent@~0.4.1:
   version "0.4.3"

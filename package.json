@@ -20,9 +20,11 @@
   "license": "ISC",
   "dependencies": {
     "electron": "^1.4.15",
+    "electron-settings": "^2.2.2",
     "emphasize": "^1.2.0",
     "execa": "^0.6.0",
-    "highlight-rtf-renderer": "file:./lib"
+    "highlight-rtf-renderer": "file:./lib",
+    "system-font-families": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^3.16.1",

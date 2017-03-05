@@ -4,9 +4,13 @@ const path = require('path')
 const rtfRenderer = require('../lib/')
 const execa = require('execa')
 
-module.exports = function codeHighlight(clipboard) {
+module.exports = function codeHighlight(clipboard, settings) {
+  const fontface = settings.getSync('fontface')
   const input = clipboard.readText()
-  const output = rtfRenderer.highlightAuto(input, 'solarized-light').value
+  const output = rtfRenderer.highlightAuto(input, {
+    fontface,
+    theme: 'solarized-light'
+  }).value
   clipboard.writeRTF(output)
 
   // Pasting into the active application
