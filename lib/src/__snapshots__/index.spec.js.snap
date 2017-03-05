@@ -31,6 +31,24 @@ exports[`highlightRTFRenderer should render a string 1`] = `
 }"
 `;
 
+exports[`highlightRTFRenderer should render javascript 1`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl;\\\\red51\\\\green51\\\\blue51;\\\\red248\\\\green248\\\\blue248;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green128\\\\blue128;\\\\red221\\\\green17\\\\blue68;\\\\red153\\\\green0\\\\blue0;\\\\red68\\\\green85\\\\blue136;\\\\red0\\\\green0\\\\blue128;\\\\red0\\\\green153\\\\blue38;\\\\red153\\\\green0\\\\blue115;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue153;\\\\red255\\\\green221\\\\blue221;\\\\red221\\\\green255\\\\blue221;}
+\\\\f0\\\\fs40
+settings.set({\\\\cf4 'user.name'}, \\\\{\\\\par
+  first: {\\\\cf4 'Cosmo'},\\\\par
+  last: {\\\\cf4 'Kramer'}\\\\par
+\\\\}).{\\\\cf0\\\\b then}(() => \\\\{\\\\par
+  settings.get({\\\\cf4 'user.name.first'}).{\\\\cf0\\\\b then}(val => \\\\{\\\\par
+    {\\\\cf10 console}.log(val);\\\\par
+    {\\\\cf8 //} => {\\\\cf4 'Cosmo'}\\\\par
+  \\\\});\\\\par
+\\\\});\\\\par
+
+}"
+`;
+
 exports[`highlightRTFRenderer should render multiple lines 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
