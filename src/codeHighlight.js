@@ -12,10 +12,9 @@ module.exports = function codeHighlight(clipboard, settings) {
     fontface,
     theme
   }).value
-  clipboard.writeRTF(output)
 
-  // Pasting into the active application
-  execa('osascript', [path.resolve('./src/paste.as')]).then((result) => {
-    console.log(result.stdout)
+  clipboard.write({
+    text: input,
+    rtf: output
   })
 }
