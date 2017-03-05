@@ -35,7 +35,7 @@ app.on('ready', () => {
   const themeList = fs
     .readdirSync(path.join(resolveStylesheetsDir()))
     .map(stylesheet => stylesheet.replace(/\.css$/, ''))
-  console.log(themeList)
+
   const contextMenu = Menu.buildFromTemplate([
     {
       label: 'Font',
