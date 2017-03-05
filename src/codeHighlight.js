@@ -7,6 +7,7 @@ const execa = require('execa')
 module.exports = function codeHighlight(clipboard, settings) {
   const fontface = settings.getSync('fontface')
   const theme = settings.getSync('theme')
+  const autopaste = settings.getSync('autopaste')
   const input = clipboard.readText()
   const output = rtfRenderer.highlightAuto(input, {
     fontface,
@@ -17,4 +18,11 @@ module.exports = function codeHighlight(clipboard, settings) {
     text: input,
     rtf: output
   })
+
+  if (autopaste) {
+    // Pasting into the active application
+    execa('osascript', [path.resolve('./src/paste.as')]).then((result) => {
+      console.log(result.stdout)
+    })
+  }
 }

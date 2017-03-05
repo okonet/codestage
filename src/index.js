@@ -14,7 +14,8 @@ const systemFonts = new SystemFonts()
 settings.defaults({
   shortcut: 'CommandOrControl+Alt+X',
   fontface: 'Courier New',
-  theme: 'xcode'
+  theme: 'xcode',
+  autopaste: true
 })
 
 // Prevent garbage collection
@@ -31,6 +32,7 @@ app.on('ready', () => {
   // tray.setToolTip('Loading...')
   const selectedFont = settings.getSync('fontface')
   const selectedTheme = settings.getSync('theme')
+  const autopaste = settings.getSync('autopaste')
   const fontList = systemFonts.getFontsSync()
   const themeList = fs
     .readdirSync(path.join(resolveStylesheetsDir()))
@@ -59,7 +61,22 @@ app.on('ready', () => {
         }
       }))
     },
-    { label: 'Item3', type: 'radio', checked: true }
+    {
+      label: 'Auto-paste to the formost application',
+      type: 'checkbox',
+      checked: autopaste,
+      click: (menuItem) => {
+        settings.setSync('autopaste', menuItem.checked)
+      }
+    },
+    {
+      type: 'separator'
+    },
+    {
+      label: 'Quit highlighter',
+      role: 'quit',
+      type: 'normal'
+    }
   ])
   tray.setContextMenu(contextMenu)
 
