@@ -6,7 +6,7 @@ const execa = require('execa')
 
 module.exports = function codeHighlight(clipboard) {
   const input = clipboard.readText()
-  const output = rtfRenderer.highlightAuto(input, 'idea').value
+  const output = rtfRenderer.highlightAuto(input, 'solarized-light').value
   clipboard.writeRTF(output)
 
   // Pasting into the active application
