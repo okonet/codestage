@@ -2,12 +2,13 @@
 
 const fs = require('fs')
 const path = require('path')
-const { app, Menu, Tray, globalShortcut, clipboard } = require('electron')
+const { app, Menu, Tray, globalShortcut, clipboard, BrowserWindow } = require('electron')
 const SystemFonts = require('system-font-families').default
 const settings = require('electron-settings')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const { resolveStylesheetsDir } = require('../lib/')
+const Positioner = require('electron-positioner')
 
 const systemFonts = new SystemFonts()
 
@@ -28,7 +29,25 @@ if (isPlatform('macOS')) {
 }
 
 app.on('ready', () => {
-  tray = new Tray('./resources/iconTemplate.png')
+
+  tray = new Tray('./resources/iconTemplate@2x.png')
+
+  const width = 400
+  const height = 300
+  let browserWindow = new BrowserWindow({
+    width,
+    height,
+    frame: false,
+    transparent: false,
+    show: false
+  })
+  const positioner = new Positioner(browserWindow)
+
+  tray.on('click', (event, trayBounds) => {
+    positioner.move('trayCenter', trayBounds)
+    browserWindow.show()
+  })
+
   // tray.setToolTip('Loading...')
   const selectedFont = settings.getSync('fontface')
   const selectedTheme = settings.getSync('theme')
@@ -78,7 +97,7 @@ app.on('ready', () => {
       type: 'normal'
     }
   ])
-  tray.setContextMenu(contextMenu)
+  // tray.setContextMenu(contextMenu)
 
   // Register a shortcut listener.
   settings.get('shortcut').then((shortcut) => {

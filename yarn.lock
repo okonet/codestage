@@ -495,6 +495,10 @@ electron-download@^3.0.1:
     semver "^5.3.0"
     sumchecker "^1.2.0"
 
+electron-positioner@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/electron-positioner/-/electron-positioner-3.0.0.tgz#1a3b75c9cc1e29dd37c663b23fd876d4ffab9996"
+
 electron-settings@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/electron-settings/-/electron-settings-2.2.2.tgz#5e56f17f6d908987028e6d6ed21f86d98d20a1ff"
