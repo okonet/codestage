@@ -31,8 +31,8 @@
     "system-font-families": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^3.16.1",
-    "eslint-config-okonet": "^1.2.1",
+    "eslint": "^3.19.0",
+    "eslint-config-okonet": "^2.0.0",
     "husky": "^0.13.1",
     "lint-staged": "^3.3.1"
   },
