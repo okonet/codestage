@@ -1,61 +1,67 @@
-'use strict'
+'use strict';
 
-const fs = require('fs')
-const path = require('path')
-const { app, Menu, Tray, globalShortcut, clipboard, BrowserWindow } = require('electron')
-const SystemFonts = require('system-font-families').default
-const settings = require('electron-settings')
-const isPlatform = require('./isPlatform')
-const codeHighlight = require('./codeHighlight')
-const { resolveStylesheetsDir } = require('../lib/')
-const Positioner = require('electron-positioner')
+const fs = require('fs');
+const path = require('path');
+const {
+  app,
+  Menu,
+  Tray,
+  globalShortcut,
+  clipboard,
+  BrowserWindow
+} = require('electron');
+const SystemFonts = require('system-font-families').default;
+const settings = require('electron-settings');
+const isPlatform = require('./isPlatform');
+const codeHighlight = require('./codeHighlight');
+const { resolveStylesheetsDir } = require('../lib/');
+const Positioner = require('electron-positioner');
 
-const systemFonts = new SystemFonts()
+const systemFonts = new SystemFonts();
 
 settings.defaults({
   shortcut: 'CommandOrControl+Alt+X',
   fontface: 'Courier New',
   theme: 'xcode',
   autopaste: true
-})
+});
 
 // Prevent garbage collection
 // Otherwise the tray icon would randomly hide after some time
-let tray = null
+let tray = null;
 
 // Hide dock icon before the app starts
 if (isPlatform('macOS')) {
-  app.dock.hide()
+  app.dock.hide();
 }
 
 app.on('ready', () => {
+  tray = new Tray('./resources/iconTemplate@2x.png');
 
-  tray = new Tray('./resources/iconTemplate@2x.png')
-
-  const width = 400
-  const height = 300
-  let browserWindow = new BrowserWindow({
+  const width = 400;
+  const height = 300;
+  const browserWindow = new BrowserWindow({
     width,
     height,
     frame: false,
     transparent: false,
     show: false
-  })
-  const positioner = new Positioner(browserWindow)
+  });
+  const positioner = new Positioner(browserWindow);
 
   tray.on('click', (event, trayBounds) => {
-    positioner.move('trayCenter', trayBounds)
-    browserWindow.show()
-  })
+    positioner.move('trayCenter', trayBounds);
+    browserWindow.show();
+  });
 
   // tray.setToolTip('Loading...')
-  const selectedFont = settings.getSync('fontface')
-  const selectedTheme = settings.getSync('theme')
-  const autopaste = settings.getSync('autopaste')
-  const fontList = systemFonts.getFontsSync()
+  const selectedFont = settings.getSync('fontface');
+  const selectedTheme = settings.getSync('theme');
+  const autopaste = settings.getSync('autopaste');
+  const fontList = systemFonts.getFontsSync();
   const themeList = fs
     .readdirSync(path.join(resolveStylesheetsDir()))
-    .map(stylesheet => stylesheet.replace(/\.css$/, ''))
+    .map(stylesheet => stylesheet.replace(/\.css$/, ''));
 
   const contextMenu = Menu.buildFromTemplate([
     {
@@ -64,8 +70,8 @@ app.on('ready', () => {
         label: font,
         type: 'radio',
         checked: font === selectedFont,
-        click: (menuItem) => {
-          settings.setSync('fontface', menuItem.label)
+        click: menuItem => {
+          settings.setSync('fontface', menuItem.label);
         }
       }))
     },
@@ -75,8 +81,8 @@ app.on('ready', () => {
         label: theme,
         type: 'radio',
         checked: theme === selectedTheme,
-        click: (menuItem) => {
-          settings.setSync('theme', menuItem.label)
+        click: menuItem => {
+          settings.setSync('theme', menuItem.label);
         }
       }))
     },
@@ -84,8 +90,8 @@ app.on('ready', () => {
       label: 'Auto-paste to the formost application',
       type: 'checkbox',
       checked: autopaste,
-      click: (menuItem) => {
-        settings.setSync('autopaste', menuItem.checked)
+      click: menuItem => {
+        settings.setSync('autopaste', menuItem.checked);
       }
     },
     {
@@ -96,25 +102,25 @@ app.on('ready', () => {
       role: 'quit',
       type: 'normal'
     }
-  ])
+  ]);
   // tray.setContextMenu(contextMenu)
 
   // Register a shortcut listener.
-  settings.get('shortcut').then((shortcut) => {
+  settings.get('shortcut').then(shortcut => {
     const ret = globalShortcut.register(shortcut, () => {
-      codeHighlight(clipboard, settings)
-    })
+      codeHighlight(clipboard, settings);
+    });
 
     if (!ret) {
-      console.log('Shortcut registration failed')
+      console.log('Shortcut registration failed');
     }
 
     // Check whether a shortcut is registered.
-    console.log(globalShortcut.isRegistered(shortcut))
-  })
-})
+    console.log(globalShortcut.isRegistered(shortcut));
+  });
+});
 
 app.on('will-quit', () => {
   // Unregister all shortcuts.
-  globalShortcut.unregisterAll()
-})
+  globalShortcut.unregisterAll();
+});
