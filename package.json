@@ -1,11 +1,14 @@
 {
+  "private": true,
   "name": "keynote-code-hightlight",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
+  "main": "src/electron/index.js",
+  "homepage": "./",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=development electron . & react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
     "lint": "eslint .",
     "icon:export": "sketchtool export slices design/icon.sketch --output=./resources/Icon.iconset",
     "icon:create": "iconutil -c icns ./resources/Icon.iconset",
@@ -29,6 +32,8 @@
     "emphasize": "^1.2.0",
     "execa": "^0.6.0",
     "highlight-rtf-renderer": "file:./lib",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
     "system-font-families": "^1.0.0"
   },
   "devDependencies": {
@@ -36,13 +41,13 @@
     "eslint-config-okonet": "^3.0.1",
     "husky": "^0.13.1",
     "lint-staged": "^3.3.1",
-    "prettier": "^0.22.0"
+    "prettier": "^0.22.0",
+    "react-scripts": "0.9.5"
   },
   "eslintConfig": {
     "extends": "okonet",
     "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "script"
+      "ecmaVersion": 6
     },
     "rules": {
       "no-console": "off",

@@ -1,7 +1,7 @@
 'use strict';
 
 const path = require('path');
-const rtfRenderer = require('../lib/');
+const rtfRenderer = require('../../lib/');
 const execa = require('execa');
 
 module.exports = function codeHighlight(clipboard, settings) {
