@@ -7,6 +7,10 @@
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
+    "icon:export": "sketchtool export slices design/icon.sketch --output=./resources/Icon.iconset",
+    "icon:create": "iconutil -c icns ./resources/Icon.iconset",
+    "menuicon:export": "sketchtool export artboards design/iconTemplate.sketch --output=./resources",
+    "icon": "npm run icon:export && npm run icon:create && npm run menuicon:export",
     "precommit": "lint-staged"
   },
   "lint-staged": {
