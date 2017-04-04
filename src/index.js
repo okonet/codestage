@@ -44,7 +44,9 @@ app.on('ready', () => {
     width,
     height,
     frame: false,
-    transparent: false,
+    resizable: false,
+    movable: false,
+    vibrancy: 'dark',
     show: false
   });
   const positioner = new Positioner(browserWindow);
@@ -52,6 +54,10 @@ app.on('ready', () => {
   tray.on('click', (event, trayBounds) => {
     positioner.move('trayCenter', trayBounds);
     browserWindow.show();
+  });
+
+  browserWindow.on('blur', () => {
+    browserWindow.hide();
   });
 
   // tray.setToolTip('Loading...')
