@@ -47,8 +47,10 @@ app.on('ready', () => {
     frame: false,
     //    resizable: false,
     movable: false,
-    vibrancy: 'dark'
-    //    show: false
+    vibrancy: 'dark',
+    transparent: true,
+    //    backgroundColor: 'transparent'
+    show: false
   });
   const positioner = new Positioner(browserWindow);
 
@@ -61,6 +63,13 @@ app.on('ready', () => {
       : 'http://localhost:3000';
 
     browserWindow.loadURL(startUrl);
+    browserWindow.webContents.on('dom-ready', () => {
+      browserWindow.webContents.executeJavaScript('window.require');
+    });
+
+    if (!isProduction) {
+      browserWindow.webContents.openDevTools();
+    }
   });
 
   //  browserWindow.on('blur', () => {

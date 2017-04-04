@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import styled from 'styled-components';
 import './App.css';
+import logo from './logo.svg';
+console.log(window.require);
+const electron = window.require('electron');
+const settings = electron.remote.require('electron-settings');
+// import settings from 'electron-settings';
+
+const Wrapper = styled.div`
+  font-size: 10px
+`;
+
+const selectedFont = settings.getSync('fontface');
+const selectedTheme = settings.getSync('theme');
+const autopaste = settings.getSync('autopaste');
+
+console.log(selectedFont);
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Wrapper>
+        <img src={logo} className="App-logo" alt="logo" />
+        <h2>{selectedFont}</h2>
+      </Wrapper>
     );
   }
 }

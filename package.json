@@ -6,9 +6,10 @@
   "main": "src/electron/index.js",
   "homepage": "./",
   "scripts": {
-    "start": "NODE_ENV=development electron . & react-scripts start",
+    "start": "NODE_ENV=development nf start -p 3000",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "electron": "electron .",
     "lint": "eslint .",
     "icon:export": "sketchtool export slices design/icon.sketch --output=./resources/Icon.iconset",
     "icon:create": "iconutil -c icns ./resources/Icon.iconset",
@@ -34,11 +35,13 @@
     "highlight-rtf-renderer": "file:./lib",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "styled-components": "^1.4.4",
     "system-font-families": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-okonet": "^3.0.1",
+    "foreman": "^2.0.0",
     "husky": "^0.13.1",
     "lint-staged": "^3.3.1",
     "prettier": "^0.22.0",
