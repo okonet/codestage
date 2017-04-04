@@ -34,7 +34,8 @@
     "eslint": "^3.19.0",
     "eslint-config-okonet": "^2.0.0",
     "husky": "^0.13.1",
-    "lint-staged": "^3.3.1"
+    "lint-staged": "^3.3.1",
+    "prettier": "^0.22.0"
   },
   "eslintConfig": {
     "extends": "okonet",
