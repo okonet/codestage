@@ -6,7 +6,7 @@
   "main": "src/electron/index.js",
   "homepage": "./",
   "scripts": {
-    "start": "NODE_ENV=development nf start -p 3000",
+    "start": "NODE_ENV=development react-scripts start & npm run electron",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "electron": "electron .",
@@ -41,7 +41,6 @@
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-okonet": "^3.0.1",
-    "foreman": "^2.0.0",
     "husky": "^0.13.1",
     "lint-staged": "^3.3.1",
     "prettier": "^0.22.0",
