@@ -33,8 +33,10 @@
     "emphasize": "^1.2.0",
     "execa": "^0.6.0",
     "highlight-rtf-renderer": "file:./lib",
+    "highlight.js": "^9.10.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-lowlight": "^1.0.4",
     "styled-components": "^1.4.4",
     "system-font-families": "^1.0.0"
   },

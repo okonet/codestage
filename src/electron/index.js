@@ -78,8 +78,6 @@ app.on('ready', () => {
   //    browserWindow.hide();
   //  });
 
-  // tray.setToolTip('Loading...')
-
   // Register a shortcut listener.
   settings.get('shortcut').then(shortcut => {
     const ret = globalShortcut.register(shortcut, () => {
