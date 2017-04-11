@@ -31,7 +31,8 @@ class App extends Component {
   };
 
   showMenu = event => {
-    ipcRenderer.send('show-options-menu', event.target.getBoundingClientRect());
+    const { left, bottom } = event.target.getBoundingClientRect();
+    ipcRenderer.send('show-options-menu', { left, bottom });
     event.stopPropagation();
   };
 

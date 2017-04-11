@@ -32,9 +32,9 @@ if (isPlatform('macOS')) {
   app.dock.hide();
 }
 
-ipcMain.on('show-options-menu', (event, coordinates) => {
-  const x = parseInt(coordinates.left.toFixed(), 10);
-  const y = parseInt(coordinates.bottom.toFixed(), 10);
+ipcMain.on('show-options-menu', (event, bounds) => {
+  const x = parseInt(bounds.left.toFixed(), 10);
+  const y = parseInt(bounds.bottom.toFixed(), 10);
   mainMenu.popup(x + 4, y);
 });
 
