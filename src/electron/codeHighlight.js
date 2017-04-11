@@ -21,7 +21,9 @@ module.exports = function codeHighlight(clipboard, settings) {
 
   if (autopaste) {
     // Pasting into the active application
-    execa('osascript', [path.resolve('./src/paste.as')]).then(result => {
+    execa('osascript', [
+      path.resolve('./src/electron/paste.as')
+    ]).then(result => {
       console.log(result.stdout);
     });
   }
