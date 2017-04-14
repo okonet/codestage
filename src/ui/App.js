@@ -35,6 +35,17 @@ class App extends Component {
     selectedTheme: settings.getSync('theme')
   };
 
+  componentDidMount() {
+    ipcRenderer.on('global-shortcut-pressed', () => {
+      console.log(111);
+      this.forceUpdate();
+    });
+  }
+
+  componentWillUnmount() {
+    ipcRenderer.off('global-shortcut-pressed', this.forceUpdate);
+  }
+
   showMenu = event => {
     const { left, bottom } = event.target.getBoundingClientRect();
     ipcRenderer.send('show-options-menu', { left, bottom });
@@ -55,23 +66,12 @@ class App extends Component {
 
   render() {
     const { selectedFont, selectedTheme } = this.state;
-    const themePath = path.join(
-      resolveStylesheetsDir(),
-      `${selectedTheme}.css`
-    );
+    const themePath = path.join(resolveStylesheetsDir(), `${selectedTheme}.css`);
     const theme = fs.readFileSync(themePath, 'utf-8');
     return (
       <Wrapper>
-        <Dropdown
-          items={fontList}
-          selectedItem={selectedFont}
-          onChange={this.onFontChanged}
-        />
-        <Dropdown
-          items={themeList}
-          selectedItem={selectedTheme}
-          onChange={this.onThemeChanged}
-        />
+        <Dropdown items={fontList} selectedItem={selectedFont} onChange={this.onFontChanged} />
+        <Dropdown items={themeList} selectedItem={selectedTheme} onChange={this.onThemeChanged} />
         <button onClick={this.showMenu}>⚙</button>
         <Preview codeSnippet={clipboard.readText()} theme={theme} />
       </Wrapper>
