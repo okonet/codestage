@@ -28,7 +28,8 @@ const fontList = systemFonts.getFontsSync()
 class App extends Component {
   state = {
     selectedFont: settings.getSync('fontface'),
-    selectedTheme: settings.getSync('theme')
+    selectedTheme: settings.getSync('theme'),
+    subset: settings.getSync('subset')
   }
 
   componentDidMount() {
@@ -59,16 +60,27 @@ class App extends Component {
     this.setState({ selectedTheme })
   }
 
+  onSubsetChanged = event => {
+    const { value } = event.target
+    settings.setSync('subset', value)
+    this.setState({ subset: value })
+  }
+
   render() {
-    const { selectedFont, selectedTheme } = this.state
+    const { selectedFont, selectedTheme, subset } = this.state
     const themePath = path.join(resolveStylesheetsDir(), `${selectedTheme}.css`)
     const theme = fs.readFileSync(themePath, 'utf-8')
+    const languages = subset.split(',')
     return (
       <Wrapper>
         <Dropdown items={fontList} selectedItem={selectedFont} onChange={this.onFontChanged} />
         <Dropdown items={themeList} selectedItem={selectedTheme} onChange={this.onThemeChanged} />
+        <input type="text" value={subset} onChange={this.onSubsetChanged} />
         <button onClick={this.showMenu}>⚙</button>
-        <Preview codeSnippet={clipboard.readText()} theme={theme} />
+        <ul>
+          {languages.map(lang => <li key={lang}>{lang}</li>)}
+        </ul>
+        <Preview codeSnippet={clipboard.readText()} theme={theme} subset={languages} />
       </Wrapper>
     )
   }
