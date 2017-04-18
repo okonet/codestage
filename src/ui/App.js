@@ -1,73 +1,68 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import './App.css';
-import Dropdown from './Dropdown';
-import Preview from './Preview';
+import React, { Component } from 'react'
+import styled from 'styled-components'
+import './App.css'
+import Dropdown from './Dropdown'
+import Preview from './Preview'
 
 // Working around electron imports from CRA app:
 // https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
-const {
-  remote,
-  ipcRenderer,
-  clipboard
-} = window.require('electron');
-const fs = remote.require('fs');
-const path = remote.require('path');
-const settings = remote.require('electron-settings');
-const SystemFonts = remote.require('system-font-families').default;
-const { resolveStylesheetsDir } = remote.require('../../lib/');
+const { remote, ipcRenderer, clipboard } = window.require('electron')
+const fs = remote.require('fs')
+const path = remote.require('path')
+const settings = remote.require('electron-settings')
+const SystemFonts = remote.require('system-font-families').default
+const { resolveStylesheetsDir } = remote.require('../../lib/')
 
-const systemFonts = new SystemFonts();
+const systemFonts = new SystemFonts()
 const themeList = fs
   .readdirSync(path.join(resolveStylesheetsDir()))
-  .map(stylesheet => stylesheet.replace(/\.css$/, ''));
+  .map(stylesheet => stylesheet.replace(/\.css$/, ''))
 
 const Wrapper = styled.div`
   padding: 15px;
   font-size: 10px;
-`;
+`
 
-const fontList = systemFonts.getFontsSync();
+const fontList = systemFonts.getFontsSync()
 
 class App extends Component {
   state = {
     selectedFont: settings.getSync('fontface'),
     selectedTheme: settings.getSync('theme')
-  };
+  }
 
   componentDidMount() {
     ipcRenderer.on('global-shortcut-pressed', () => {
-      console.log(111);
-      this.forceUpdate();
-    });
+      this.forceUpdate()
+    })
   }
 
   componentWillUnmount() {
-    ipcRenderer.off('global-shortcut-pressed', this.forceUpdate);
+    ipcRenderer.off('global-shortcut-pressed', this.forceUpdate)
   }
 
   showMenu = event => {
-    const { left, bottom } = event.target.getBoundingClientRect();
-    ipcRenderer.send('show-options-menu', { left, bottom });
-    event.stopPropagation();
-  };
+    const { left, bottom } = event.target.getBoundingClientRect()
+    ipcRenderer.send('show-options-menu', { left, bottom })
+    event.stopPropagation()
+  }
 
   onFontChanged = event => {
-    const selectedFont = event.target.value;
-    settings.setSync('fontface', selectedFont);
-    this.setState({ selectedFont });
-  };
+    const selectedFont = event.target.value
+    settings.setSync('fontface', selectedFont)
+    this.setState({ selectedFont })
+  }
 
   onThemeChanged = event => {
-    const selectedTheme = event.target.value;
-    settings.setSync('theme', selectedTheme);
-    this.setState({ selectedTheme });
-  };
+    const selectedTheme = event.target.value
+    settings.setSync('theme', selectedTheme)
+    this.setState({ selectedTheme })
+  }
 
   render() {
-    const { selectedFont, selectedTheme } = this.state;
-    const themePath = path.join(resolveStylesheetsDir(), `${selectedTheme}.css`);
-    const theme = fs.readFileSync(themePath, 'utf-8');
+    const { selectedFont, selectedTheme } = this.state
+    const themePath = path.join(resolveStylesheetsDir(), `${selectedTheme}.css`)
+    const theme = fs.readFileSync(themePath, 'utf-8')
     return (
       <Wrapper>
         <Dropdown items={fontList} selectedItem={selectedFont} onChange={this.onFontChanged} />
@@ -75,8 +70,8 @@ class App extends Component {
         <button onClick={this.showMenu}>⚙</button>
         <Preview codeSnippet={clipboard.readText()} theme={theme} />
       </Wrapper>
-    );
+    )
   }
 }
 
-export default App;
+export default App
