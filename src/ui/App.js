@@ -70,7 +70,7 @@ class App extends Component {
     const { selectedFont, selectedTheme, subset } = this.state
     const themePath = path.join(resolveStylesheetsDir(), `${selectedTheme}.css`)
     const theme = fs.readFileSync(themePath, 'utf-8')
-    const languages = subset.split(',')
+    const languages = subset.split(',').filter(Boolean)
     return (
       <Wrapper>
         <Dropdown items={fontList} selectedItem={selectedFont} onChange={this.onFontChanged} />

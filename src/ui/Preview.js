@@ -13,12 +13,13 @@ reqLangs.keys().forEach(lang => {
 })
 
 function Preview({ codeSnippet, theme, subset }) {
+  const props = subset.length ? { subset } : {}
   return (
     <div>
       <style>
         {theme}
       </style>
-      <Lowlight value={codeSnippet} subset={subset} />
+      <Lowlight value={codeSnippet} {...props} />
     </div>
   )
 }
@@ -26,7 +27,7 @@ function Preview({ codeSnippet, theme, subset }) {
 Preview.propTypes = {
   codeSnippet: PropTypes.string.isRequired,
   theme: PropTypes.string.isRequired,
-  subset: PropTypes.string.isRequired
+  subset: PropTypes.array.isRequired // eslint-disable-line
 }
 
 export default Preview
