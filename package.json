@@ -37,6 +37,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-lowlight": "^1.0.4",
+    "strip-indent": "^2.0.0",
     "styled-components": "^1.4.4",
     "system-font-families": "^1.0.0"
   },

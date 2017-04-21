@@ -3,6 +3,7 @@
 const { app, ipcMain, Tray, globalShortcut, clipboard, BrowserWindow } = require('electron')
 const settings = require('electron-settings')
 const Positioner = require('electron-positioner')
+const stripIndent = require('strip-indent')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const { mainMenu } = require('./menus')
@@ -49,17 +50,16 @@ app.on('ready', () => {
   })
   const positioner = new Positioner(browserWindow)
 
+  const startUrl = isProduction ? `file://${__dirname}/dist/index.html` : 'http://localhost:3000'
+
+  browserWindow.loadURL(startUrl)
+  browserWindow.webContents.on('dom-ready', () => {
+    browserWindow.webContents.executeJavaScript('window.require')
+  })
+
   tray.on('click', (event, trayBounds) => {
     positioner.move('trayCenter', trayBounds)
     browserWindow.show()
-
-    const startUrl = isProduction ? `file://${__dirname}/dist/index.html` : 'http://localhost:3000'
-
-    browserWindow.loadURL(startUrl)
-    browserWindow.webContents.on('dom-ready', () => {
-      browserWindow.webContents.executeJavaScript('window.require')
-    })
-
     if (!isProduction) {
       browserWindow.webContents.openDevTools()
     }
@@ -72,7 +72,7 @@ app.on('ready', () => {
   // Register a shortcut listener.
   settings.get('shortcut').then(shortcut => {
     const ret = globalShortcut.register(shortcut, () => {
-      const codeSnippet = clipboard.readText()
+      const codeSnippet = stripIndent(clipboard.readText())
       browserWindow.webContents.send('global-shortcut-pressed', { codeSnippet })
       codeHighlight(codeSnippet, settings)
     })
