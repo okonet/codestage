@@ -72,8 +72,9 @@ app.on('ready', () => {
   // Register a shortcut listener.
   settings.get('shortcut').then(shortcut => {
     const ret = globalShortcut.register(shortcut, () => {
-      browserWindow.webContents.send('global-shortcut-pressed')
-      codeHighlight(clipboard, settings)
+      const codeSnippet = clipboard.readText()
+      browserWindow.webContents.send('global-shortcut-pressed', { codeSnippet })
+      codeHighlight(codeSnippet, settings)
     })
 
     if (!ret) {

@@ -6,7 +6,7 @@ import Preview from './Preview'
 
 // Working around electron imports from CRA app:
 // https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
-const { remote, ipcRenderer, clipboard } = window.require('electron')
+const { remote, ipcRenderer } = window.require('electron')
 const fs = remote.require('fs')
 const path = remote.require('path')
 const settings = remote.require('electron-settings')
@@ -27,25 +27,30 @@ const fontList = systemFonts.getFontsSync()
 
 class App extends Component {
   state = {
+    codeSnippet: 'Copy some code into clipboard',
     selectedFont: settings.getSync('fontface'),
     selectedTheme: settings.getSync('theme'),
     subset: settings.getSync('subset')
   }
 
   componentDidMount() {
-    ipcRenderer.on('global-shortcut-pressed', () => {
-      this.forceUpdate()
-    })
+    ipcRenderer.on('global-shortcut-pressed', this.onShortcutPressed)
   }
 
   componentWillUnmount() {
-    ipcRenderer.off('global-shortcut-pressed', this.forceUpdate)
+    ipcRenderer.off('global-shortcut-pressed', this.onShortcutPressed)
   }
 
   showMenu = event => {
     const { left, bottom } = event.target.getBoundingClientRect()
     ipcRenderer.send('show-options-menu', { left, bottom })
     event.stopPropagation()
+  }
+
+  onShortcutPressed = (event, { codeSnippet }) => {
+    this.setState({
+      codeSnippet
+    })
   }
 
   onFontChanged = event => {
@@ -67,7 +72,7 @@ class App extends Component {
   }
 
   render() {
-    const { selectedFont, selectedTheme, subset } = this.state
+    const { codeSnippet, selectedFont, selectedTheme, subset } = this.state
     const themePath = path.join(resolveStylesheetsDir(), `${selectedTheme}.css`)
     const theme = fs.readFileSync(themePath, 'utf-8')
     const languages = subset.split(',').filter(Boolean)
@@ -80,7 +85,7 @@ class App extends Component {
         <ul>
           {languages.map(lang => <li key={lang}>{lang}</li>)}
         </ul>
-        <Preview codeSnippet={clipboard.readText()} theme={theme} subset={languages} />
+        <Preview codeSnippet={codeSnippet} theme={theme} subset={languages} />
       </Wrapper>
     )
   }
