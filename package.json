@@ -35,6 +35,7 @@
     "highlight-rtf-renderer": "file:./lib",
     "highlight.js": "^9.10.0",
     "react": "^15.4.2",
+    "react-desktop": "^0.3.0",
     "react-dom": "^15.4.2",
     "react-lowlight": "^1.0.4",
     "strip-indent": "^2.0.0",
