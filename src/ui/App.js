@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Box, TitleBar, Toolbar, ToolbarNav, ToolbarNavItem, Window } from 'react-desktop/macOs'
-import styled from 'styled-components'
 import './App.css'
 import ItemsList from './ItemsList'
 import Preview from './Preview'
@@ -18,22 +17,6 @@ const systemFonts = new SystemFonts()
 const themeList = fs
   .readdirSync(path.join(resolveStylesheetsDir()))
   .map(stylesheet => stylesheet.replace(/\.css$/, ''))
-
-const Wrapper = styled.div`
-  display: flex;
-  width: 100%;
-`
-
-const Sidebar = styled.div`
-  flex: 0 auto;
-  width: 200px;
-  border: 1px solid;
-`
-
-const Content = styled.div`
-  flex: 1;
-  border: 1px solid;
-`
 
 const circle = (
   <svg x="0px" y="0px" width="25px" height="25px" viewBox="0 0 25 25">
@@ -119,40 +102,49 @@ class App extends Component {
           </Toolbar>
         </TitleBar>
 
-        <Wrapper>
-          <Content>
-            <Box label="Code snippet" padding="30px">
-              <Preview
-                codeSnippet={codeSnippet}
-                theme={theme}
-                subset={languages}
-                fontface={selectedFont}
+        <section className="wrapper wrapper_vertical">
+          <section className="wrapper">
+
+            <section className="content codeSnippet">
+              <Box label="Code snippet" padding="0px">
+                <Preview
+                  codeSnippet={codeSnippet}
+                  theme={theme}
+                  subset={languages}
+                  fontface={selectedFont}
+                />
+              </Box>
+            </section>
+          </section>
+
+          <section className="wrapper">
+            <section className="content">
+              <ItemsList
+                heading="Theme"
+                items={themeList}
+                selectedItem={selectedTheme}
+                onClick={this.onThemeChanged}
               />
-            </Box>
-          </Content>
-        </Wrapper>
+            </section>
+            <section className="content">
+              <ItemsList
+                heading="Font"
+                items={fontList}
+                selectedItem={selectedFont}
+                onClick={this.onFontChanged}
+              />
+            </section>
+            <section className="content">
+              <input type="text" value={subset} onChange={this.onSubsetChanged} />
+              <button onClick={this.showMenu}>⚙</button>
 
-        <Wrapper>
-          <Sidebar>
-            <ItemsList
-              items={themeList}
-              selectedItem={selectedTheme}
-              onClick={this.onThemeChanged}
-            />
-          </Sidebar>
-          <Sidebar>
-            <ItemsList items={fontList} selectedItem={selectedFont} onClick={this.onFontChanged} />
-          </Sidebar>
-          <Content>
-            <input type="text" value={subset} onChange={this.onSubsetChanged} />
-            <button onClick={this.showMenu}>⚙</button>
+              <ul>
+                {languages.map(lang => <li key={lang}>{lang}</li>)}
+              </ul>
 
-            <ul>
-              {languages.map(lang => <li key={lang}>{lang}</li>)}
-            </ul>
-
-          </Content>
-        </Wrapper>
+            </section>
+          </section>
+        </section>
       </Window>
     )
   }
