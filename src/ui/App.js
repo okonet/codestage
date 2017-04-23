@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { Box, TitleBar, Toolbar, ToolbarNav, ToolbarNavItem, Window } from 'react-desktop/macOs'
 import styled from 'styled-components'
 import './App.css'
-import Dropdown from './Dropdown'
+import ItemsList from './ItemsList'
 import Preview from './Preview'
 
 // Working around electron imports from CRA app:
@@ -19,9 +20,26 @@ const themeList = fs
   .map(stylesheet => stylesheet.replace(/\.css$/, ''))
 
 const Wrapper = styled.div`
-  padding: 15px;
-  font-size: 10px;
+  display: flex;
+  width: 100%;
 `
+
+const Sidebar = styled.div`
+  flex: 0 auto;
+  width: 200px;
+  border: 1px solid;
+`
+
+const Content = styled.div`
+  flex: 1;
+  border: 1px solid;
+`
+
+const circle = (
+  <svg x="0px" y="0px" width="25px" height="25px" viewBox="0 0 25 25">
+    <circle cx="12.5" cy="12.5" r="12.5" />
+  </svg>
+)
 
 const fontList = systemFonts.getFontsSync()
 
@@ -53,14 +71,12 @@ class App extends Component {
     })
   }
 
-  onFontChanged = event => {
-    const selectedFont = event.target.value
+  onFontChanged = selectedFont => {
     settings.setSync('fontface', selectedFont)
     this.setState({ selectedFont })
   }
 
-  onThemeChanged = event => {
-    const selectedTheme = event.target.value
+  onThemeChanged = selectedTheme => {
     settings.setSync('theme', selectedTheme)
     this.setState({ selectedTheme })
   }
@@ -77,16 +93,67 @@ class App extends Component {
     const theme = fs.readFileSync(themePath, 'utf-8')
     const languages = subset.split(',').filter(Boolean)
     return (
-      <Wrapper>
-        <Dropdown items={fontList} selectedItem={selectedFont} onChange={this.onFontChanged} />
-        <Dropdown items={themeList} selectedItem={selectedTheme} onChange={this.onThemeChanged} />
-        <input type="text" value={subset} onChange={this.onSubsetChanged} />
-        <button onClick={this.showMenu}>⚙</button>
-        <ul>
-          {languages.map(lang => <li key={lang}>{lang}</li>)}
-        </ul>
-        <Preview codeSnippet={codeSnippet} theme={theme} subset={languages} />
-      </Wrapper>
+      <Window chrome padding="0px">
+        <TitleBar>
+          <Toolbar>
+            <ToolbarNav>
+              <ToolbarNavItem
+                title="Item 1"
+                icon={circle}
+                selected={this.state.selected === 1}
+                onClick={() => this.setState({ selected: 1 })}
+              />
+              <ToolbarNavItem
+                title="Item 2"
+                icon={circle}
+                selected={this.state.selected === 2}
+                onClick={() => this.setState({ selected: 2 })}
+              />
+              <ToolbarNavItem
+                title="Item 3"
+                icon={circle}
+                selected={this.state.selected === 3}
+                onClick={() => this.setState({ selected: 3 })}
+              />
+            </ToolbarNav>
+          </Toolbar>
+        </TitleBar>
+
+        <Wrapper>
+          <Content>
+            <Box label="Code snippet" padding="30px">
+              <Preview
+                codeSnippet={codeSnippet}
+                theme={theme}
+                subset={languages}
+                fontface={selectedFont}
+              />
+            </Box>
+          </Content>
+        </Wrapper>
+
+        <Wrapper>
+          <Sidebar>
+            <ItemsList
+              items={themeList}
+              selectedItem={selectedTheme}
+              onClick={this.onThemeChanged}
+            />
+          </Sidebar>
+          <Sidebar>
+            <ItemsList items={fontList} selectedItem={selectedFont} onClick={this.onFontChanged} />
+          </Sidebar>
+          <Content>
+            <input type="text" value={subset} onChange={this.onSubsetChanged} />
+            <button onClick={this.showMenu}>⚙</button>
+
+            <ul>
+              {languages.map(lang => <li key={lang}>{lang}</li>)}
+            </ul>
+
+          </Content>
+        </Wrapper>
+      </Window>
     )
   }
 }

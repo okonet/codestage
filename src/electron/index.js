@@ -35,17 +35,17 @@ ipcMain.on('show-options-menu', (event, bounds) => {
 app.on('ready', () => {
   tray = new Tray('./resources/iconTemplate@2x.png')
 
-  const width = 400
-  const height = 300
+  const width = 800
+  const height = 600
   const browserWindow = new BrowserWindow({
     width,
     height,
     frame: false,
-    //    resizable: false,
-    movable: false,
-    vibrancy: 'dark',
-    transparent: true,
-    //    backgroundColor: 'transparent'
+    // resizable: false,
+    // movable: false,
+    // vibrancy: 'dark',
+    // transparent: true,
+    // backgroundColor: 'transparent'
     show: false
   })
   const positioner = new Positioner(browserWindow)
@@ -57,17 +57,13 @@ app.on('ready', () => {
     browserWindow.webContents.executeJavaScript('window.require')
   })
 
-  tray.on('click', (event, trayBounds) => {
-    positioner.move('trayCenter', trayBounds)
+  tray.on('click', () => {
+    positioner.move('center')
     browserWindow.show()
     if (!isProduction) {
       browserWindow.webContents.openDevTools()
     }
   })
-
-  //  browserWindow.on('blur', () => {
-  //    browserWindow.hide();
-  //  });
 
   // Register a shortcut listener.
   settings.get('shortcut').then(shortcut => {

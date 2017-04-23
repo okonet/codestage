@@ -12,10 +12,10 @@ reqLangs.keys().forEach(lang => {
   }
 })
 
-function Preview({ codeSnippet, theme, subset }) {
+function Preview({ fontface, codeSnippet, theme, subset }) {
   const props = subset.length ? { subset } : {}
   return (
-    <div>
+    <div style={{ fontFamily: fontface }}>
       <style>
         {theme}
       </style>
@@ -25,6 +25,7 @@ function Preview({ codeSnippet, theme, subset }) {
 }
 
 Preview.propTypes = {
+  fontface: PropTypes.string,
   codeSnippet: PropTypes.string.isRequired,
   theme: PropTypes.string.isRequired,
   subset: PropTypes.array.isRequired // eslint-disable-line
