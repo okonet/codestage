@@ -1,7 +1,7 @@
 'use strict'
 
 const DEFAULT_SETTINGS = {
-  shortcut: 'CommandOrControl+Alt+X',
+  shortcut: 'Command+Alt+X',
   fontface: 'Courier New',
   theme: 'xcode',
   subset: 'js, css, html',

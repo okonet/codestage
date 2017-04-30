@@ -13,7 +13,7 @@ const codeHighlight = require('./codeHighlight')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
 const isDev = require('electron-is-dev')
-require('electron-debug')({ showDevTools: true, enabled: true })
+require('electron-debug')({ showDevTools: true })
 
 // Prevent garbage collection
 // Otherwise the tray icon would randomly hide after some time

@@ -2,11 +2,13 @@
 
 'use strict'
 
+require('hazardous') //
 const path = require('path')
 const rtfRenderer = require('../../lib/')
 const execa = require('execa')
 const { clipboard } = require('electron')
 const { DEFAULT_SETTINGS } = require('./defaults')
+const log = require('electron-log')
 
 module.exports = function codeHighlight(input, settings) {
   const fontface = settings.get('fontface', DEFAULT_SETTINGS.fontface)
@@ -24,8 +26,14 @@ module.exports = function codeHighlight(input, settings) {
 
   if (autopaste) {
     // Pasting into the active application
-    execa('osascript', [path.resolve('./src/electron/paste.as')]).then(result => {
-      console.log(result.stdout)
-    })
+    const pathToScript = path.resolve(__dirname, 'paste.as')
+
+    execa('osascript', [pathToScript])
+      .then(result => {
+        log.error(result.stderr)
+      })
+      .catch(err => {
+        log.error(err)
+      })
   }
 }
