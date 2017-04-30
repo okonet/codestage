@@ -1,15 +1,21 @@
 {
   "private": true,
-  "name": "keynote-code-hightlight",
-  "version": "1.0.0",
-  "description": "",
+  "name": "codestage",
+  "version": "0.0.1",
+  "description": "Hassle free code highlighting macOS helper app for your Keynote slides",
   "main": "src/electron/index.js",
   "homepage": "./",
+  "build": {
+    "appId": "com.koolesache.CodeStage",
+    "icon": "resources/Icon.icns"
+  },
   "scripts": {
-    "start": "NODE_ENV=development react-scripts start & npm run electron",
+    "start": "react-scripts start & npm run electron",
     "build": "react-scripts build",
+    "pack": "npm run build && build --dir",
+    "dist": "npm run build && build",
     "test": "react-scripts test --env=jsdom",
-    "electron": "electron .",
+    "electron": "NODE_ENV=development electron .",
     "lint": "eslint .",
     "icon:export": "sketchtool export slices design/icon.sketch --output=./resources/Icon.iconset",
     "icon:create": "iconutil -c icns ./resources/Icon.iconset",
@@ -27,7 +33,6 @@
   "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
   "license": "ISC",
   "dependencies": {
-    "electron": "^1.4.15",
     "electron-positioner": "^3.0.0",
     "electron-settings": "^3.0.14",
     "emphasize": "^1.2.0",
@@ -43,6 +48,8 @@
     "system-font-families": "^1.0.0"
   },
   "devDependencies": {
+    "electron": "^1.4.15",
+    "electron-builder": "^17.1.1",
     "eslint": "^3.19.0",
     "eslint-config-okonet": "^4.0.0",
     "husky": "^0.13.1",

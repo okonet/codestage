@@ -6,8 +6,11 @@ node_modules/
 # testing
 coverage
 
-# production
+# CRA build dir
 /build
+
+# production build
+/dist
 
 # misc
 .DS_Store
