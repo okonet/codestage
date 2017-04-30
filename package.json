@@ -7,18 +7,20 @@
   "homepage": "./",
   "build": {
     "appId": "com.koolesache.CodeStage",
-    "icon": "resources/Icon.icns"
+    "directories": {
+      "buildResources": "resources"
+    }
   },
   "scripts": {
     "start": "react-scripts start & npm run electron",
     "build": "react-scripts build",
-    "pack": "npm run build && build --dir",
-    "dist": "npm run build && build",
+    "pack": "npm run icon && npm run build && build --dir",
+    "dist": "npm run icon && npm run build && build",
     "test": "react-scripts test --env=jsdom",
     "electron": "NODE_ENV=development electron .",
     "lint": "eslint .",
-    "icon:export": "sketchtool export slices design/icon.sketch --output=./resources/Icon.iconset",
-    "icon:create": "iconutil -c icns ./resources/Icon.iconset",
+    "icon:export": "sketchtool export slices design/icon.sketch --output=./resources/icon.iconset",
+    "icon:create": "iconutil -c icns ./resources/icon.iconset",
     "menuicon:export": "sketchtool export artboards design/iconTemplate.sketch --output=./resources",
     "icon": "npm run icon:export && npm run icon:create && npm run menuicon:export",
     "precommit": "lint-staged"
