@@ -12,6 +12,7 @@ const path = remote.require('path')
 const settings = remote.require('electron-settings')
 const SystemFonts = remote.require('system-font-families').default
 const { resolveStylesheetsDir } = remote.require('../../lib/')
+const { DEFAULT_SETTINGS } = remote.require('../electron/defaults')
 
 const systemFonts = new SystemFonts()
 const themeList = fs
@@ -29,9 +30,9 @@ const fontList = systemFonts.getFontsSync()
 class App extends Component {
   state = {
     codeSnippet: 'Copy some code into clipboard',
-    selectedFont: settings.getSync('fontface'),
-    selectedTheme: settings.getSync('theme'),
-    subset: settings.getSync('subset')
+    selectedFont: settings.get('fontface', DEFAULT_SETTINGS.fontface),
+    selectedTheme: settings.get('theme', DEFAULT_SETTINGS.theme),
+    subset: settings.get('subset', DEFAULT_SETTINGS.subset)
   }
 
   componentDidMount() {
@@ -49,18 +50,18 @@ class App extends Component {
   }
 
   onFontChanged = selectedFont => {
-    settings.setSync('fontface', selectedFont)
+    settings.set('fontface', selectedFont)
     this.setState({ selectedFont })
   }
 
   onThemeChanged = selectedTheme => {
-    settings.setSync('theme', selectedTheme)
+    settings.set('theme', selectedTheme)
     this.setState({ selectedTheme })
   }
 
   onSubsetChanged = event => {
     const { value } = event.target
-    settings.setSync('subset', value)
+    settings.set('subset', value)
     this.setState({ subset: value })
   }
 

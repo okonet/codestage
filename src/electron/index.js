@@ -10,17 +10,9 @@ const Positioner = require('electron-positioner')
 const stripIndent = require('strip-indent')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
+const { DEFAULT_SETTINGS } = require('./defaults')
 
 const isDev = process.env.NODE_ENV === 'development'
-
-settings.defaults({
-  shortcut: 'CommandOrControl+Alt+X',
-  fontface: 'Courier New',
-  theme: 'xcode',
-  autopaste: true
-})
-
-console.log(settings.getSync('theme'))
 
 // Prevent garbage collection
 // Otherwise the tray icon would randomly hide after some time
@@ -59,9 +51,9 @@ app.on('ready', () => {
     {
       label: 'Auto-paste to the formost application',
       type: 'checkbox',
-      checked: settings.getSync('autopaste'),
+      checked: settings.get('autopaste', DEFAULT_SETTINGS.autopaste),
       click: menuItem => {
-        settings.setSync('autopaste', menuItem.checked)
+        settings.set('autopaste', menuItem.checked)
       }
     },
     {
@@ -89,20 +81,19 @@ app.on('ready', () => {
   tray.setContextMenu(mainMenu)
 
   // Register a shortcut listener.
-  settings.get('shortcut').then(shortcut => {
-    const ret = globalShortcut.register(shortcut, () => {
-      const codeSnippet = stripIndent(clipboard.readText())
-      browserWindow.webContents.send('global-shortcut-pressed', { codeSnippet })
-      codeHighlight(codeSnippet, settings)
-    })
-
-    if (!ret) {
-      console.log('Shortcut registration failed')
-    }
-
-    // Check whether a shortcut is registered.
-    console.log(globalShortcut.isRegistered(shortcut))
+  const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
+  const ret = globalShortcut.register(shortcut, () => {
+    const codeSnippet = stripIndent(clipboard.readText())
+    browserWindow.webContents.send('global-shortcut-pressed', { codeSnippet })
+    codeHighlight(codeSnippet, settings)
   })
+
+  if (!ret) {
+    console.log('Shortcut registration failed')
+  }
+
+  // Check whether a shortcut is registered.
+  console.log(globalShortcut.isRegistered(shortcut))
 })
 
 app.on('will-quit', () => {

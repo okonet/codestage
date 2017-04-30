@@ -29,7 +29,7 @@
   "dependencies": {
     "electron": "^1.4.15",
     "electron-positioner": "^3.0.0",
-    "electron-settings": "^2.2.2",
+    "electron-settings": "^3.0.14",
     "emphasize": "^1.2.0",
     "execa": "^0.6.0",
     "highlight-rtf-renderer": "file:./lib",
