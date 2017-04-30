@@ -17,7 +17,7 @@
     "pack": "npm run icon && npm run build && build --dir",
     "dist": "npm run icon && npm run build && build",
     "test": "react-scripts test --env=jsdom",
-    "electron": "NODE_ENV=development electron .",
+    "electron": "electron .",
     "lint": "eslint .",
     "icon:export": "sketchtool export slices design/icon.sketch --output=./resources/icon.iconset",
     "icon:create": "iconutil -c icns ./resources/icon.iconset",
@@ -52,6 +52,8 @@
   "devDependencies": {
     "electron": "^1.4.15",
     "electron-builder": "^17.1.1",
+    "electron-debug": "^1.1.0",
+    "electron-is-dev": "^0.1.2",
     "eslint": "^3.19.0",
     "eslint-config-okonet": "^4.0.0",
     "husky": "^0.13.1",

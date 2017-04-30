@@ -12,7 +12,7 @@ const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = require('electron-is-dev')
 require('electron-debug')({ showDevTools: true, enabled: true })
 
 // Prevent garbage collection
