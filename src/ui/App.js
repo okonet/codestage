@@ -42,12 +42,6 @@ class App extends Component {
     ipcRenderer.off('global-shortcut-pressed', this.onShortcutPressed)
   }
 
-  showMenu = event => {
-    const { left, bottom } = event.target.getBoundingClientRect()
-    ipcRenderer.send('show-options-menu', { left, bottom })
-    event.stopPropagation()
-  }
-
   onShortcutPressed = (event, { codeSnippet }) => {
     this.setState({
       codeSnippet
@@ -136,7 +130,6 @@ class App extends Component {
             </section>
             <section className="content">
               <input type="text" value={subset} onChange={this.onSubsetChanged} />
-              <button onClick={this.showMenu}>⚙</button>
 
               <ul>
                 {languages.map(lang => <li key={lang}>{lang}</li>)}

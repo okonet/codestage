@@ -1,14 +1,17 @@
+/* eslint import/no-extraneous-dependencies: 0 */
+
 'use strict'
 
-const { app, ipcMain, Tray, globalShortcut, clipboard, BrowserWindow } = require('electron')
+const path = require('path')
+const { name } = require('../../package.json')
+const { app, Menu, Tray, globalShortcut, clipboard, BrowserWindow } = require('electron')
 const settings = require('electron-settings')
 const Positioner = require('electron-positioner')
 const stripIndent = require('strip-indent')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
-const { mainMenu } = require('./menus')
 
-const isProduction = process.env.NODE_ENV === 'production'
+const isDev = process.env.NODE_ENV === 'development'
 
 settings.defaults({
   shortcut: 'CommandOrControl+Alt+X',
@@ -16,6 +19,8 @@ settings.defaults({
   theme: 'xcode',
   autopaste: true
 })
+
+console.log(settings.getSync('theme'))
 
 // Prevent garbage collection
 // Otherwise the tray icon would randomly hide after some time
@@ -26,44 +31,62 @@ if (isPlatform('macOS')) {
   app.dock.hide()
 }
 
-ipcMain.on('show-options-menu', (event, bounds) => {
-  const x = parseInt(bounds.left.toFixed(), 10)
-  const y = parseInt(bounds.bottom.toFixed(), 10)
-  mainMenu.popup(x + 4, y)
-})
-
 app.on('ready', () => {
-  tray = new Tray('./resources/iconTemplate@2x.png')
-
   const width = 800
   const height = 600
   const browserWindow = new BrowserWindow({
     width,
     height,
     frame: false,
-    // resizable: false,
-    // movable: false,
-    // vibrancy: 'dark',
-    // transparent: true,
-    // backgroundColor: 'transparent'
     show: false
   })
   const positioner = new Positioner(browserWindow)
 
-  const startUrl = isProduction ? `file://${__dirname}/dist/index.html` : 'http://localhost:3000'
+  const startUrl = isDev ? 'http://localhost:3000' : `file://${__dirname}/build/index.html`
 
   browserWindow.loadURL(startUrl)
   browserWindow.webContents.on('dom-ready', () => {
     browserWindow.webContents.executeJavaScript('window.require')
   })
 
-  tray.on('click', () => {
-    positioner.move('center')
-    browserWindow.show()
-    if (!isProduction) {
-      browserWindow.webContents.openDevTools()
+  const mainMenu = Menu.buildFromTemplate([
+    {
+      role: 'about'
+    },
+    {
+      type: 'separator'
+    },
+    {
+      label: 'Auto-paste to the formost application',
+      type: 'checkbox',
+      checked: settings.getSync('autopaste'),
+      click: menuItem => {
+        settings.setSync('autopaste', menuItem.checked)
+      }
+    },
+    {
+      accelerator: 'Cmd+,',
+      label: 'Preferences...',
+      type: 'normal',
+      click: () => {
+        positioner.move('center')
+        browserWindow.show()
+        if (isDev) {
+          browserWindow.webContents.openDevTools()
+        }
+      }
+    },
+    {
+      type: 'separator'
+    },
+    {
+      label: `Quit ${name}`,
+      role: 'quit',
+      type: 'normal'
     }
-  })
+  ])
+  tray = new Tray(path.join(__dirname, '..', '..', 'resources', 'iconTemplate@2x.png'))
+  tray.setContextMenu(mainMenu)
 
   // Register a shortcut listener.
   settings.get('shortcut').then(shortcut => {
