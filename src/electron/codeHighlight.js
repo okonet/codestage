@@ -13,10 +13,12 @@ const { DEFAULT_SETTINGS } = require('./defaults')
 module.exports = function codeHighlight(input, settings) {
   const fontface = settings.get('fontface', DEFAULT_SETTINGS.fontface)
   const theme = settings.get('theme', DEFAULT_SETTINGS.theme)
+  const subset = settings.get('subset', DEFAULT_SETTINGS.subset)
   const autopaste = settings.get('autopaste', DEFAULT_SETTINGS.autopaste)
   const output = rtfRenderer.highlightAuto(input, {
     fontface,
-    theme
+    theme,
+    subset: subset.split(',')
   }).value
 
   clipboard.write({
