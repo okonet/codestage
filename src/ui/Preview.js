@@ -15,7 +15,7 @@ reqLangs.keys().forEach(lang => {
 function Preview({ fontface, codeSnippet, theme, subset }) {
   const props = subset.length ? { subset } : {}
   return (
-    <div style={{ fontFamily: fontface }}>
+    <div style={{ fontFamily: fontface, height: 250, overflow: 'scroll' }}>
       <style>
         {theme}
       </style>
