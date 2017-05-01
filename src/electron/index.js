@@ -27,6 +27,9 @@ let tray = null
 // Create a reference to be able to destroy it
 let preferencesWindow = null
 
+// We'll need this to prevent from quiting the app by closing Preferences window
+let forceQuit = false
+
 // Hide dock icon before the app starts
 if (isPlatform('macOS')) {
   app.dock.hide()
@@ -68,9 +71,11 @@ app.on('ready', () => {
 
   // Prevent closing the application when window is closed
   preferencesWindow.on('close', event => {
-    event.preventDefault()
-    // Still close the window, though
-    preferencesWindow.hide()
+    if (!forceQuit) {
+      event.preventDefault()
+      // Still close the window, though
+      preferencesWindow.hide()
+    }
   })
 
   const mainMenu = Menu.buildFromTemplate([
@@ -109,6 +114,10 @@ app.on('ready', () => {
   settings.watch('shortcut', (newVal, oldVal) =>
     registerShortcut(newVal, oldVal, onShortcutPressed)
   )
+})
+
+app.on('before-quit', () => {
+  forceQuit = true
 })
 
 app.on('will-quit', () => {
