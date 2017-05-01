@@ -40,7 +40,7 @@ class App extends Component {
   }
 
   componentWillUnmount() {
-    ipcRenderer.off('global-shortcut-pressed', this.onShortcutPressed)
+    ipcRenderer.removeListener('global-shortcut-pressed', this.onShortcutPressed)
   }
 
   onShortcutPressed = (event, { codeSnippet }) => {
