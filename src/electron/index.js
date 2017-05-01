@@ -13,7 +13,9 @@ const codeHighlight = require('./codeHighlight')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
 const isDev = require('electron-is-dev')
-require('electron-debug')({ showDevTools: true })
+require('electron-debug')({
+  showDevTools: 'undocked'
+})
 
 // Prevent garbage collection
 // Otherwise the tray icon would randomly hide after some time
@@ -35,7 +37,7 @@ app.on('ready', () => {
   })
   const positioner = new Positioner(browserWindow)
 
-  const startUrl = `file://${__dirname}/../../build/index.html`
+  const startUrl = isDev ? 'http://localhost:3000' : `file://${__dirname}/build/index.html`
 
   browserWindow.loadURL(startUrl)
   browserWindow.webContents.on('dom-ready', () => {
@@ -64,9 +66,6 @@ app.on('ready', () => {
       click: () => {
         positioner.move('center')
         browserWindow.show()
-        if (isDev) {
-          browserWindow.webContents.openDevTools()
-        }
       }
     },
     {

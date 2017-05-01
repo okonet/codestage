@@ -55,6 +55,7 @@
     "system-font-families": "^1.0.0"
   },
   "devDependencies": {
+    "devtron": "^1.4.0",
     "electron": "^1.4.15",
     "electron-builder": "^17.1.1",
     "eslint": "^3.19.0",
