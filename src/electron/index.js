@@ -78,17 +78,6 @@ app.on('ready', () => {
       role: 'about'
     },
     {
-      type: 'separator'
-    },
-    {
-      label: 'Auto-paste to the formost application',
-      type: 'checkbox',
-      checked: settings.get('autopaste', DEFAULT_SETTINGS.autopaste),
-      click: menuItem => {
-        settings.set('autopaste', menuItem.checked)
-      }
-    },
-    {
       accelerator: 'Cmd+,',
       label: 'Preferences...',
       type: 'normal',

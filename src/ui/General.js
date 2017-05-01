@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Label } from 'react-desktop/macOs'
+import { Checkbox, Label } from 'react-desktop/macOs'
+import styled from 'styled-components'
 import ShortcutRecorder from './ShortcutRecorder'
 
 // Working around electron imports from CRA app:
@@ -24,25 +25,62 @@ const MAC_MODIFIERS = {
   joinWith: ''
 }
 
+const Form = styled.div`
+ display: block;
+ width: 100%;
+ padding: 2rem;
+`
+const FormRow = styled.div`
+  display: flex;
+  padding: 0.5rem;
+`
+
+const FormLabel = styled.div`
+  margin-right: .5rem;
+  width: 30%;
+  text-align: right;
+`
+
+const OffsetField = styled.div`
+  padding-left: calc(30% + .5rem);
+  width: 100%;
+`
+
 class General extends Component {
   onShortcutUpdated = shortcut => {
     settings.set('shortcut', shortcut)
   }
 
+  onAutopasteChanged = evt => {
+    console.log(evt.target.checked)
+    settings.set('autopaste', evt.target.checked)
+  }
+
   render() {
     return (
-      <section className="">
+      <Form>
+        <FormRow>
+          <FormLabel>
+            <Label>Global shortcut</Label>
+          </FormLabel>
 
-        <Label>Global shortcut</Label>
-
-        <ShortcutRecorder
-          initialValue={settings.get('shortcut', DEFAULT_SETTINGS.shortcut)}
-          displayModifiers={MAC_MODIFIERS}
-          exportModifiers={ELECTRON_MODIFIERS}
-          onUpdate={this.onShortcutUpdated}
-        />
-
-      </section>
+          <ShortcutRecorder
+            initialValue={settings.get('shortcut', DEFAULT_SETTINGS.shortcut)}
+            displayModifiers={MAC_MODIFIERS}
+            exportModifiers={ELECTRON_MODIFIERS}
+            onUpdate={this.onShortcutUpdated}
+          />
+        </FormRow>
+        <FormRow>
+          <OffsetField>
+            <Checkbox
+              label="Auto-paste to the formost application"
+              defaultChecked={settings.get('autopaste', DEFAULT_SETTINGS.autopaste)}
+              onChange={this.onAutopasteChanged}
+            />
+          </OffsetField>
+        </FormRow>
+      </Form>
     )
   }
 }
