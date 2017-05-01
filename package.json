@@ -34,7 +34,7 @@
   },
   "keywords": [],
   "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
-  "license": "ISC",
+  "license": "MPL-2.0",
   "dependencies": {
     "electron-debug": "^1.1.0",
     "electron-is-dev": "^0.1.2",
