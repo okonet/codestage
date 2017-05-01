@@ -7,8 +7,8 @@ const path = require('path')
 const rtfRenderer = require('../../lib/')
 const execa = require('execa')
 const { clipboard } = require('electron')
-const { DEFAULT_SETTINGS } = require('./defaults')
 const log = require('electron-log')
+const { DEFAULT_SETTINGS } = require('./defaults')
 
 module.exports = function codeHighlight(input, settings) {
   const fontface = settings.get('fontface', DEFAULT_SETTINGS.fontface)
@@ -30,7 +30,7 @@ module.exports = function codeHighlight(input, settings) {
 
     execa('osascript', [pathToScript])
       .then(result => {
-        log.error(result.stderr)
+        log.info(result.stdout)
       })
       .catch(err => {
         log.error(err)
