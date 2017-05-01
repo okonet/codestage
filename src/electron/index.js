@@ -12,6 +12,9 @@ const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
+const width = 800
+const height = 600
+
 const isDev = require('electron-is-dev')
 require('electron-debug')({
   showDevTools: 'undocked'
@@ -20,6 +23,8 @@ require('electron-debug')({
 // Prevent garbage collection
 // Otherwise the tray icon would randomly hide after some time
 let tray = null
+// Create a reference to be able to destroy it
+let preferencesWindow = null
 
 // Hide dock icon before the app starts
 if (isPlatform('macOS')) {
@@ -27,21 +32,30 @@ if (isPlatform('macOS')) {
 }
 
 app.on('ready', () => {
-  const width = 800
-  const height = 600
-  const browserWindow = new BrowserWindow({
+  preferencesWindow = new BrowserWindow({
     width,
     height,
-    frame: false,
-    show: false
+    frame: true,
+    maximizable: false,
+    minimizable: false,
+    fullscreenable: false,
+    titleBarStyle: 'hidden-inset',
+    show: true
   })
-  const positioner = new Positioner(browserWindow)
+  const positioner = new Positioner(preferencesWindow)
 
   const startUrl = isDev ? 'http://localhost:3000' : `file://${__dirname}/build/index.html`
 
-  browserWindow.loadURL(startUrl)
-  browserWindow.webContents.on('dom-ready', () => {
-    browserWindow.webContents.executeJavaScript('window.require')
+  preferencesWindow.loadURL(startUrl)
+  preferencesWindow.webContents.on('dom-ready', () => {
+    preferencesWindow.webContents.executeJavaScript('window.require')
+  })
+
+  // Prevent closing the application when window is closed
+  preferencesWindow.on('close', event => {
+    event.preventDefault()
+    // Still close the window, though
+    preferencesWindow.hide()
   })
 
   const mainMenu = Menu.buildFromTemplate([
@@ -65,7 +79,7 @@ app.on('ready', () => {
       type: 'normal',
       click: () => {
         positioner.move('center')
-        browserWindow.show()
+        preferencesWindow.show()
       }
     },
     {
@@ -84,7 +98,7 @@ app.on('ready', () => {
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   const ret = globalShortcut.register(shortcut, () => {
     const codeSnippet = stripIndent(clipboard.readText())
-    browserWindow.webContents.send('global-shortcut-pressed', { codeSnippet })
+    preferencesWindow.webContents.send('global-shortcut-pressed', { codeSnippet })
     codeHighlight(codeSnippet, settings)
   })
 
@@ -97,6 +111,10 @@ app.on('ready', () => {
 })
 
 app.on('will-quit', () => {
+  // Destroy window reference
+  preferencesWindow.destroy()
+  // De-reference object
+  preferencesWindow = null
   // Unregister all shortcuts.
   globalShortcut.unregisterAll()
 })
