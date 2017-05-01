@@ -55,7 +55,7 @@ app.on('ready', () => {
     minimizable: false,
     fullscreenable: false,
     titleBarStyle: 'hidden-inset',
-    show: true
+    show: false
   })
   const positioner = new Positioner(preferencesWindow)
 
