@@ -7,6 +7,7 @@ const { name } = require('../../package.json')
 const { app, Menu, Tray, globalShortcut, clipboard, BrowserWindow } = require('electron')
 const settings = require('electron-settings')
 const Positioner = require('electron-positioner')
+const log = require('electron-log')
 const stripIndent = require('strip-indent')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
@@ -29,6 +30,20 @@ let preferencesWindow = null
 // Hide dock icon before the app starts
 if (isPlatform('macOS')) {
   app.dock.hide()
+}
+
+function registerShortcut(newShortcut, oldShortcut, callback) {
+  // Unregister old shortcut
+  if (oldShortcut) {
+    globalShortcut.unregister(oldShortcut)
+  }
+
+  //  Register new shortcut
+  const isRegistered = globalShortcut.register(newShortcut, callback)
+
+  if (!isRegistered) {
+    log.error('Shortcut registration failed')
+  }
 }
 
 app.on('ready', () => {
@@ -95,19 +110,16 @@ app.on('ready', () => {
   tray.setContextMenu(mainMenu)
 
   // Register a shortcut listener.
-  const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
-  const ret = globalShortcut.register(shortcut, () => {
+  const onShortcutPressed = () => {
     const codeSnippet = stripIndent(clipboard.readText())
     preferencesWindow.webContents.send('global-shortcut-pressed', { codeSnippet })
     codeHighlight(codeSnippet, settings)
-  })
-
-  if (!ret) {
-    console.log('Shortcut registration failed')
   }
-
-  // Check whether a shortcut is registered.
-  console.log(globalShortcut.isRegistered(shortcut))
+  const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
+  registerShortcut(shortcut, null, onShortcutPressed)
+  settings.watch('shortcut', (newVal, oldVal) =>
+    registerShortcut(newVal, oldVal, onShortcutPressed)
+  )
 })
 
 app.on('will-quit', () => {
