@@ -59,7 +59,7 @@ app.on('ready', () => {
   })
   const positioner = new Positioner(preferencesWindow)
 
-  const startUrl = isDev ? 'http://localhost:3000' : `file://${__dirname}/build/index.html`
+  const startUrl = isDev ? 'http://localhost:3000' : `file://${__dirname}/../../build/index.html`
 
   preferencesWindow.loadURL(startUrl)
   preferencesWindow.webContents.on('dom-ready', () => {
