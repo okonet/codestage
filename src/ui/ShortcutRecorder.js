@@ -1,6 +1,5 @@
-import React, { Component, PropTypes } from 'react'
-import { TextInput } from 'react-desktop/macOs'
 import eventStringgifier from 'key-event-to-string'
+import React, { Component, PropTypes } from 'react'
 
 const defaultOptions = {
   cmd: 'Cmd',
@@ -47,21 +46,6 @@ function toDetailsObject(value, options = defaultOptions) {
 }
 
 export default class ShortcutRecorder extends Component {
-  propTypes = {
-    initialValue: PropTypes.string,
-    placeholder: PropTypes.string,
-    displayModifiers: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-    exportModifiers: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-    onUpdate: PropTypes.func
-  }
-
-  defaultProps = {
-    placeholder: 'Recording...',
-    displayModifiers: defaultOptions,
-    exportModifiers: defaultOptions,
-    onUpdate: () => {}
-  }
-
   constructor(props) {
     super()
     this.state = {
@@ -107,18 +91,33 @@ export default class ShortcutRecorder extends Component {
   }
 
   render() {
-    const { placeholder, displayModifiers } = this.props
-    const { value, currentValue, isRecording } = this.state
-    const val = toFormattedString(isRecording ? currentValue : value, displayModifiers)
-    return (
-      <TextInput
-        value={val}
-        placeholder={placeholder}
-        onFocus={this.startRecording}
-        onBlur={this.cancelRecording}
-        onKeyDown={this.onKeyChange}
-        onKeyUp={this.onKeyChange}
-      />
-    )
+    const { displayModifiers, placeholder, renderer } = this.props
+    const { currentValue, isRecording } = this.state
+    const value = toFormattedString(isRecording ? currentValue : this.state.value, displayModifiers)
+    return React.createElement(renderer, {
+      value,
+      placeholder,
+      onFocus: this.startRecording,
+      onBlur: this.cancelRecording,
+      onKeyDown: this.onKeyChange,
+      onKeyUp: this.onKeyChange
+    })
   }
+}
+
+ShortcutRecorder.propTypes = {
+  initialValue: PropTypes.string,
+  placeholder: PropTypes.string,
+  displayModifiers: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  exportModifiers: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  onUpdate: PropTypes.func,
+  renderer: PropTypes.node
+}
+
+ShortcutRecorder.defaultProps = {
+  placeholder: 'Recording...',
+  displayModifiers: defaultOptions,
+  exportModifiers: defaultOptions,
+  renderer: 'input',
+  onUpdate: () => {}
 }

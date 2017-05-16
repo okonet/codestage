@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Checkbox, Label } from 'react-desktop/macOs'
+import { Checkbox, Label, TextInput } from 'react-desktop/macOs'
 import styled from 'styled-components'
 import ShortcutRecorder from './ShortcutRecorder'
 
@@ -69,6 +69,7 @@ class General extends Component {
             displayModifiers={MAC_MODIFIERS}
             exportModifiers={ELECTRON_MODIFIERS}
             onUpdate={this.onShortcutUpdated}
+            renderer={TextInput}
           />
         </FormRow>
         <FormRow>
