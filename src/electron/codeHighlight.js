@@ -15,11 +15,13 @@ module.exports = function codeHighlight(input, settings) {
   const theme = settings.get('theme', DEFAULT_SETTINGS.theme)
   const subset = settings.get('subset', DEFAULT_SETTINGS.subset)
   const autopaste = settings.get('autopaste', DEFAULT_SETTINGS.autopaste)
-  const output = rtfRenderer.highlightAuto(input, {
+  const result = rtfRenderer.highlightAuto(input, {
     fontface,
     theme,
     subset: subset.split(',')
-  }).value
+  })
+
+  const output = result.value
 
   clipboard.write({
     text: input,
@@ -38,4 +40,6 @@ module.exports = function codeHighlight(input, settings) {
         log.error(err)
       })
   }
+
+  return result
 }

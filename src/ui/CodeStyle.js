@@ -16,7 +16,7 @@ const { DEFAULT_SETTINGS } = remote.require('../electron/defaults')
 
 const systemFonts = new SystemFonts()
 const themeList = fs
-  .readdirSync(path.join(resolveStylesheetsDir()))
+  .readdirSync(path.join(resolveStylesheetsDir('prismjs', 'themes')))
   .map(stylesheet => stylesheet.replace(/\.css$/, ''))
 
 const fontList = systemFonts.getFontsSync()
@@ -37,9 +37,10 @@ class CodeStyle extends Component {
     ipcRenderer.removeListener('global-shortcut-pressed', this.onShortcutPressed)
   }
 
-  onShortcutPressed = (event, { codeSnippet }) => {
+  onShortcutPressed = (event, { codeSnippet, ast }) => {
     this.setState({
-      codeSnippet
+      codeSnippet,
+      ast
     })
   }
 
@@ -60,8 +61,8 @@ class CodeStyle extends Component {
   }
 
   render() {
-    const { codeSnippet, selectedFont, selectedTheme, subset } = this.state
-    const themePath = path.join(resolveStylesheetsDir(), `${selectedTheme}.css`)
+    const { ast, codeSnippet, selectedFont, selectedTheme, subset } = this.state
+    const themePath = path.join(resolveStylesheetsDir('prismjs', 'themes'), `${selectedTheme}.css`)
     const theme = fs.readFileSync(themePath, 'utf-8')
     const languages = subset.split(',').filter(Boolean)
     return (
@@ -71,6 +72,7 @@ class CodeStyle extends Component {
           <section className="content codeSnippet">
             <Box label="Code snippet" padding="0px">
               <Preview
+                ast={ast}
                 codeSnippet={codeSnippet}
                 theme={theme}
                 subset={languages}
