@@ -3,18 +3,18 @@
 exports[`highlightRTFRenderer should encode curly brackets and back slashes 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red204\\\\green204\\\\blue204;\\\\red45\\\\green45\\\\blue45;\\\\red153\\\\green153\\\\blue153;\\\\red226\\\\green119\\\\blue122;\\\\red97\\\\green150\\\\blue204;\\\\red240\\\\green141\\\\blue73;\\\\red248\\\\green197\\\\blue85;\\\\red204\\\\green153\\\\blue205;\\\\red126\\\\green198\\\\blue153;\\\\red103\\\\green205\\\\blue204;\\\\red0\\\\green128\\\\blue0;}
+{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cf0 {\\\\cf10\\\\b\\\\i\\\\cf0 \\\\{}\\\\par
+{\\\\cf0 \\\\{\\\\par
     \\\\\\\\ test\\\\par
-    {\\\\cf10\\\\b\\\\i\\\\cf0 \\\\}}}
+    \\\\}}
 }"
 `;
 
 exports[`highlightRTFRenderer should encode double unicode symbols 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red204\\\\green204\\\\blue204;\\\\red45\\\\green45\\\\blue45;\\\\red153\\\\green153\\\\blue153;\\\\red226\\\\green119\\\\blue122;\\\\red97\\\\green150\\\\blue204;\\\\red240\\\\green141\\\\blue73;\\\\red248\\\\green197\\\\blue85;\\\\red204\\\\green153\\\\blue205;\\\\red126\\\\green198\\\\blue153;\\\\red103\\\\green205\\\\blue204;\\\\red0\\\\green128\\\\blue0;}
+{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
 \\\\f0\\\\fs40
 {\\\\cf0 {\\\\u4096} {\\\\u55203} {\\\\u8597} {\\\\u8597}{\\\\u65038} {\\\\u40726}}
 }"
@@ -23,7 +23,7 @@ exports[`highlightRTFRenderer should encode double unicode symbols 1`] = `
 exports[`highlightRTFRenderer should encode single unicode symbols 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red204\\\\green204\\\\blue204;\\\\red45\\\\green45\\\\blue45;\\\\red153\\\\green153\\\\blue153;\\\\red226\\\\green119\\\\blue122;\\\\red97\\\\green150\\\\blue204;\\\\red240\\\\green141\\\\blue73;\\\\red248\\\\green197\\\\blue85;\\\\red204\\\\green153\\\\blue205;\\\\red126\\\\green198\\\\blue153;\\\\red103\\\\green205\\\\blue204;\\\\red0\\\\green128\\\\blue0;}
+{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
 \\\\f0\\\\fs40
 {\\\\cf0 {\\\\u226} {\\\\u8364} {\\\\u164} {\\\\u1082}{\\\\u1072}{\\\\u1078}{\\\\u1076}{\\\\u1086}{\\\\u1081}}
 }"
@@ -32,37 +32,37 @@ exports[`highlightRTFRenderer should encode single unicode symbols 1`] = `
 exports[`highlightRTFRenderer should not add white spaces 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red204\\\\green204\\\\blue204;\\\\red45\\\\green45\\\\blue45;\\\\red153\\\\green153\\\\blue153;\\\\red226\\\\green119\\\\blue122;\\\\red97\\\\green150\\\\blue204;\\\\red240\\\\green141\\\\blue73;\\\\red248\\\\green197\\\\blue85;\\\\red204\\\\green153\\\\blue205;\\\\red126\\\\green198\\\\blue153;\\\\red103\\\\green205\\\\blue204;\\\\red0\\\\green128\\\\blue0;}
+{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cf0 test{\\\\cf10\\\\b\\\\i\\\\cf0 .}{\\\\cf10\\\\b\\\\i\\\\cf5 then}{\\\\cf10\\\\b\\\\i\\\\cf0 (}{\\\\cf10\\\\b\\\\i\\\\cf0 (}result{\\\\cf10\\\\b\\\\i\\\\cf0 )} {\\\\cf10\\\\b\\\\i\\\\cf9 =}{\\\\cf10\\\\b\\\\i\\\\cf9 >} {\\\\cf10\\\\b\\\\i\\\\cf0 \\\\{}\\\\par
-  console{\\\\cf10\\\\b\\\\i\\\\cf0 .}{\\\\cf10\\\\b\\\\i\\\\cf5 log}{\\\\cf10\\\\b\\\\i\\\\cf0 (}result{\\\\cf10\\\\b\\\\i\\\\cf0 .}stdout{\\\\cf10\\\\b\\\\i\\\\cf0 )}\\\\par
-{\\\\cf10\\\\b\\\\i\\\\cf0 \\\\}}{\\\\cf10\\\\b\\\\i\\\\cf0 )}}
+{\\\\cf0 test.then((result) => \\\\{\\\\par
+  {\\\\cf5 console}.log(result.stdout)\\\\par
+\\\\})}
 }"
 `;
 
 exports[`highlightRTFRenderer should render a string 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red204\\\\green204\\\\blue204;\\\\red45\\\\green45\\\\blue45;\\\\red153\\\\green153\\\\blue153;\\\\red226\\\\green119\\\\blue122;\\\\red97\\\\green150\\\\blue204;\\\\red240\\\\green141\\\\blue73;\\\\red248\\\\green197\\\\blue85;\\\\red204\\\\green153\\\\blue205;\\\\red126\\\\green198\\\\blue153;\\\\red103\\\\green205\\\\blue204;\\\\red0\\\\green128\\\\blue0;}
+{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cf0 {\\\\cf10\\\\b\\\\i\\\\cf7 const} a {\\\\cf10\\\\b\\\\i\\\\cf9 =} {\\\\cf10\\\\b\\\\i\\\\cf8 \\"foo\\"}{\\\\cf10\\\\b\\\\i\\\\cf0 ;}}
+{\\\\cf0 {\\\\b const} a = {\\\\cf2 \\"foo\\"};}
 }"
 `;
 
 exports[`highlightRTFRenderer should render javascript 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red204\\\\green204\\\\blue204;\\\\red45\\\\green45\\\\blue45;\\\\red153\\\\green153\\\\blue153;\\\\red226\\\\green119\\\\blue122;\\\\red97\\\\green150\\\\blue204;\\\\red240\\\\green141\\\\blue73;\\\\red248\\\\green197\\\\blue85;\\\\red204\\\\green153\\\\blue205;\\\\red126\\\\green198\\\\blue153;\\\\red103\\\\green205\\\\blue204;\\\\red0\\\\green128\\\\blue0;}
+{\\\\colortbl\\\\red0\\\\green0\\\\blue0;\\\\red0\\\\green106\\\\blue0;\\\\red170\\\\green13\\\\blue145;\\\\red0\\\\green0\\\\blue136;\\\\red102\\\\green102\\\\blue0;\\\\red196\\\\green26\\\\blue22;\\\\red0\\\\green136\\\\blue0;\\\\red28\\\\green0\\\\blue207;\\\\red92\\\\green38\\\\blue153;\\\\red238\\\\green238\\\\blue238;\\\\red186\\\\green238\\\\blue186;\\\\red255\\\\green200\\\\blue189;\\\\red155\\\\green112\\\\blue63;}
 \\\\f0\\\\fs40
-{\\\\cf0 settings{\\\\cf10\\\\b\\\\i\\\\cf0 .}{\\\\cf10\\\\b\\\\i\\\\cf7 set}{\\\\cf10\\\\b\\\\i\\\\cf0 (}{\\\\cf10\\\\b\\\\i\\\\cf8 'user.name'}{\\\\cf10\\\\b\\\\i\\\\cf0 ,} {\\\\cf10\\\\b\\\\i\\\\cf0 \\\\{}\\\\par
-  first{\\\\cf10\\\\b\\\\i\\\\cf0 :} {\\\\cf10\\\\b\\\\i\\\\cf8 'Cosmo'}{\\\\cf10\\\\b\\\\i\\\\cf0 ,}\\\\par
-  last{\\\\cf10\\\\b\\\\i\\\\cf0 :} {\\\\cf10\\\\b\\\\i\\\\cf8 'Kramer'}\\\\par
-{\\\\cf10\\\\b\\\\i\\\\cf0 \\\\}}{\\\\cf10\\\\b\\\\i\\\\cf0 )}{\\\\cf10\\\\b\\\\i\\\\cf0 .}{\\\\cf10\\\\b\\\\i\\\\cf5 then}{\\\\cf10\\\\b\\\\i\\\\cf0 (}{\\\\cf10\\\\b\\\\i\\\\cf0 (}{\\\\cf10\\\\b\\\\i\\\\cf0 )} {\\\\cf10\\\\b\\\\i\\\\cf9 =}{\\\\cf10\\\\b\\\\i\\\\cf9 >} {\\\\cf10\\\\b\\\\i\\\\cf0 \\\\{}\\\\par
-  settings{\\\\cf10\\\\b\\\\i\\\\cf0 .}{\\\\cf10\\\\b\\\\i\\\\cf7 get}{\\\\cf10\\\\b\\\\i\\\\cf0 (}{\\\\cf10\\\\b\\\\i\\\\cf8 'user.name.first'}{\\\\cf10\\\\b\\\\i\\\\cf0 )}{\\\\cf10\\\\b\\\\i\\\\cf0 .}{\\\\cf10\\\\b\\\\i\\\\cf5 then}{\\\\cf10\\\\b\\\\i\\\\cf0 (}val {\\\\cf10\\\\b\\\\i\\\\cf9 =}{\\\\cf10\\\\b\\\\i\\\\cf9 >} {\\\\cf10\\\\b\\\\i\\\\cf0 \\\\{}\\\\par
-    console{\\\\cf10\\\\b\\\\i\\\\cf0 .}{\\\\cf10\\\\b\\\\i\\\\cf5 log}{\\\\cf10\\\\b\\\\i\\\\cf0 (}val{\\\\cf10\\\\b\\\\i\\\\cf0 )}{\\\\cf10\\\\b\\\\i\\\\cf0 ;}\\\\par
-    {\\\\cf10\\\\b\\\\i\\\\cf10 // => 'Cosmo'}\\\\par
-  {\\\\cf10\\\\b\\\\i\\\\cf0 \\\\}}{\\\\cf10\\\\b\\\\i\\\\cf0 )}{\\\\cf10\\\\b\\\\i\\\\cf0 ;}\\\\par
-{\\\\cf10\\\\b\\\\i\\\\cf0 \\\\}}{\\\\cf10\\\\b\\\\i\\\\cf0 )}{\\\\cf10\\\\b\\\\i\\\\cf0 ;}\\\\par
+{\\\\cf0 settings.set({\\\\cf5 'user.name'}, \\\\{\\\\par
+  {\\\\cf8 first}: {\\\\cf5 'Cosmo'},\\\\par
+  {\\\\cf8 last}: {\\\\cf5 'Kramer'}\\\\par
+\\\\}).then({\\\\cf8 ()} => \\\\{\\\\par
+  settings.get({\\\\cf5 'user.name.first'}).then({\\\\cf8 val} => \\\\{\\\\par
+    {\\\\cf8 console}.log(val);\\\\par
+    {\\\\cf1 // => 'Cosmo'}\\\\par
+  \\\\});\\\\par
+\\\\});\\\\par
 }
 }"
 `;
@@ -70,7 +70,7 @@ exports[`highlightRTFRenderer should render javascript 1`] = `
 exports[`highlightRTFRenderer should render multiple lines 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red204\\\\green204\\\\blue204;\\\\red45\\\\green45\\\\blue45;\\\\red153\\\\green153\\\\blue153;\\\\red226\\\\green119\\\\blue122;\\\\red97\\\\green150\\\\blue204;\\\\red240\\\\green141\\\\blue73;\\\\red248\\\\green197\\\\blue85;\\\\red204\\\\green153\\\\blue205;\\\\red126\\\\green198\\\\blue153;\\\\red103\\\\green205\\\\blue204;\\\\red0\\\\green128\\\\blue0;}
+{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
 \\\\f0\\\\fs40
 {\\\\cf0 line1\\\\par
 line2\\\\par
@@ -84,11 +84,11 @@ line5\\\\par
 exports[`highlightRTFRenderer should render specific styles 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red204\\\\green204\\\\blue204;\\\\red45\\\\green45\\\\blue45;\\\\red153\\\\green153\\\\blue153;\\\\red226\\\\green119\\\\blue122;\\\\red97\\\\green150\\\\blue204;\\\\red240\\\\green141\\\\blue73;\\\\red248\\\\green197\\\\blue85;\\\\red204\\\\green153\\\\blue205;\\\\red126\\\\green198\\\\blue153;\\\\red103\\\\green205\\\\blue204;\\\\red0\\\\green128\\\\blue0;}
+{\\\\colortbl\\\\red0\\\\green0\\\\blue0;\\\\red0\\\\green106\\\\blue0;\\\\red170\\\\green13\\\\blue145;\\\\red0\\\\green0\\\\blue136;\\\\red102\\\\green102\\\\blue0;\\\\red196\\\\green26\\\\blue22;\\\\red0\\\\green136\\\\blue0;\\\\red28\\\\green0\\\\blue207;\\\\red92\\\\green38\\\\blue153;\\\\red238\\\\green238\\\\blue238;\\\\red186\\\\green238\\\\blue186;\\\\red255\\\\green200\\\\blue189;\\\\red155\\\\green112\\\\blue63;}
 \\\\f0\\\\fs40
 {\\\\cf0 \\\\par
-{\\\\cf10\\\\b\\\\i\\\\cf10 // Comment}\\\\par
-{\\\\cf10\\\\b\\\\i\\\\cf7 function} {\\\\cf10\\\\b\\\\i\\\\cf5 test}{\\\\cf10\\\\b\\\\i\\\\cf0 (}{\\\\cf10\\\\b\\\\i\\\\cf0 )} {\\\\cf10\\\\b\\\\i\\\\cf0 \\\\{}{\\\\cf10\\\\b\\\\i\\\\cf0 \\\\}}\\\\par
+{\\\\cf1 // Comment}\\\\par
+{\\\\cf2 function} {\\\\cf8 test}({\\\\cf8 }) \\\\{\\\\}\\\\par
 }
 }"
 `;
