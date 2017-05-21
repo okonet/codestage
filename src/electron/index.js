@@ -106,9 +106,10 @@ app.on('ready', () => {
   // Register a shortcut listener.
   const onShortcutPressed = () => {
     const codeSnippet = stripIndent(clipboard.readText())
-    const { ast } = codeHighlight(codeSnippet, settings)
-    preferencesWindow.webContents.send('global-shortcut-pressed', { codeSnippet, ast })
+    const res = codeHighlight(codeSnippet, settings)
+    preferencesWindow.webContents.send('global-shortcut-pressed', res)
   }
+
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   registerShortcut(shortcut, null, onShortcutPressed)
   settings.watch('shortcut', (newVal, oldVal) =>

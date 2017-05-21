@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Box } from 'react-desktop/macOs'
+import { Box, Label } from 'react-desktop/macOs'
 import './App.css'
 import ItemsList from './ItemsList'
 import Preview from './Preview'
@@ -15,8 +15,9 @@ const { resolveStylesheetsDir } = remote.require('../../lib/')
 const { DEFAULT_SETTINGS } = remote.require('../electron/defaults')
 
 const systemFonts = new SystemFonts()
+const themesDir = resolveStylesheetsDir('highlight.js', 'styles')
 const themeList = fs
-  .readdirSync(path.join(resolveStylesheetsDir('prismjs', 'themes')))
+  .readdirSync(path.join(themesDir))
   .map(stylesheet => stylesheet.replace(/\.css$/, ''))
 
 const fontList = systemFonts.getFontsSync()
@@ -37,10 +38,11 @@ class CodeStyle extends Component {
     ipcRenderer.removeListener('global-shortcut-pressed', this.onShortcutPressed)
   }
 
-  onShortcutPressed = (event, { codeSnippet, ast }) => {
+  onShortcutPressed = (event, { html, language, relevance }) => {
     this.setState({
-      codeSnippet,
-      ast
+      html,
+      language,
+      relevance
     })
   }
 
@@ -61,23 +63,18 @@ class CodeStyle extends Component {
   }
 
   render() {
-    const { ast, codeSnippet, selectedFont, selectedTheme, subset } = this.state
-    const themePath = path.join(resolveStylesheetsDir('prismjs', 'themes'), `${selectedTheme}.css`)
+    const { html, language, relevance, selectedFont, selectedTheme, subset } = this.state
+    const themePath = path.join(themesDir, `${selectedTheme}.css`)
     const theme = fs.readFileSync(themePath, 'utf-8')
     const languages = subset.split(',').filter(Boolean)
     return (
       <section className="wrapper wrapper_vertical">
+        <Label>{language}, {relevance}</Label>
         <section className="wrapper">
 
           <section className="content codeSnippet">
             <Box label="Code snippet" padding="0px">
-              <Preview
-                ast={ast}
-                codeSnippet={codeSnippet}
-                theme={theme}
-                subset={languages}
-                fontface={selectedFont}
-              />
+              <Preview html={html} theme={theme} fontface={selectedFont} />
             </Box>
           </section>
         </section>
