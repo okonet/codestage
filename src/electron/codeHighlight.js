@@ -18,7 +18,7 @@ module.exports = function codeHighlight(input, settings) {
   const result = rtfRenderer.highlightAuto(input, {
     fontface,
     theme,
-    subset: subset.split(',')
+    subset: subset.length ? subset.split(',') : undefined
   })
 
   const output = result.value
@@ -32,13 +32,9 @@ module.exports = function codeHighlight(input, settings) {
     // Pasting into the active application
     const pathToScript = path.resolve(__dirname, 'paste.as')
 
-    execa('osascript', [pathToScript])
-      .then(result => {
-        log.info(result.stdout)
-      })
-      .catch(err => {
-        log.error(err)
-      })
+    execa('osascript', [pathToScript]).catch(err => {
+      log.error(err)
+    })
   }
 
   return result
