@@ -4,10 +4,11 @@
 
 require('hazardous') //
 const path = require('path')
-const rtfRenderer = require('../../lib/')
+const stripIndent = require('strip-indent')
 const execa = require('execa')
 const { clipboard } = require('electron')
 const log = require('electron-log')
+const rtfRenderer = require('../../lib/')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
 module.exports = function codeHighlight(input, settings) {
@@ -15,7 +16,9 @@ module.exports = function codeHighlight(input, settings) {
   const theme = settings.get('theme', DEFAULT_SETTINGS.theme)
   const subset = settings.get('subset', DEFAULT_SETTINGS.subset)
   const autopaste = settings.get('autopaste', DEFAULT_SETTINGS.autopaste)
-  const result = rtfRenderer.highlightAuto(input, {
+
+  const stripped = stripIndent(input)
+  const result = rtfRenderer.highlightAuto(stripped, {
     fontface,
     theme,
     subset: subset.length ? subset.split(',') : undefined
@@ -24,7 +27,7 @@ module.exports = function codeHighlight(input, settings) {
   const output = result.value
 
   clipboard.write({
-    text: input,
+    text: stripped,
     rtf: output
   })
 

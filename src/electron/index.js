@@ -8,7 +8,6 @@ const { app, Menu, Tray, globalShortcut, clipboard, BrowserWindow } = require('e
 const settings = require('electron-settings')
 const Positioner = require('electron-positioner')
 const log = require('electron-log')
-const stripIndent = require('strip-indent')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const { DEFAULT_SETTINGS } = require('./defaults')
@@ -105,8 +104,7 @@ app.on('ready', () => {
 
   // Register a shortcut listener.
   const onShortcutPressed = () => {
-    const codeSnippet = stripIndent(clipboard.readText())
-    const res = codeHighlight(codeSnippet, settings)
+    const res = codeHighlight(clipboard.readText(), settings)
     preferencesWindow.webContents.send('global-shortcut-pressed', res)
   }
 
