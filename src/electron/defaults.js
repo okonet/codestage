@@ -3,8 +3,8 @@
 const DEFAULT_SETTINGS = {
   shortcut: 'Command+Alt+X',
   fontface: 'Courier New',
-  theme: 'prism-tomorrow',
-  subset: 'js, css, html',
+  theme: 'github',
+  subset: 'jsx, css, html',
   autopaste: true
 }
 
