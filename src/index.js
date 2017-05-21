@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom'
 import App from './ui/App'
 import './ui/index.css'
 
+const route = window.location.hash
+
 function render(Component) {
-  ReactDOM.render(<Component />, document.getElementById('root'))
+  ReactDOM.render(<Component route={route} />, document.getElementById('root'))
 }
 
 render(App)

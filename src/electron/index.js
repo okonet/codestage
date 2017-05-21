@@ -24,7 +24,7 @@ require('electron-debug')({
 // Otherwise the tray icon would randomly hide after some time
 let tray = null
 // Create a reference to be able to destroy it
-let preferencesWindow = null
+const windows = {}
 
 // We'll need this to prevent from quiting the app by closing Preferences window
 let forceQuit = false
@@ -49,9 +49,27 @@ function registerShortcut(newShortcut, oldShortcut, callback) {
 }
 
 app.on('ready', () => {
-  preferencesWindow = new BrowserWindow({
+  windows.main = new BrowserWindow({
     width,
     height,
+    center: true,
+    frame: false,
+    movable: true,
+    maximizable: false,
+    minimizable: false,
+    fullscreenable: false,
+    alwaysOnTop: true,
+    skipTaskbar: true,
+    titleBarStyle: 'hidden',
+    // backgroundColor: 'black',
+    vibrancy: 'dark',
+    show: true
+  })
+
+  windows.preferences = new BrowserWindow({
+    width,
+    height,
+    center: true,
     frame: true,
     maximizable: false,
     minimizable: false,
@@ -59,22 +77,28 @@ app.on('ready', () => {
     titleBarStyle: 'hidden-inset',
     show: false
   })
-  const positioner = new Positioner(preferencesWindow)
+
+  const positioner = new Positioner(windows.preferences)
 
   const startUrl = isDev ? 'http://localhost:3000' : `file://${__dirname}/../../build/index.html`
 
-  preferencesWindow.loadURL(startUrl)
-  preferencesWindow.webContents.on('dom-ready', () => {
-    preferencesWindow.webContents.executeJavaScript('window.require')
-  })
+  windows.main.loadURL(`${startUrl}#main`)
+  windows.preferences.loadURL(`${startUrl}#preferences`)
 
-  // Prevent closing the application when window is closed
-  preferencesWindow.on('close', event => {
-    if (!forceQuit) {
-      event.preventDefault()
-      // Still close the window, though
-      preferencesWindow.hide()
-    }
+  Object.keys(windows).forEach(win => {
+    // Provides a way to require node/electron stuff in CRA
+    windows[win].webContents.on('dom-ready', () => {
+      windows.main.webContents.executeJavaScript('window.require')
+    })
+
+    // Prevent closing the application when window is closed
+    windows[win].on('close', event => {
+      if (!forceQuit) {
+        event.preventDefault()
+        // Still close the window, though
+        windows[win].hide()
+      }
+    })
   })
 
   const mainMenu = Menu.buildFromTemplate([
@@ -87,7 +111,7 @@ app.on('ready', () => {
       type: 'normal',
       click: () => {
         positioner.move('center')
-        preferencesWindow.show()
+        windows.preferences.show()
       }
     },
     {
@@ -105,7 +129,8 @@ app.on('ready', () => {
   // Register a shortcut listener.
   const onShortcutPressed = () => {
     const res = codeHighlight(clipboard.readText(), settings)
-    preferencesWindow.webContents.send('global-shortcut-pressed', res)
+    windows.main.webContents.send('global-shortcut-pressed', res)
+    windows.main.show()
   }
 
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
@@ -120,10 +145,10 @@ app.on('before-quit', () => {
 })
 
 app.on('will-quit', () => {
-  // Destroy window reference
-  preferencesWindow.destroy()
-  // De-reference object
-  preferencesWindow = null
+  Object.keys(windows).forEach(win => {
+    windows[win].destroy() // Destroy window reference
+    windows[win] = null // De-reference object
+  })
   // Unregister all shortcuts.
   globalShortcut.unregisterAll()
 })
