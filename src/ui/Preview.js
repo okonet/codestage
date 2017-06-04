@@ -8,7 +8,7 @@ function Preview({ html, fontface, theme }) {
       </style>
       <pre>
         <code
-          className="hljs language-javascript"
+          className="hljs"
           style={{ fontFamily: fontface }}
           dangerouslySetInnerHTML={{ __html: html }}
         />

@@ -2,7 +2,7 @@
 
 'use strict'
 
-require('hazardous') //
+require('hazardous')
 const path = require('path')
 const stripIndent = require('strip-indent')
 const execa = require('execa')

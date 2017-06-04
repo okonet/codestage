@@ -6,7 +6,6 @@ const path = require('path')
 const { name } = require('../../package.json')
 const { app, Menu, Tray, globalShortcut, clipboard, BrowserWindow } = require('electron')
 const settings = require('electron-settings')
-const Positioner = require('electron-positioner')
 const log = require('electron-log')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
@@ -53,15 +52,12 @@ app.on('ready', () => {
     width,
     height,
     center: true,
-    frame: false,
-    movable: true,
     maximizable: false,
     minimizable: false,
     fullscreenable: false,
     alwaysOnTop: true,
     skipTaskbar: true,
-    titleBarStyle: 'hidden',
-    // backgroundColor: 'black',
+    titleBarStyle: 'hidden-inset',
     vibrancy: 'dark',
     show: true
   })
@@ -77,8 +73,6 @@ app.on('ready', () => {
     titleBarStyle: 'hidden-inset',
     show: false
   })
-
-  const positioner = new Positioner(windows.preferences)
 
   const startUrl = isDev ? 'http://localhost:3000' : `file://${__dirname}/../../build/index.html`
 
@@ -110,7 +104,6 @@ app.on('ready', () => {
       label: 'Preferences...',
       type: 'normal',
       click: () => {
-        positioner.move('center')
         windows.preferences.show()
       }
     },
