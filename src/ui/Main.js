@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import CodeStyle from './CodeStyle'
+import LangChooser from './LangChooser'
 
 export default class Main extends Component {
   render() {
-    return <CodeStyle />
+    return <LangChooser />
   }
 }
