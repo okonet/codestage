@@ -47,7 +47,6 @@
     "highlight-rtf-renderer": "file:./lib",
     "highlight.js": "^9.10.0",
     "key-event-to-string": "^1.1.1",
-    "language-classifier": "okonet/node-language-classifier",
     "react": "^15.4.2",
     "react-desktop": "^0.3.0",
     "react-dom": "^15.4.2",
