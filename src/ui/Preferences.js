@@ -15,13 +15,13 @@ class App extends Component {
     selected: 2
   }
 
-  renderTab = tabIndex => {
+  renderTab = (tabIndex, props) => {
     switch (tabIndex) {
       case 1: {
-        return <General />
+        return <General {...props} />
       }
       case 2: {
-        return <CodeStyle />
+        return <CodeStyle {...props} />
       }
       case 3: {
         return <h1>Third tab</h1>
@@ -33,6 +33,7 @@ class App extends Component {
 
   render() {
     const { selected } = this.state
+    console.log(this.props)
     return (
       <Window chrome padding="0px">
         <TitleBar>
@@ -60,7 +61,7 @@ class App extends Component {
           </Toolbar>
         </TitleBar>
 
-        {this.renderTab(selected)}
+        {this.renderTab(selected, this.props)}
 
       </Window>
     )

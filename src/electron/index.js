@@ -122,7 +122,9 @@ app.on('ready', () => {
   // Register a shortcut listener.
   const onShortcutPressed = () => {
     const res = codeHighlight(clipboard.readText(), settings)
-    windows.main.webContents.send('global-shortcut-pressed', res)
+    Object.keys(windows).forEach(win => {
+      windows[win].webContents.send('global-shortcut-pressed', res)
+    })
     windows.main.show()
   }
 

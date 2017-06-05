@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { Box } from 'react-desktop/macOs'
 import './App.css'
 import ItemsList from './ItemsList'
@@ -6,71 +6,46 @@ import Preview from './Preview'
 
 // Working around electron imports from CRA app:
 // https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
-const { remote, ipcRenderer } = window.require('electron')
+const { remote } = window.require('electron')
 const fs = remote.require('fs')
 const path = remote.require('path')
 const settings = remote.require('electron-settings')
 const SystemFonts = remote.require('system-font-families').default
-const { resolvePackageDir } = remote.require('../../lib/')
-const { DEFAULT_SETTINGS } = remote.require('../electron/defaults')
-
 const systemFonts = new SystemFonts()
-const themesDir = path.join(resolvePackageDir('highlight.js'), 'styles')
-const themeList = fs.readdirSync(themesDir).map(stylesheet => stylesheet.replace(/\.css$/, ''))
-
 const fontList = systemFonts.getFontsSync()
 
 class CodeStyle extends Component {
-  state = {
-    codeSnippet: 'Copy some code into clipboard',
-    selectedFont: settings.get('fontface', DEFAULT_SETTINGS.fontface),
-    selectedTheme: settings.get('theme', DEFAULT_SETTINGS.theme),
-    subset: settings.get('subset', DEFAULT_SETTINGS.subset)
-  }
-
-  componentDidMount() {
-    ipcRenderer.on('global-shortcut-pressed', this.onShortcutPressed)
-  }
-
-  componentWillUnmount() {
-    ipcRenderer.removeListener('global-shortcut-pressed', this.onShortcutPressed)
-  }
-
-  onShortcutPressed = (event, { html, language, relevance }) => {
-    this.setState({
-      html,
-      language,
-      relevance
-    })
+  static propTypes = {
+    html: PropTypes.string,
+    preferences:  PropTypes.object,
+    themeDirPath: PropTypes.string,
+    themesList: PropTypes.string
   }
 
   onFontChanged = selectedFont => {
     settings.set('fontface', selectedFont)
-    this.setState({ selectedFont })
   }
 
   onThemeChanged = selectedTheme => {
     settings.set('theme', selectedTheme)
-    this.setState({ selectedTheme })
   }
 
   onSubsetChanged = event => {
     const { value } = event.target
     settings.set('subset', value)
-    this.setState({ subset: value })
   }
 
   render() {
-    const { html, selectedFont, selectedTheme, subset } = this.state
-    const themePath = path.join(themesDir, `${selectedTheme}.css`)
-    const theme = fs.readFileSync(themePath, 'utf-8')
-    const languages = subset.split(',').filter(Boolean)
+    const { html, preferences, themeDirPath, themesList } = this.props
+    const { fontface, theme, subset } = preferences
+    const themePath = path.join(themeDirPath, `${theme}.css`)
+    const themeStylesheet = fs.readFileSync(themePath, 'utf-8')
     return (
       <section className="wrapper wrapper_vertical">
         <section className="wrapper">
           <section className="content codeSnippet">
             <Box label="Code snippet" padding="0px">
-              <Preview html={html} theme={theme} fontface={selectedFont} />
+              <Preview html={html} theme={themeStylesheet} fontface={fontface} />
             </Box>
           </section>
         </section>
@@ -79,8 +54,8 @@ class CodeStyle extends Component {
           <section className="content">
             <ItemsList
               heading="Theme"
-              items={themeList}
-              selectedItem={selectedTheme}
+              items={themesList}
+              selectedItem={theme}
               onClick={this.onThemeChanged}
             />
           </section>
@@ -88,16 +63,12 @@ class CodeStyle extends Component {
             <ItemsList
               heading="Font"
               items={fontList}
-              selectedItem={selectedFont}
+              selectedItem={fontface}
               onClick={this.onFontChanged}
             />
           </section>
           <section className="content">
             <input type="text" value={subset} onChange={this.onSubsetChanged} />
-
-            <ul>
-              {languages.map(lang => <li key={lang}>{lang}</li>)}
-            </ul>
 
           </section>
         </section>

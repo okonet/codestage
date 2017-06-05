@@ -3,6 +3,6 @@ import LangChooser from './LangChooser'
 
 export default class Main extends Component {
   render() {
-    return <LangChooser />
+    return <LangChooser {...this.props} />
   }
 }
