@@ -125,7 +125,7 @@ app.on('ready', () => {
     Object.keys(windows).forEach(win => {
       windows[win].webContents.send('global-shortcut-pressed', res)
     })
-    windows.main.show()
+    // windows.main.show()
   }
 
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
@@ -133,6 +133,13 @@ app.on('ready', () => {
   settings.watch('shortcut', (newVal, oldVal) =>
     registerShortcut(newVal, oldVal, onShortcutPressed)
   )
+
+  // Watch language change and re-highlight the code
+  settings.watch('lastUsedLanguage', language => {
+    if (language) {
+      onShortcutPressed()
+    }
+  })
 })
 
 app.on('before-quit', () => {

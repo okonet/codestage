@@ -5,6 +5,7 @@ const DEFAULT_SETTINGS = {
   fontface: 'Courier New',
   theme: 'github',
   subset: 'jsx, css, html',
+  lastUsedLanguage: null,
   autopaste: true
 }
 

@@ -9,18 +9,20 @@ import Preview from './Preview'
 const { remote } = window.require('electron')
 const fs = remote.require('fs')
 const path = remote.require('path')
+const settings = remote.require('electron-settings')
 
 class LangChooser extends Component {
   static propTypes = {
     html: PropTypes.string,
     language: PropTypes.string,
-    relevance:  PropTypes.number,
-    preferences:  PropTypes.object,
+    relevance: PropTypes.number,
+    preferences: PropTypes.object,
     themeDirPath: PropTypes.string,
     languagesList: PropTypes.arrayOf(PropTypes.string)
   }
   onLangChanged = selection => {
-    this.setState({ selectedLanguage: selection })
+    console.log(selection)
+    settings.set('lastUsedLanguage', selection)
   }
 
   render() {

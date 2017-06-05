@@ -17,7 +17,7 @@ const fontList = systemFonts.getFontsSync()
 class CodeStyle extends Component {
   static propTypes = {
     html: PropTypes.string,
-    preferences:  PropTypes.object,
+    preferences: PropTypes.object,
     themeDirPath: PropTypes.string,
     themesList: PropTypes.string
   }

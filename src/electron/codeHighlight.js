@@ -15,14 +15,25 @@ module.exports = function codeHighlight(input, settings) {
   const fontface = settings.get('fontface', DEFAULT_SETTINGS.fontface)
   const theme = settings.get('theme', DEFAULT_SETTINGS.theme)
   const subset = settings.get('subset', DEFAULT_SETTINGS.subset)
+  const lastUsedLanguage = settings.get('lastUsedLanguage', DEFAULT_SETTINGS.lastUsedLanguage)
   const autopaste = settings.get('autopaste', DEFAULT_SETTINGS.autopaste)
 
   const stripped = stripIndent(input)
-  const result = rtfRenderer.highlightAuto(stripped, {
-    fontface,
-    theme,
-    subset: subset.length ? subset.split(',') : undefined
-  })
+  let result
+
+  if (lastUsedLanguage) {
+    result = rtfRenderer.highlight(stripped, lastUsedLanguage, {
+      fontface,
+      theme
+    })
+    result.language = lastUsedLanguage
+  } else {
+    result = rtfRenderer.highlightAuto(stripped, {
+      fontface,
+      theme,
+      subset: subset.length ? subset.split(',') : undefined
+    })
+  }
 
   const output = result.value
 
