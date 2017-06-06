@@ -4,12 +4,13 @@
 
 const path = require('path')
 const { name } = require('../../package.json')
-const { app, Menu, Tray, globalShortcut, clipboard, BrowserWindow } = require('electron')
+const { ipcMain, app, Menu, Tray, globalShortcut, clipboard, BrowserWindow } = require('electron')
 const Positioner = require('electron-positioner')
 const settings = require('electron-settings')
 const log = require('electron-log')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
+const configureStore = require('../shared/store/createStore')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
 const width = 800
@@ -29,6 +30,13 @@ const windowSizes = {
 const isDev = require('electron-is-dev')
 require('electron-debug')({
   showDevTools: 'undocked'
+})
+
+const initialState = {}
+const store = configureStore(initialState, 'main')
+
+ipcMain.on('redux-action', (event, payload) => {
+  store.dispatch(payload)
 })
 
 // Prevent garbage collection

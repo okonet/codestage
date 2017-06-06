@@ -1,26 +1,16 @@
-import { combineReducers } from 'redux';
-// import system from './system';
-// import job from './job';
-// import project from './project';
-// import github from './github';
-// import settings from './settings';
+import { combineReducers } from 'redux'
+import window from './window'
 
 export default function getRootReducer(scope = 'main') {
   let reducers = {
-    system,
-    job,
-    project,
-    github,
-    settings,
-  };
+    window
+  }
 
   if (scope === 'renderer') {
     reducers = {
-      ...reducers,
-      routing,
-      form,
-    };
+      ...reducers
+    }
   }
 
-  return combineReducers({ ...reducers });
+  return combineReducers({ ...reducers })
 }

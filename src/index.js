@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import configureStore from './shared/store/createStore'
 import App from './ui/App'
 import './ui/index.css'
 
@@ -20,6 +22,9 @@ const languagesList = fs
   .map(file => file.replace(/\.js$/, ''))
 const themesList = fs.readdirSync(themeDirPath).map(file => file.replace(/\.css$/, ''))
 
+const initialState = {}
+const store = configureStore(initialState, 'renderer')
+
 let sharedState = {}
 
 function render(Component) {
@@ -30,7 +35,12 @@ function render(Component) {
     themesList,
     languagesList
   }
-  ReactDOM.render(<Component route={route} {...props} />, document.getElementById('root'))
+  ReactDOM.render(
+    <Provider store={store}>
+      <Component route={route} {...props} />
+    </Provider>,
+    document.getElementById('root')
+  )
 }
 
 render(App)
@@ -40,6 +50,10 @@ Object.keys(DEFAULT_SETTINGS).forEach(key => {
     console.log(`Settings updated for ${key}: ${oldVal} -> ${newVal}`)
     render(App)
   })
+})
+
+ipcRenderer.on('redux-action', (event, payload) => {
+  store.dispatch(payload)
 })
 
 ipcRenderer.on('global-shortcut-pressed', (event, { html, language, relevance }) => {
