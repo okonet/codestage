@@ -52,7 +52,6 @@ class General extends Component {
   }
 
   onAutopasteChanged = evt => {
-    console.log(evt.target.checked)
     settings.set('autopaste', evt.target.checked)
   }
 
