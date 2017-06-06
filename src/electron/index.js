@@ -5,6 +5,7 @@
 const path = require('path')
 const { name } = require('../../package.json')
 const { app, Menu, Tray, globalShortcut, clipboard, BrowserWindow } = require('electron')
+const Positioner = require('electron-positioner')
 const settings = require('electron-settings')
 const log = require('electron-log')
 const isPlatform = require('./isPlatform')
@@ -13,6 +14,17 @@ const { DEFAULT_SETTINGS } = require('./defaults')
 
 const width = 800
 const height = 600
+
+const windowSizes = {
+  mini: {
+    width: 100,
+    height: 30
+  },
+  main: {
+    width: 800,
+    height: 600
+  }
+}
 
 const isDev = require('electron-is-dev')
 require('electron-debug')({
@@ -51,15 +63,11 @@ app.on('ready', () => {
   windows.main = new BrowserWindow({
     width,
     height,
-    center: true,
-    maximizable: false,
-    minimizable: false,
-    fullscreenable: false,
+    frame: false,
     alwaysOnTop: true,
     skipTaskbar: true,
-    titleBarStyle: 'hidden-inset',
     vibrancy: 'dark',
-    show: true
+    show: false
   })
 
   windows.preferences = new BrowserWindow({
@@ -118,6 +126,14 @@ app.on('ready', () => {
   ])
   tray = new Tray(path.join(__dirname, '..', '..', 'public', 'iconTemplate@2x.png'))
   tray.setContextMenu(mainMenu)
+
+  const positioner = new Positioner(windows.main)
+
+  windows.main.once('ready-to-show', () => {
+    const trayPosition = positioner.calculate('trayCenter', tray.getBounds())
+    windows.main.show()
+    windows.main.setBounds(Object.assign(windowSizes.mini, trayPosition), true)
+  })
 
   // Register a shortcut listener.
   const onShortcutPressed = () => {
