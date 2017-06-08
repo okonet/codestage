@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import DevTools, { persistState } from 'redux-devtools'
 import { createLogger } from 'redux-logger'
 import {
   forwardToMain,
@@ -39,11 +38,6 @@ export default function configureStore(initialState, scope = 'main') {
   }
 
   const enhanced = [applyMiddleware(...middleware)]
-
-  if (/*! process.env.NODE_ENV && */ scope === 'renderer') {
-    enhanced.push(DevTools.instrument())
-    enhanced.push(persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/)))
-  }
 
   const rootReducer = getRootReducer(scope)
   const enhancer = compose(...enhanced)

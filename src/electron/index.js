@@ -18,10 +18,10 @@ const height = 600
 
 const windowSizes = {
   mini: {
-    width: 100,
-    height: 30
+    width: 200,
+    height: 100
   },
-  main: {
+  normal: {
     width: 800,
     height: 600
   }
@@ -74,7 +74,7 @@ app.on('ready', () => {
     frame: false,
     alwaysOnTop: true,
     skipTaskbar: true,
-    vibrancy: 'dark',
+    vibrancy: 'light',
     show: false
   })
 
@@ -136,11 +136,14 @@ app.on('ready', () => {
   tray.setContextMenu(mainMenu)
 
   const positioner = new Positioner(windows.main)
+  const positions = {
+    mini: positioner.calculate('trayCenter', tray.getBounds()),
+    normal: positioner.calculate('center')
+  }
 
   windows.main.once('ready-to-show', () => {
-    const trayPosition = positioner.calculate('trayCenter', tray.getBounds())
     windows.main.show()
-    windows.main.setBounds(Object.assign(windowSizes.mini, trayPosition), true)
+    windows.main.setBounds(Object.assign(windowSizes.mini, positions.mini), true)
   })
 
   // Register a shortcut listener.
@@ -163,6 +166,12 @@ app.on('ready', () => {
     if (language) {
       onShortcutPressed()
     }
+  })
+
+  store.subscribe(() => {
+    const state = store.getState()
+    const { size } = state.window
+    windows.main.setBounds(Object.assign(windowSizes[size], positions[size]), true)
   })
 })
 
