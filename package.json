@@ -83,12 +83,12 @@
     "electron": "^1.4.15",
     "electron-builder": "^17.1.1",
     "eslint": "^3.19.0",
-    "eslint-config-okonet": "^4.0.0",
-    "husky": "^0.13.1",
-    "lint-staged": "^3.3.1",
+    "eslint-config-okonet": "^4.0.2",
+    "husky": "^0.13.4",
+    "lint-staged": "^3.6.0",
     "neutrino": "^5.9.0",
     "neutrino-preset-react": "^5.9.0",
-    "prettier": "^0.22.0"
+    "prettier": "^1.4.4"
   },
   "eslintConfig": {
     "extends": "okonet",
