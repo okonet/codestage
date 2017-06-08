@@ -13,8 +13,8 @@
     }
   },
   "scripts": {
-    "start": "react-scripts start & npm run electron",
-    "build": "react-scripts build",
+    "start": "neutrino start & npm run electron",
+    "build": "neutrino build",
     "pack": "npm run icon && npm run build && build --dir",
     "dist": "npm run icon && npm run build && build",
     "test": "react-scripts test --env=jsdom",
@@ -31,6 +31,14 @@
       "eslint --fix",
       "git add"
     ]
+  },
+  "neutrino": {
+    "use": [
+      "neutrino-preset-react"
+    ],
+    "config": {
+      "target": "electron-renderer"
+    }
   },
   "keywords": [],
   "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
@@ -55,7 +63,6 @@
     "react-prism": "^4.1.0",
     "react-redux": "^5.0.5",
     "redux": "^3.6.0",
-    "redux-devtools": "^3.4.0",
     "redux-logger": "^3.0.6",
     "rehype-parse": "^3.1.0",
     "rehype-react": "^3.0.0",
@@ -79,8 +86,9 @@
     "eslint-config-okonet": "^4.0.0",
     "husky": "^0.13.1",
     "lint-staged": "^3.3.1",
-    "prettier": "^0.22.0",
-    "react-scripts": "0.9.5"
+    "neutrino": "^5.9.0",
+    "neutrino-preset-react": "^5.9.0",
+    "prettier": "^0.22.0"
   },
   "eslintConfig": {
     "extends": "okonet",

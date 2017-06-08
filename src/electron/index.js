@@ -90,7 +90,7 @@ app.on('ready', () => {
     show: false
   })
 
-  const startUrl = isDev ? 'http://localhost:3000' : `file://${__dirname}/../../build/index.html`
+  const startUrl = isDev ? 'http://localhost:5000' : `file://${__dirname}/../../build/index.html`
 
   windows.main.loadURL(`${startUrl}#main`)
   windows.preferences.loadURL(`${startUrl}#preferences`)
