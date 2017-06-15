@@ -27,10 +27,7 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.js": "git-exec-and-restage eslint --fix --"
   },
   "neutrino": {
     "use": [
@@ -84,6 +81,7 @@
     "electron-builder": "^17.1.1",
     "eslint": "^3.19.0",
     "eslint-config-okonet": "^4.0.2",
+    "git-exec-and-restage": "^1.0.1",
     "husky": "^0.13.4",
     "lint-staged": "^3.6.0",
     "neutrino": "^5.9.0",
