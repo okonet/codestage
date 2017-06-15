@@ -8,6 +8,11 @@ const { ipcMain, app, Menu, Tray, globalShortcut, clipboard, BrowserWindow } = r
 const Positioner = require('electron-positioner')
 const settings = require('electron-settings')
 const log = require('electron-log')
+const {
+  default: installExtension,
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS
+} = require('electron-devtools-installer')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const configureStore = require('../shared/store/createStore')
@@ -27,6 +32,8 @@ const windowSizes = {
   }
 }
 
+installExtension(REACT_DEVELOPER_TOOLS)
+installExtension(REDUX_DEVTOOLS)
 const isDev = require('electron-is-dev')
 require('electron-debug')({
   showDevTools: 'undocked'
