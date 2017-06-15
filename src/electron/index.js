@@ -16,6 +16,8 @@ const {
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const configureStore = require('../shared/store/createStore')
+const { setWindowVisibility, setWindowSize } = require('../shared/actions/window')
+const { WindowSizes } = require('../shared/contants/window')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
 const width = 800
@@ -148,18 +150,16 @@ app.on('ready', () => {
     normal: positioner.calculate('center')
   }
 
-  windows.main.once('ready-to-show', () => {
-    windows.main.show()
-    windows.main.setBounds(Object.assign(windowSizes.mini, positions.mini), true)
-  })
-
   // Register a shortcut listener.
   const onShortcutPressed = () => {
     const res = codeHighlight(clipboard.readText(), settings)
     Object.keys(windows).forEach(win => {
       windows[win].webContents.send('global-shortcut-pressed', res)
     })
-    // windows.main.show()
+    setTimeout(() => {
+      store.dispatch(setWindowSize(WindowSizes.MINI))
+      store.dispatch(setWindowVisibility(true))
+    }, 500)
   }
 
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
@@ -177,8 +177,13 @@ app.on('ready', () => {
 
   store.subscribe(() => {
     const state = store.getState()
-    const { size } = state.window
-    windows.main.setBounds(Object.assign(windowSizes[size], positions[size]), true)
+    const { size, windowVisible } = state.window
+    if (windowVisible) {
+      windows.main.show()
+      windows.main.setBounds(Object.assign(windowSizes[size], positions[size]), true)
+    } else {
+      windows.main.close()
+    }
   })
 })
 
