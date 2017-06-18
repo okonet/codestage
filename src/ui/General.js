@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Checkbox, Label, TextInput } from 'react-desktop/macOs'
+import { Checkbox, Label, TextInput, Button } from 'react-desktop/macOs'
 import styled from 'styled-components'
 import ShortcutRecorder from './ShortcutRecorder'
 
@@ -55,6 +55,10 @@ class General extends Component {
     settings.set('autopaste', evt.target.checked)
   }
 
+  resetSettings = () => {
+    settings.deleteAll()
+  }
+
   render() {
     return (
       <Form>
@@ -78,6 +82,11 @@ class General extends Component {
               defaultChecked={settings.get('autopaste', DEFAULT_SETTINGS.autopaste)}
               onChange={this.onAutopasteChanged}
             />
+          </OffsetField>
+        </FormRow>
+        <FormRow>
+          <OffsetField>
+            <Button onClick={this.resetSettings}>Reset settings</Button>
           </OffsetField>
         </FormRow>
       </Form>
