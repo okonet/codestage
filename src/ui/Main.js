@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { TitleBar, Window } from 'react-desktop/macOs'
 import { connect } from 'react-redux'
+import { withTimer } from 'react-with-timer-hoc'
 import styled from 'styled-components'
 import { setWindowSize, setWindowVisibility } from '../shared/actions/window'
 import { WindowSizes } from '../shared/contants/window'
@@ -14,7 +15,16 @@ const TransparentWindow = styled.div`
   -webkit-app-region: ${props => (props.size === WindowSizes.NORMAL ? 'drag' : 'inherit')};
 `
 
-function Main({ size, onClick, onCloseClick }) {
+const BaloonWithTimer = withTimer({
+  delay: 3000,
+  options: { startOnMount: true }
+})(Baloon)
+
+function Main({ size, windowVisible, onClick, closeWindow, ...rest }) {
+  if (!windowVisible) {
+    return null
+  }
+
   return (
     <TransparentWindow
       onClick={() => {
@@ -23,12 +33,12 @@ function Main({ size, onClick, onCloseClick }) {
       size={size}
     >
       {size === WindowSizes.MINI
-        ? <Baloon {...this.props} />
+        ? <BaloonWithTimer onTimeout={closeWindow} {...rest} />
         : <Window chrome padding="0px">
-            <TitleBar controls inset onCloseClick={onCloseClick}>
+            <TitleBar controls inset onCloseClick={closeWindow}>
               Title
             </TitleBar>
-            <LangChooser {...this.props} />
+            <LangChooser {...rest} />
           </Window>}
     </TransparentWindow>
   )
@@ -36,12 +46,14 @@ function Main({ size, onClick, onCloseClick }) {
 
 Main.propTypes = {
   size: PropTypes.oneOf([WindowSizes.MINI, WindowSizes.NORMAL]),
+  windowVisible: PropTypes.bool,
   onClick: PropTypes.func,
-  onCloseClick: PropTypes.func
+  closeWindow: PropTypes.func
 }
 
 const mapStateToProps = state => ({
-  size: state.window.size
+  size: state.window.size,
+  windowVisible: state.window.windowVisible
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -50,7 +62,7 @@ const mapDispatchToProps = dispatch => ({
       dispatch(setWindowSize(WindowSizes.NORMAL))
     }
   },
-  onCloseClick: () => {
+  closeWindow: () => {
     dispatch(setWindowVisibility(false))
   }
 })

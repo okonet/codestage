@@ -180,10 +180,10 @@ app.on('ready', () => {
     const { size, windowVisible } = state.window
     if (windowVisible) {
       windows.main.show()
-      windows.main.setBounds(Object.assign(windowSizes[size], positions[size]), true)
     } else {
-      windows.main.close()
+      windows.main.hide()
     }
+    windows.main.setBounds(Object.assign(windowSizes[size], positions[size]), windowVisible)
   })
 })
 
