@@ -17,13 +17,18 @@ const fontList = systemFonts.getFontsSync()
 class CodeStyle extends Component {
   static propTypes = {
     html: PropTypes.string,
-    preferences: PropTypes.object,
+    preferences: PropTypes.object, // eslint-disable-line
     themeDirPath: PropTypes.string,
     themesList: PropTypes.string
   }
 
   onFontChanged = selectedFont => {
     settings.set('fontface', selectedFont)
+  }
+
+  onFontSizeChanged = event => {
+    const { value } = event.target
+    settings.set('fontsize', value)
   }
 
   onThemeChanged = selectedTheme => {
@@ -37,7 +42,7 @@ class CodeStyle extends Component {
 
   render() {
     const { html, preferences, themeDirPath, themesList } = this.props
-    const { fontface, theme, subset } = preferences
+    const { fontface, fontsize, theme, subset } = preferences
     const themePath = path.join(themeDirPath, `${theme}.css`)
     const themeStylesheet = fs.readFileSync(themePath, 'utf-8')
     return (
@@ -69,6 +74,8 @@ class CodeStyle extends Component {
           </section>
           <section className="content">
             <input type="text" value={subset} onChange={this.onSubsetChanged} />
+
+            <input type="number" value={fontsize} onChange={this.onFontSizeChanged} />
 
           </section>
         </section>

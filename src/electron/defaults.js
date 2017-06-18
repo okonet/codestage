@@ -1,10 +1,11 @@
 'use strict'
 
 const DEFAULT_SETTINGS = {
-  shortcut: 'Command+Alt+X',
+  shortcut: 'Command+Alt+V',
   fontface: 'Courier New',
-  theme: 'github',
-  subset: 'jsx, css, html',
+  fontsize: 64, // 32pt
+  theme: 'default',
+  subset: '',
   lastUsedLanguage: null,
   autopaste: true
 }

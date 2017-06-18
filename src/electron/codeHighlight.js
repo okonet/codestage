@@ -13,6 +13,7 @@ const { DEFAULT_SETTINGS } = require('./defaults')
 
 module.exports = function codeHighlight(input, settings) {
   const fontface = settings.get('fontface', DEFAULT_SETTINGS.fontface)
+  const fontsize = settings.get('fontsize', DEFAULT_SETTINGS.fontsize)
   const theme = settings.get('theme', DEFAULT_SETTINGS.theme)
   const subset = settings.get('subset', DEFAULT_SETTINGS.subset)
   const lastUsedLanguage = settings.get('lastUsedLanguage', DEFAULT_SETTINGS.lastUsedLanguage)
@@ -21,18 +22,22 @@ module.exports = function codeHighlight(input, settings) {
   const stripped = stripIndent(input)
   let result
 
+  const options = {
+    fontface,
+    fontsize,
+    theme
+  }
+
   if (lastUsedLanguage) {
-    result = rtfRenderer.highlight(stripped, lastUsedLanguage, {
-      fontface,
-      theme
-    })
+    result = rtfRenderer.highlight(stripped, lastUsedLanguage, options)
     result.language = lastUsedLanguage
   } else {
-    result = rtfRenderer.highlightAuto(stripped, {
-      fontface,
-      theme,
-      subset: subset.length ? subset.split(',') : undefined
-    })
+    result = rtfRenderer.highlightAuto(
+      stripped,
+      Object.assign(options, {
+        subset: subset.length ? subset.split(',') : undefined
+      })
+    )
   }
 
   const output = result.value
