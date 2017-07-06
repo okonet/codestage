@@ -27,6 +27,10 @@ const store = configureStore(initialState, 'renderer')
 
 let sharedState = {}
 
+// If running for the first time set settings to use defaults
+if (!settings.has('theme')) {
+  settings.setAll(DEFAULT_SETTINGS)
+}
 function render(Component) {
   const props = {
     ...sharedState,
