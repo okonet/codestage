@@ -19,7 +19,7 @@ class CodeStyle extends Component {
     html: PropTypes.string,
     preferences: PropTypes.object, // eslint-disable-line
     themeDirPath: PropTypes.string,
-    themesList: PropTypes.string
+    themesList: PropTypes.arrayOf(PropTypes.string)
   }
 
   onFontChanged = selectedFont => {
