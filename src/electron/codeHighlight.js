@@ -12,49 +12,56 @@ const rtfRenderer = require('../../lib/')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
 module.exports = function codeHighlight(input, settings) {
-  const fontface = settings.get('fontface', DEFAULT_SETTINGS.fontface)
-  const fontsize = settings.get('fontsize', DEFAULT_SETTINGS.fontsize)
-  const theme = settings.get('theme', DEFAULT_SETTINGS.theme)
-  const subset = settings.get('subset', DEFAULT_SETTINGS.subset)
-  const lastUsedLanguage = settings.get('lastUsedLanguage', DEFAULT_SETTINGS.lastUsedLanguage)
-  const autopaste = settings.get('autopaste', DEFAULT_SETTINGS.autopaste)
+  return new Promise((resolve, reject) => {
+    const fontface = settings.get('fontface', DEFAULT_SETTINGS.fontface)
+    const fontsize = settings.get('fontsize', DEFAULT_SETTINGS.fontsize)
+    const theme = settings.get('theme', DEFAULT_SETTINGS.theme)
+    const subset = settings.get('subset', DEFAULT_SETTINGS.subset)
+    const lastUsedLanguage = settings.get('lastUsedLanguage', DEFAULT_SETTINGS.lastUsedLanguage)
+    const autopaste = settings.get('autopaste', DEFAULT_SETTINGS.autopaste)
 
-  const stripped = stripIndent(input)
-  let result
+    const stripped = stripIndent(input)
+    let result
 
-  const options = {
-    fontface,
-    fontsize,
-    theme
-  }
+    const options = {
+      fontface,
+      fontsize,
+      theme
+    }
 
-  if (lastUsedLanguage) {
-    result = rtfRenderer.highlight(stripped, lastUsedLanguage, options)
-    result.language = lastUsedLanguage
-  } else {
-    result = rtfRenderer.highlightAuto(
-      stripped,
-      Object.assign(options, {
-        subset: subset.length ? subset.split(',') : undefined
-      })
-    )
-  }
+    if (lastUsedLanguage) {
+      result = rtfRenderer.highlight(stripped, lastUsedLanguage, options)
+      result.language = lastUsedLanguage
+    } else {
+      result = rtfRenderer.highlightAuto(
+        stripped,
+        Object.assign(options, {
+          subset: subset.length ? subset.split(',') : undefined
+        })
+      )
+    }
 
-  const output = result.value
+    const output = result.value
 
-  clipboard.write({
-    text: stripped,
-    rtf: output
-  })
-
-  if (autopaste) {
-    // Pasting into the active application
-    const pathToScript = path.resolve(__dirname, 'paste.as')
-
-    execa('osascript', [pathToScript]).catch(err => {
-      log.error(err)
+    clipboard.write({
+      text: stripped,
+      rtf: output
     })
-  }
 
-  return result
+    if (autopaste) {
+      // Pasting into the active application
+      const pathToScript = path.resolve(__dirname, 'paste.as')
+
+      execa('osascript', [pathToScript])
+        .then(() => {
+          resolve(result)
+        })
+        .catch(err => {
+          log.error(err)
+          reject(err)
+        })
+    }
+
+    resolve(result)
+  })
 }

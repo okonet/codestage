@@ -4,7 +4,16 @@
 
 const path = require('path')
 const { name } = require('../../package.json')
-const { ipcMain, app, Menu, Tray, globalShortcut, clipboard, BrowserWindow } = require('electron')
+const {
+  ipcMain,
+  app,
+  dialog,
+  Menu,
+  Tray,
+  globalShortcut,
+  clipboard,
+  BrowserWindow
+} = require('electron')
 const Positioner = require('electron-positioner')
 const settings = require('electron-settings')
 const log = require('electron-log')
@@ -17,6 +26,7 @@ const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const configureStore = require('../shared/store/createStore')
 const { setWindowVisibility, setWindowSize } = require('../shared/actions/window')
+const { errorOccured } = require('../shared/actions/errors')
 const { WindowSizes } = require('../shared/contants/window')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
@@ -152,14 +162,19 @@ app.on('ready', () => {
 
   // Register a shortcut listener.
   const onShortcutPressed = () => {
-    const res = codeHighlight(clipboard.readText(), settings)
-    Object.keys(windows).forEach(win => {
-      windows[win].webContents.send('global-shortcut-pressed', res)
-    })
-    setTimeout(() => {
-      store.dispatch(setWindowSize(WindowSizes.MINI))
-      store.dispatch(setWindowVisibility(true))
-    }, 500)
+    codeHighlight(clipboard.readText(), settings)
+      .then(res => {
+        Object.keys(windows).forEach(win => {
+          windows[win].webContents.send('global-shortcut-pressed', res)
+        })
+        setTimeout(() => {
+          store.dispatch(setWindowSize(WindowSizes.MINI))
+          store.dispatch(setWindowVisibility(true))
+        }, 500)
+      })
+      .catch(error => {
+        store.dispatch(errorOccured(error))
+      })
   }
 
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
@@ -178,6 +193,10 @@ app.on('ready', () => {
   store.subscribe(() => {
     const state = store.getState()
     const { size, windowVisible } = state.window
+    const { assistiveAccessEnabled } = state.errors
+    if (!assistiveAccessEnabled) {
+      dialog.showErrorBox('Assistive access required', 'Please add codestage to assistive access!')
+    }
     if (windowVisible) {
       windows.main.show()
     } else {
