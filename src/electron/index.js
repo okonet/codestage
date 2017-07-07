@@ -26,7 +26,7 @@ const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const configureStore = require('../shared/store/createStore')
 const { setWindowVisibility, setWindowSize } = require('../shared/actions/window')
-const { errorOccured } = require('../shared/actions/errors')
+const { errorOccured, resetErrors } = require('../shared/actions/errors')
 const { WindowSizes } = require('../shared/contants/window')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
@@ -173,6 +173,7 @@ app.on('ready', () => {
         }, 500)
       })
       .catch(error => {
+        console.log(error)
         store.dispatch(errorOccured(error))
       })
   }
@@ -193,9 +194,16 @@ app.on('ready', () => {
   store.subscribe(() => {
     const state = store.getState()
     const { size, windowVisible } = state.window
-    const { assistiveAccessEnabled } = state.errors
-    if (!assistiveAccessEnabled) {
-      dialog.showErrorBox('Assistive access required', 'Please add codestage to assistive access!')
+    const { assistiveAccessDisabled, error } = state.errors
+    if (error) {
+      if (assistiveAccessDisabled) {
+        dialog.showErrorBox(
+          'Assistive access required',
+          'Please add codestage to assistive access!'
+        )
+      }
+      dialog.showErrorBox('Unexpected error occured', error)
+      store.dispatch(resetErrors())
     }
     if (windowVisible) {
       windows.main.show()

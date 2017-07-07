@@ -1,7 +1,8 @@
-import { ERROR_OCCURED } from '../actions/errors'
+import { ERROR_OCCURED, RESET_ERRORS } from '../actions/errors'
 
 const initialState = {
-  assistiveAccessEnabled: true
+  error: null,
+  assistiveAccessDisabled: false
 }
 
 export default function errors(state = initialState, action) {
@@ -9,10 +10,14 @@ export default function errors(state = initialState, action) {
     case ERROR_OCCURED: {
       return {
         ...state,
-        assistiveAccessEnabled: !action.payload.includes(
-          'osascript is not allowed assistive access. (-1719)'
-        )
+        error: action.payload,
+        assistiveAccessDisabled:
+          typeof action.payload === 'string' &&
+            action.payload.includes('osascript is not allowed assistive access. (-1719)')
       }
+    }
+    case RESET_ERRORS: {
+      return initialState
     }
 
     default: {
