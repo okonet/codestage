@@ -60,8 +60,8 @@ module.exports = function codeHighlight(input, settings) {
           log.error(err)
           reject(err)
         })
+    } else {
+      resolve(result)
     }
-
-    resolve(result)
   })
 }

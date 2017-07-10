@@ -173,8 +173,7 @@ app.on('ready', () => {
         }, 500)
       })
       .catch(error => {
-        console.log(error)
-        store.dispatch(errorOccured(error))
+        store.dispatch(errorOccured(error.stderr))
       })
   }
 
@@ -205,6 +204,7 @@ app.on('ready', () => {
       dialog.showErrorBox('Unexpected error occured', error)
       store.dispatch(resetErrors())
     }
+
     if (windowVisible) {
       windows.main.show()
     } else {
