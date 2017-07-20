@@ -45,7 +45,7 @@
     "electron-is-dev": "^0.1.2",
     "electron-log": "^2.2.3",
     "electron-positioner": "^3.0.0",
-    "electron-redux": "^1.2.5",
+    "electron-redux": "^1.2.10",
     "electron-settings": "^3.0.14",
     "emphasize": "^1.2.0",
     "execa": "^0.6.0",

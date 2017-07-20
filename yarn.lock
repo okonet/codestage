@@ -2680,9 +2680,9 @@ electron-publish@17.0.3:
     fs-extra-p "^4.1.0"
     mime "^1.3.4"
 
-electron-redux@^1.2.5:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/electron-redux/-/electron-redux-1.2.5.tgz#b7a453d28daec41c3d656cca1a7485a983699542"
+electron-redux@^1.2.10:
+  version "1.2.10"
+  resolved "https://registry.yarnpkg.com/electron-redux/-/electron-redux-1.2.10.tgz#8b20024ede44e9eeaa1489373169b3a870e0bbb6"
   dependencies:
     debug "^2.3.3"
     flux-standard-action "^1.0.0"
