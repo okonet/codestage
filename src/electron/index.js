@@ -166,9 +166,12 @@ app.on('ready', () => {
   tray.setContextMenu(mainMenu)
 
   const positioner = new Positioner(windows.main)
-  const positions = {
-    mini: positioner.calculate('trayCenter', tray.getBounds()),
-    normal: positioner.calculate('center')
+  const getWinPosition = size => {
+    if (size === WindowSizes.MINI) {
+      // Do not cache tray position
+      return positioner.calculate('trayCenter', tray.getBounds())
+    }
+    return positioner.calculate('center')
   }
 
   // Register a shortcut listener.
@@ -178,10 +181,8 @@ app.on('ready', () => {
         Object.keys(windows).forEach(win => {
           windows[win].webContents.send('global-shortcut-pressed', res)
         })
-        setTimeout(() => {
-          store.dispatch(setWindowSize(WindowSizes.MINI))
-          store.dispatch(setWindowVisibility(true))
-        }, 500)
+        store.dispatch(setWindowSize(WindowSizes.MINI))
+        store.dispatch(setWindowVisibility(true))
       })
       .catch(error => {
         store.dispatch(errorOccured(error.stderr))
@@ -221,7 +222,10 @@ app.on('ready', () => {
     } else {
       windows.main.hide()
     }
-    windows.main.setBounds(Object.assign(windowSizes[size], positions[size]), windowVisible)
+    windows.main.setBounds(
+      Object.assign(windowSizes[size], getWinPosition(size)),
+      windowVisible && size !== WindowSizes.MINI
+    )
   })
 })
 
