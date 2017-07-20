@@ -35,8 +35,8 @@ const height = 600
 
 const windowSizes = {
   mini: {
-    width: 200,
-    height: 100
+    width: 100,
+    height: 30
   },
   normal: {
     width: 800,
