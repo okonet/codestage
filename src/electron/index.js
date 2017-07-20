@@ -132,6 +132,17 @@ app.on('ready', () => {
 
   const mainMenu = Menu.buildFromTemplate([
     {
+      label: 'Show CodeStage',
+      type: 'normal',
+      click: () => {
+        store.dispatch(setWindowSize(WindowSizes.NORMAL))
+        store.dispatch(setWindowVisibility(true))
+      }
+    },
+    {
+      type: 'separator'
+    },
+    {
       role: 'about'
     },
     {
