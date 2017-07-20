@@ -17,7 +17,7 @@ import getRootReducer from '../reducers'
 export default function configureStore(initialState, scope = 'main') {
   const logger = createLogger({
     level: scope === 'main' ? undefined : 'info',
-    collapsed: true
+    collapsed: false
   })
 
   let middleware = []
