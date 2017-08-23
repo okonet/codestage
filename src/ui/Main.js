@@ -34,10 +34,8 @@ function Main({ size, windowVisible, onClick, closeWindow, ...rest }) {
     >
       {size === WindowSizes.MINI
         ? <BaloonWithTimer onTimeout={closeWindow} {...rest} />
-        : <Window chrome padding="0px">
-            <TitleBar controls inset onCloseClick={closeWindow}>
-              Title
-            </TitleBar>
+        : <Window padding="0px" style={{ background: 'none' }}>
+            <TitleBar controls onCloseClick={closeWindow} />
             <LangChooser {...rest} />
           </Window>}
     </TransparentWindow>
