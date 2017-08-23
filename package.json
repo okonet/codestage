@@ -86,11 +86,11 @@
     "eslint": "^3.19.0",
     "eslint-config-okonet": "^4.0.2",
     "git-exec-and-restage": "^1.0.1",
-    "husky": "^0.13.4",
-    "lint-staged": "^3.6.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.3",
     "neutrino": "^5.9.0",
     "neutrino-preset-react": "^5.9.0",
-    "prettier": "^1.4.4"
+    "prettier": "^1.5.3"
   },
   "eslintConfig": {
     "extends": "okonet",
