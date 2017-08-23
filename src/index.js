@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import { AppContainer } from 'react-hot-loader'
 import configureStore from './shared/store/createStore'
 import App from './ui/App'
 import './ui/index.css'
@@ -40,9 +41,11 @@ function render(Component) {
     languagesList
   }
   ReactDOM.render(
-    <Provider store={store}>
-      <Component route={route} {...props} />
-    </Provider>,
+    <AppContainer>
+      <Provider store={store}>
+        <Component route={route} {...props} />
+      </Provider>
+    </AppContainer>,
     document.getElementById('root')
   )
 }
@@ -73,7 +76,7 @@ ipcRenderer.on('global-shortcut-pressed', (event, { html, language, relevance })
 
 if (module.hot) {
   module.hot.accept('./ui/App', () => {
-    const NextApp = require('./ui/App').default // eslint-disable-line
+    const NextApp = require('./ui/App') // eslint-disable-line
     render(NextApp)
   })
 }
