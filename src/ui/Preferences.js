@@ -33,9 +33,8 @@ class App extends Component {
 
   render() {
     const { selected } = this.state
-    console.log(this.props)
     return (
-      <Window chrome padding="0px">
+      <Window padding="0px">
         <TitleBar>
           <Toolbar>
             <ToolbarNav>
@@ -62,7 +61,6 @@ class App extends Component {
         </TitleBar>
 
         {this.renderTab(selected, this.props)}
-
       </Window>
     )
   }

@@ -46,7 +46,7 @@ class LangChooser extends Component {
               heading="Languages"
               items={languagesList}
               selectedItem={language}
-              onClick={this.onLangChanged}
+              onSelect={this.onLangChanged}
             />
           </section>
         </section>
