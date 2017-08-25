@@ -19,6 +19,7 @@ class LangChooser extends Component {
     themeDirPath: PropTypes.string,
     languagesList: PropTypes.arrayOf(PropTypes.string)
   }
+
   onLangChanged = selection => {
     console.log(selection)
     settings.set('lastUsedLanguage', selection)

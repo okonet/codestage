@@ -176,13 +176,18 @@ app.on('ready', () => {
 
   // Register a shortcut listener.
   const onShortcutPressed = () => {
+    const state = store.getState()
+    const { windowVisible } = state.window
     codeHighlight(clipboard.readText(), settings)
       .then(res => {
         Object.keys(windows).forEach(win => {
           windows[win].webContents.send('global-shortcut-pressed', res)
         })
-        store.dispatch(setWindowSize(WindowSizes.MINI))
-        store.dispatch(setWindowVisibility(true))
+
+        if (!windowVisible) {
+          store.dispatch(setWindowSize(WindowSizes.MINI))
+          store.dispatch(setWindowVisibility(true))
+        }
       })
       .catch(error => {
         store.dispatch(errorOccured(error.stderr))
