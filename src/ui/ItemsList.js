@@ -1,8 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 import { ArrowKeyStepper, AutoSizer, List } from 'react-virtualized'
 import { ListView, ListViewRow, ListViewHeader, Text } from 'react-desktop/macOs'
+import { ListViewFooter, TextInput } from 'react-desktop'
 
 export default class ItemsList extends Component {
+  constructor(props) {
+    super()
+    this.state = {
+      items: props.items,
+      query: ''
+    }
+  }
+
   componentDidMount() {
     this.syncScrollPosition()
   }
@@ -24,7 +33,8 @@ export default class ItemsList extends Component {
   }
 
   rowRenderer = ({ key, index, style }) => {
-    const { items, selectedItem } = this.props
+    const { selectedItem } = this.props
+    const { items } = this.state
     const item = items[index]
     return (
       <ListViewRow
@@ -52,13 +62,24 @@ export default class ItemsList extends Component {
   }
 
   onStepperChanged = ({ scrollToRow }) => {
-    const { items } = this.props
+    const { items } = this.state
     const item = items[scrollToRow]
     this.onSelectionChange(item, false)
   }
 
+  onFilterChange = evt => {
+    const { items } = this.props
+    const query = evt.target.value
+    const filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()))
+    this.setState({
+      query,
+      items: filteredItems
+    })
+  }
+
   render() {
-    const { heading, items, selectedItem } = this.props
+    const { heading, selectedItem } = this.props
+    const { query, items } = this.state
     const selectedIndex = items.indexOf(selectedItem)
     return (
       <ListView>
@@ -88,6 +109,9 @@ export default class ItemsList extends Component {
                 />}
             </ArrowKeyStepper>}
         </AutoSizer>
+        <ListViewFooter>
+          <TextInput value={query} onChange={this.onFilterChange} />
+        </ListViewFooter>
       </ListView>
     )
   }
