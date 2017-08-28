@@ -2,6 +2,9 @@
 
 'use strict'
 
+require('babel-register')
+require('babel-polyfill')
+
 const path = require('path')
 const { name } = require('../../package.json')
 const {
