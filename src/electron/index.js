@@ -20,11 +20,7 @@ const {
 const Positioner = require('electron-positioner')
 const settings = require('electron-settings')
 const log = require('electron-log')
-const {
-  default: installExtension,
-  REACT_DEVELOPER_TOOLS,
-  REDUX_DEVTOOLS
-} = require('electron-devtools-installer')
+const isDev = require('electron-is-dev')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const configureStore = require('../shared/store/createStore')
@@ -46,13 +42,6 @@ const windowSizes = {
     height: 600
   }
 }
-
-installExtension(REACT_DEVELOPER_TOOLS)
-installExtension(REDUX_DEVTOOLS)
-const isDev = require('electron-is-dev')
-require('electron-debug')({
-  showDevTools: 'undocked'
-})
 
 const initialState = {}
 const store = configureStore(initialState, 'main')
@@ -90,6 +79,26 @@ function registerShortcut(newShortcut, oldShortcut, callback) {
 }
 
 app.on('ready', () => {
+  if (isDev) {
+    // eslint-disable-next-line global-require
+    require('electron-debug')({
+      showDevTools: 'undocked'
+    })
+
+    const {
+      default: installExtension,
+      REACT_DEVELOPER_TOOLS,
+      REDUX_DEVTOOLS
+    } = require('electron-devtools-installer') // eslint-disable-line global-require
+
+    const extensions = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]
+    extensions.forEach(extension => {
+      installExtension(extension)
+        .then(ext => console.log(`Added Extension:  ${ext}`))
+        .catch(err => console.log('An error occurred: ', err))
+    })
+  }
+
   windows.main = new BrowserWindow({
     width,
     height,

@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { createLogger } from 'redux-logger'
+import isDev from 'electron-is-dev'
 import {
   forwardToMain,
   forwardToRenderer,
@@ -25,7 +26,7 @@ export default function configureStore(initialState, scope = 'main') {
   //   promise,
   // ];
 
-  if (!process.env.NODE_ENV) {
+  if (isDev) {
     middleware.push(logger)
   }
 
