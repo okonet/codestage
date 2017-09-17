@@ -1,16 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import { ArrowKeyStepper, AutoSizer, List } from 'react-virtualized'
 import { ListView, ListViewRow, ListViewHeader, Text } from 'react-desktop/macOs'
-import { ListViewFooter, TextInput } from 'react-desktop'
+import { ListViewFooter, SearchField } from 'react-desktop'
 
 export default class ItemsList extends Component {
   constructor(props) {
     super()
-    const { items, selectedItem } = props
-    const selectedIndex = items.indexOf(selectedItem)
     this.state = {
       items: props.items,
-      selectedIndex,
       query: ''
     }
   }
@@ -24,11 +21,16 @@ export default class ItemsList extends Component {
   }
 
   syncScrollPosition() {
-    const { items, selectedItem } = this.props
-    const selectedIndex = items.indexOf(selectedItem)
+    const selectedIndex = this.getSelectedIndex()
     if (this.keyStepper) {
       this.keyStepper.setScrollIndexes({ scrollToRow: selectedIndex })
     }
+  }
+
+  getSelectedIndex() {
+    const { selectedItem } = this.props
+    const { items } = this.state
+    return items.indexOf(selectedItem)
   }
 
   setRef = ref => {
@@ -36,7 +38,8 @@ export default class ItemsList extends Component {
   }
 
   rowRenderer = ({ key, index, style }) => {
-    const { items, selectedIndex } = this.state
+    const { items } = this.state
+    const selectedIndex = this.getSelectedIndex()
     const item = items[index]
     return (
       <ListViewRow
@@ -60,22 +63,13 @@ export default class ItemsList extends Component {
     const { onSelect } = this.props
     const { items } = this.state
     const item = items[index]
-    this.setState(
-      {
-        selectedIndex: index
-      },
-      () => {
-        if (typeof onSelect === 'function') {
-          onSelect(item)
-        }
-      }
-    )
+    if (typeof onSelect === 'function') {
+      onSelect(item)
+    }
   }
 
   onStepperChanged = ({ scrollToRow }) => {
-    const { items } = this.state
-    const item = items[scrollToRow]
-    this.onSelectionChange(item, false)
+    this.onSelectionChange(scrollToRow)
   }
 
   onFilterChange = evt => {
@@ -90,17 +84,15 @@ export default class ItemsList extends Component {
 
   onKeyDown = evt => {
     console.log(this.state)
+    const { items } = this.state
+    const selectedIndex = this.getSelectedIndex()
     switch (evt.key) {
       case 'ArrowUp': {
-        this.setState(({ selectedIndex }) => ({
-          selectedIndex: Math.max(0, selectedIndex - 1)
-        }))
+        this.onSelectionChange(Math.max(0, selectedIndex - 1))
         break
       }
       case 'ArrowDown': {
-        this.setState(({ items, selectedIndex }) => ({
-          selectedIndex: Math.min(selectedIndex + 1, items.length - 1)
-        }))
+        this.onSelectionChange(Math.min(selectedIndex + 1, items.length - 1))
         break
       }
       default: {
@@ -111,7 +103,8 @@ export default class ItemsList extends Component {
 
   render() {
     const { heading } = this.props
-    const { query, items, selectedIndex } = this.state
+    const { query, items } = this.state
+    const selectedIndex = this.getSelectedIndex()
     return (
       <ListView>
         <ListViewHeader>
@@ -141,7 +134,12 @@ export default class ItemsList extends Component {
             </ArrowKeyStepper>}
         </AutoSizer>
         <ListViewFooter>
-          <TextInput value={query} onChange={this.onFilterChange} onKeyDown={this.onKeyDown} />
+          <SearchField
+            placeholder={`Filter ${heading}...`}
+            value={query}
+            onChange={this.onFilterChange}
+            onKeyDown={this.onKeyDown}
+          />
         </ListViewFooter>
       </ListView>
     )
