@@ -61,7 +61,7 @@ class CodeStyle extends Component {
               heading="Theme"
               items={themesList}
               selectedItem={theme}
-              onClick={this.onThemeChanged}
+              onSelect={this.onThemeChanged}
             />
           </section>
           <section className="content">
@@ -69,14 +69,13 @@ class CodeStyle extends Component {
               heading="Font"
               items={fontList}
               selectedItem={fontface}
-              onClick={this.onFontChanged}
+              onSelect={this.onFontChanged}
             />
           </section>
           <section className="content">
             <input type="text" value={subset} onChange={this.onSubsetChanged} />
 
             <input type="number" value={fontsize} onChange={this.onFontSizeChanged} />
-
           </section>
         </section>
       </section>

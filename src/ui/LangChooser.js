@@ -17,12 +17,19 @@ class LangChooser extends Component {
     language: PropTypes.string,
     preferences: PropTypes.object, // eslint-disable-line
     themeDirPath: PropTypes.string,
-    languagesList: PropTypes.arrayOf(PropTypes.string)
+    languagesList: PropTypes.arrayOf(PropTypes.string),
+    onConfirmSelection: PropTypes.func
   }
 
   onLangChanged = selection => {
-    console.log(selection)
     settings.set('lastUsedLanguage', selection)
+  }
+
+  onConfirmSelection = selection => {
+    const { onConfirmSelection } = this.props
+    if (typeof onConfirmSelection === 'function') {
+      onConfirmSelection(selection)
+    }
   }
 
   render() {
@@ -46,7 +53,8 @@ class LangChooser extends Component {
               heading="Languages"
               items={languagesList}
               selectedItem={language}
-              onClick={this.onLangChanged}
+              onSelect={this.onLangChanged}
+              onEnter={this.onConfirmSelection}
             />
           </section>
         </section>
