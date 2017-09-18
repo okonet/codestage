@@ -36,7 +36,7 @@ function Main({ size, windowVisible, onClick, closeWindow, ...rest }) {
         ? <BaloonWithTimer onTimeout={closeWindow} {...rest} />
         : <Window padding="0px" style={{ background: 'none' }}>
             <TitleBar controls onCloseClick={closeWindow} />
-            <LangChooser {...rest} />
+            <LangChooser {...rest} onConfirmSelection={closeWindow} />
           </Window>}
     </TransparentWindow>
   )

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { ArrowKeyStepper, AutoSizer, List } from 'react-virtualized'
 import { ListView, ListViewRow, ListViewHeader, Text } from 'react-desktop/macOs'
-import { ListViewFooter, SearchField } from 'react-desktop'
+import SearchField from './SearchField'
 
 export default class ItemsList extends Component {
   constructor(props) {
@@ -62,9 +62,17 @@ export default class ItemsList extends Component {
   onSelectionChange = index => {
     const { onSelect } = this.props
     const { items } = this.state
-    const item = items[index]
     if (typeof onSelect === 'function') {
-      onSelect(item)
+      onSelect(items[index])
+    }
+  }
+
+  onEnterPressed = () => {
+    const { onEnter } = this.props
+    const { items } = this.state
+    const selectedIndex = this.getSelectedIndex()
+    if (typeof onEnter === 'function') {
+      onEnter(items[selectedIndex])
     }
   }
 
@@ -83,7 +91,6 @@ export default class ItemsList extends Component {
   }
 
   onKeyDown = evt => {
-    console.log(this.state)
     const { items } = this.state
     const selectedIndex = this.getSelectedIndex()
     switch (evt.key) {
@@ -93,6 +100,10 @@ export default class ItemsList extends Component {
       }
       case 'ArrowDown': {
         this.onSelectionChange(Math.min(selectedIndex + 1, items.length - 1))
+        break
+      }
+      case 'Enter': {
+        this.onEnterPressed()
         break
       }
       default: {
@@ -107,10 +118,13 @@ export default class ItemsList extends Component {
     const selectedIndex = this.getSelectedIndex()
     return (
       <ListView>
-        <ListViewHeader>
-          <Text size="11" color="#696969">
-            {heading}
-          </Text>
+        <ListViewHeader padding={7}>
+          <SearchField
+            placeholder={`Filter ${heading}...`}
+            value={query}
+            onChange={this.onFilterChange}
+            onKeyDown={this.onKeyDown}
+          />
         </ListViewHeader>
         <AutoSizer>
           {({ height, width }) =>
@@ -133,14 +147,6 @@ export default class ItemsList extends Component {
                 />}
             </ArrowKeyStepper>}
         </AutoSizer>
-        <ListViewFooter>
-          <SearchField
-            placeholder={`Filter ${heading}...`}
-            value={query}
-            onChange={this.onFilterChange}
-            onKeyDown={this.onKeyDown}
-          />
-        </ListViewFooter>
       </ListView>
     )
   }
@@ -150,5 +156,6 @@ ItemsList.propTypes = {
   heading: PropTypes.string,
   items: PropTypes.array.isRequired, // eslint-disable-line
   selectedItem: PropTypes.string.isRequired,
-  onSelect: PropTypes.func.isRequired
+  onSelect: PropTypes.func,
+  onEnter: PropTypes.func
 }
