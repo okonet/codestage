@@ -37,6 +37,10 @@ const windowSizes = {
     width: 100,
     height: 30
   },
+  list: {
+    width: 200,
+    height: 400
+  },
   normal: {
     width: 800,
     height: 600
@@ -179,11 +183,11 @@ app.on('ready', () => {
 
   const positioner = new Positioner(windows.main)
   const getWinPosition = size => {
-    if (size === WindowSizes.MINI) {
-      // Do not cache tray position
-      return positioner.calculate('trayCenter', tray.getBounds())
+    if (size === WindowSizes.NORMAL) {
+      return positioner.calculate('center')
     }
-    return positioner.calculate('center')
+    // Do not cache tray position since it can change over time
+    return positioner.calculate('trayCenter', tray.getBounds())
   }
 
   // Register a shortcut listener.

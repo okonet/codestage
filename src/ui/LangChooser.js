@@ -18,7 +18,12 @@ class LangChooser extends Component {
     preferences: PropTypes.object, // eslint-disable-line
     themeDirPath: PropTypes.string,
     languagesList: PropTypes.arrayOf(PropTypes.string),
-    onConfirmSelection: PropTypes.func
+    onConfirmSelection: PropTypes.func,
+    withPreview: PropTypes.bool
+  }
+
+  static defaultProps = {
+    withPreview: false
   }
 
   onLangChanged = selection => {
@@ -33,19 +38,20 @@ class LangChooser extends Component {
   }
 
   render() {
-    const { html, language, preferences, themeDirPath, languagesList } = this.props
+    const { html, language, preferences, themeDirPath, languagesList, withPreview } = this.props
     const { theme, fontface } = preferences
     const themePath = path.join(themeDirPath, `${theme}.css`)
     const themeStylesheet = fs.readFileSync(themePath, 'utf-8')
     return (
       <section className="wrapper wrapper_vertical">
-        <section className="wrapper">
-          <section className="content codeSnippet">
-            <Box label="Code snippet" padding="0px">
-              <Preview html={html} theme={themeStylesheet} fontface={fontface} />
-            </Box>
-          </section>
-        </section>
+        {withPreview &&
+          <section className="wrapper">
+            <section className="content codeSnippet">
+              <Box label="Code snippet" padding="0px">
+                <Preview html={html} theme={themeStylesheet} fontface={fontface} />
+              </Box>
+            </section>
+          </section>}
 
         <section className="wrapper">
           <section className="content">

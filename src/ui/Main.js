@@ -32,18 +32,19 @@ function Main({ size, windowVisible, onClick, closeWindow, ...rest }) {
       }}
       size={size}
     >
-      {size === WindowSizes.MINI
-        ? <BaloonWithTimer onTimeout={closeWindow} {...rest} />
-        : <Window padding="0px" style={{ background: 'none' }}>
-            <TitleBar controls onCloseClick={closeWindow} />
-            <LangChooser {...rest} onConfirmSelection={closeWindow} />
-          </Window>}
+      {size === WindowSizes.MINI && <BaloonWithTimer onTimeout={closeWindow} {...rest} />}
+      {size === WindowSizes.LIST && <LangChooser {...rest} onConfirmSelection={closeWindow} />}
+      {size === WindowSizes.NORMAL &&
+        <Window padding="0px" style={{ background: 'none' }}>
+          <TitleBar controls onCloseClick={closeWindow} />
+          <LangChooser {...rest} onConfirmSelection={closeWindow} withPreview />
+        </Window>}
     </TransparentWindow>
   )
 }
 
 Main.propTypes = {
-  size: PropTypes.oneOf([WindowSizes.MINI, WindowSizes.NORMAL]),
+  size: PropTypes.oneOf(Object.values(WindowSizes)),
   windowVisible: PropTypes.bool,
   onClick: PropTypes.func,
   closeWindow: PropTypes.func
@@ -57,7 +58,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   onClick: size => {
     if (size === WindowSizes.MINI) {
-      dispatch(setWindowSize(WindowSizes.NORMAL))
+      dispatch(setWindowSize(WindowSizes.LIST))
     }
   },
   closeWindow: () => {
