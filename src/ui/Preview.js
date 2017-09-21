@@ -1,8 +1,15 @@
 import React, { PropTypes } from 'react'
+import styled from 'styled-components'
+
+const PreviewContainer = styled.div`
+  width: 100%;
+  height: 250px;
+  overflow: scroll;
+`
 
 function Preview({ html, fontface, theme }) {
   return (
-    <div style={{ height: 250, overflow: 'scroll' }}>
+    <PreviewContainer>
       <style>
         {theme}
       </style>
@@ -13,7 +20,7 @@ function Preview({ html, fontface, theme }) {
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </pre>
-    </div>
+    </PreviewContainer>
   )
 }
 
