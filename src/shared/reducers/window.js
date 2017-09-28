@@ -1,5 +1,5 @@
 import { SET_MAIN_WINDOW_VISIBILITY, SET_WINDOW_SIZE } from '../actions/window'
-import { WindowSizes } from '../contants/window'
+import { WindowSizes } from '../constants/window'
 
 const initialState = {
   windowVisible: false,

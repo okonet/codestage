@@ -25,7 +25,7 @@ const codeHighlight = require('./codeHighlight')
 const configureStore = require('../shared/store/createStore')
 const { setWindowVisibility, setWindowSize } = require('../shared/actions/window')
 const { errorOccured, resetErrors } = require('../shared/actions/errors')
-const { WindowSizes } = require('../shared/contants/window')
+const { WindowSizes } = require('../shared/constants/window')
 const execute = require('./executeAppleScript')
 const { DEFAULT_SETTINGS } = require('./defaults')
 

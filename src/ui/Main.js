@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { withTimer } from 'react-with-timer-hoc'
 import styled from 'styled-components'
 import { setWindowSize, setWindowVisibility } from '../shared/actions/window'
-import { WindowSizes } from '../shared/contants/window'
+import { WindowSizes } from '../shared/constants/window'
 import Baloon from './Baloon'
 import LangChooser from './LangChooser'
 
