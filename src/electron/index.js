@@ -211,7 +211,10 @@ app.on('ready', () => {
 
   function copyAndHighlight() {
     // Pasting into the active application
-    execute(path.resolve(__dirname, 'copy.applescript')).then(onShortcutPressed).catch(log.error)
+    // eslint-disable-next-line
+    execute(path.resolve(__dirname, 'copy.applescript'))
+      .then(onShortcutPressed)
+      .catch(log.error)
   }
 
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
