@@ -5,9 +5,9 @@
 require('hazardous')
 const path = require('path')
 const stripIndent = require('strip-indent')
-const execa = require('execa')
 const { clipboard } = require('electron')
 const log = require('electron-log')
+const execute = require('./executeAppleScript')
 const rtfRenderer = require('../../lib/')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
@@ -50,9 +50,7 @@ module.exports = function codeHighlight(input, settings) {
 
     if (autopaste) {
       // Pasting into the active application
-      const pathToScript = path.resolve(__dirname, 'paste.applescript')
-
-      execa('osascript', [pathToScript])
+      execute(path.resolve(__dirname, 'paste.applescript'))
         .then(() => {
           resolve(result)
         })

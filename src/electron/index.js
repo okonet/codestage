@@ -26,6 +26,7 @@ const configureStore = require('../shared/store/createStore')
 const { setWindowVisibility, setWindowSize } = require('../shared/actions/window')
 const { errorOccured, resetErrors } = require('../shared/actions/errors')
 const { WindowSizes } = require('../shared/contants/window')
+const execute = require('./executeAppleScript')
 const { DEFAULT_SETTINGS } = require('./defaults')
 
 const width = 800
@@ -208,19 +209,22 @@ app.on('ready', () => {
       })
   }
 
+  function copyAndHighlight() {
+    // Pasting into the active application
+    execute(path.resolve(__dirname, 'copy.applescript')).then(onShortcutPressed).catch(log.error)
+  }
+
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   registerShortcut(shortcut, null, onShortcutPressed)
   settings.watch('shortcut', (newVal, oldVal) =>
     registerShortcut(newVal, oldVal, onShortcutPressed)
   )
-
   // Watch language change and re-highlight the code
   settings.watch('lastUsedLanguage', language => {
     if (language) {
-      onShortcutPressed()
+      copyAndHighlight()
     }
   })
-
   store.subscribe(() => {
     const state = store.getState()
     const { size, windowVisible } = state.window
