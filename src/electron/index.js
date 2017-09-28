@@ -28,6 +28,7 @@ const { errorOccured, resetErrors } = require('../shared/actions/errors')
 const { WindowSizes } = require('../shared/constants/window')
 const execute = require('./executeAppleScript')
 const { DEFAULT_SETTINGS } = require('./defaults')
+const { HIGHLIGHT_COMPLETE, REDUX_ACTION } = require('../shared/constants/events')
 
 const width = 800
 const height = 600
@@ -49,7 +50,7 @@ const windowSizes = {
 const initialState = {}
 const store = configureStore(initialState, 'main')
 
-ipcMain.on('redux-action', (event, payload) => {
+ipcMain.on(REDUX_ACTION, (event, payload) => {
   store.dispatch(payload)
 })
 
@@ -196,7 +197,7 @@ app.on('ready', () => {
     codeHighlight(clipboard.readText(), settings)
       .then(res => {
         Object.keys(windows).forEach(win => {
-          windows[win].webContents.send('global-shortcut-pressed', res)
+          windows[win].webContents.send(HIGHLIGHT_COMPLETE, res)
         })
 
         if (!windowVisible) {

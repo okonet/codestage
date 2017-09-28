@@ -14,6 +14,7 @@ const path = remote.require('path')
 const settings = remote.require('electron-settings')
 const { resolvePackageDir } = remote.require('../../lib/')
 const { DEFAULT_SETTINGS } = remote.require('../electron/defaults')
+const { HIGHLIGHT_COMPLETE, REDUX_ACTION } = require('./shared/constants/events')
 
 const route = window.location.hash
 
@@ -59,11 +60,11 @@ Object.keys(DEFAULT_SETTINGS).forEach(key => {
   })
 })
 
-ipcRenderer.on('redux-action', (event, payload) => {
+ipcRenderer.on(REDUX_ACTION, (event, payload) => {
   store.dispatch(payload)
 })
 
-ipcRenderer.on('global-shortcut-pressed', (event, { html, language, relevance }) => {
+ipcRenderer.on(HIGHLIGHT_COMPLETE, (event, { html, language, relevance }) => {
   sharedState = {
     ...sharedState,
     html,
