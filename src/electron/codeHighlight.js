@@ -50,7 +50,7 @@ module.exports = function codeHighlight(input, settings) {
 
     if (autopaste) {
       // Pasting into the active application
-      const pathToScript = path.resolve(__dirname, 'paste.as')
+      const pathToScript = path.resolve(__dirname, 'paste.applescript')
 
       execa('osascript', [pathToScript])
         .then(() => {
