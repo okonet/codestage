@@ -26,19 +26,30 @@ class LangChooser extends Component {
     withPreview: false
   }
 
+  constructor(props) {
+    super()
+    this.state = {
+      selectedLanguage: props.language
+    }
+  }
+
   onLangChanged = selection => {
-    settings.set('lastUsedLanguage', selection)
+    this.setState({
+      selectedLanguage: selection
+    })
   }
 
   onConfirmSelection = selection => {
     const { onConfirmSelection } = this.props
     if (typeof onConfirmSelection === 'function') {
+      settings.set('lastUsedLanguage', selection)
       onConfirmSelection(selection)
     }
   }
 
   render() {
-    const { html, language, preferences, themeDirPath, languagesList, withPreview } = this.props
+    const { html, preferences, themeDirPath, languagesList, withPreview } = this.props
+    const { selectedLanguage } = this.state
     const { theme, fontface } = preferences
     const themePath = path.join(themeDirPath, `${theme}.css`)
     const themeStylesheet = fs.readFileSync(themePath, 'utf-8')
@@ -58,7 +69,7 @@ class LangChooser extends Component {
             <ItemsList
               heading="Languages"
               items={languagesList}
-              selectedItem={language}
+              selectedItem={selectedLanguage}
               onSelect={this.onLangChanged}
               onEnter={this.onConfirmSelection}
             />
