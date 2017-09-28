@@ -4,7 +4,6 @@
 
 require('babel-register')
 require('babel-polyfill')
-
 const path = require('path')
 const { name } = require('../../package.json')
 const {
@@ -31,7 +30,6 @@ const { DEFAULT_SETTINGS } = require('./defaults')
 
 const width = 800
 const height = 600
-
 const windowSizes = {
   mini: {
     width: 100,
@@ -151,7 +149,7 @@ app.on('ready', () => {
       label: 'Show CodeStage',
       type: 'normal',
       click: () => {
-        store.dispatch(setWindowSize(WindowSizes.NORMAL))
+        store.dispatch(setWindowSize(WindowSizes.LIST))
         store.dispatch(setWindowVisibility(true))
       }
     },
