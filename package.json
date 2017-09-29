@@ -75,8 +75,8 @@
   "devDependencies": {
     "concurrently": "^3.5.0",
     "devtron": "^1.4.0",
-    "electron": "^1.4.15",
-    "electron-builder": "^17.1.1",
+    "electron": "1.8.1",
+    "electron-builder": "19.31.1",
     "electron-devtools-installer": "^2.2.0",
     "eslint": "^3.19.0",
     "eslint-config-okonet": "^4.0.2",
