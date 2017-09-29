@@ -67,6 +67,7 @@ class LangChooser extends Component {
         <section className="wrapper">
           <section className="content">
             <ItemsList
+              focusable
               heading="Languages"
               items={languagesList}
               selectedItem={selectedLanguage}

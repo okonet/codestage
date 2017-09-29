@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import focusOnKeyDown from 'react-focus-onkeydown'
 import styled from 'styled-components'
 
@@ -7,5 +7,11 @@ font-size: 16px;
   width: 100%;
 `
 
-const SearchField = props => <Input type="search" {...props} />
+const SearchField = ({ focusable = false, ...rest }) =>
+  <Input type="search" focusOnKeyDown={focusable} {...rest} />
+
+SearchField.propTypes = {
+  focusable: PropTypes.bool
+}
+
 export default SearchField

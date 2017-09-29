@@ -4,6 +4,19 @@ import { ListView, ListViewRow, ListViewHeader, Text } from 'react-desktop/macOs
 import SearchField from './SearchField'
 
 export default class ItemsList extends Component {
+  static propTypes = {
+    focusable: PropTypes.bool,
+    heading: PropTypes.string,
+    items: PropTypes.array.isRequired, // eslint-disable-line
+    selectedItem: PropTypes.string.isRequired,
+    onSelect: PropTypes.func,
+    onEnter: PropTypes.func
+  }
+
+  static defaultProps = {
+    focusable: false
+  }
+
   constructor(props) {
     super()
     this.state = {
@@ -113,13 +126,14 @@ export default class ItemsList extends Component {
   }
 
   render() {
-    const { heading } = this.props
+    const { heading, focusable } = this.props
     const { query, items } = this.state
     const selectedIndex = this.getSelectedIndex()
     return (
       <ListView>
         <ListViewHeader padding={7}>
           <SearchField
+            focusable={focusable}
             placeholder={`Filter ${heading}...`}
             value={query}
             onChange={this.onFilterChange}
@@ -150,12 +164,4 @@ export default class ItemsList extends Component {
       </ListView>
     )
   }
-}
-
-ItemsList.propTypes = {
-  heading: PropTypes.string,
-  items: PropTypes.array.isRequired, // eslint-disable-line
-  selectedItem: PropTypes.string.isRequired,
-  onSelect: PropTypes.func,
-  onEnter: PropTypes.func
 }
