@@ -113,6 +113,11 @@ app.on('ready', () => {
     show: false
   })
 
+  // Close main window on blur
+  windows.main.on('blur', () => {
+    store.dispatch(setWindowVisibility(false))
+  })
+
   windows.preferences = new BrowserWindow({
     width,
     height,
