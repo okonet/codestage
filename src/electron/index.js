@@ -220,7 +220,9 @@ app.on('ready', () => {
     // eslint-disable-next-line
     execute(path.resolve(__dirname, 'copy.applescript'))
       .then(onShortcutPressed)
-      .catch(log.error)
+      .catch(error => {
+        store.dispatch(errorOccured(error.stderr))
+      })
   }
 
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
