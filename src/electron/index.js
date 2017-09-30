@@ -244,8 +244,9 @@ app.on('ready', () => {
           'Assistive access required',
           'Please add codestage to assistive access!'
         )
+      } else {
+        dialog.showErrorBox('Unexpected error occured', error)
       }
-      dialog.showErrorBox('Unexpected error occured', error)
       store.dispatch(resetErrors())
     }
 
