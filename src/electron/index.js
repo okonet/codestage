@@ -153,7 +153,7 @@ app.on('ready', () => {
 
   const mainMenu = Menu.buildFromTemplate([
     {
-      label: 'Show CodeStage',
+      label: 'Highlight code as...',
       type: 'normal',
       click: () => {
         store.dispatch(setWindowSize(WindowSizes.LIST))
