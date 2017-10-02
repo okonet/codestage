@@ -10,12 +10,12 @@
   "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^19.0.2"
+    "jest": "^21.2.1"
   },
   "dependencies": {
+    "brace": "^0.10.0",
     "color": "^1.0.3",
     "css-tree": "^1.0.0-alpha16",
-    "brace": "^0.10.0",
     "highlight.js": "^9.10.0",
     "lodash": "^4.17.4",
     "prismjs": "^1.6.0",
