@@ -4,7 +4,6 @@
 
 require('babel-register')
 require('babel-polyfill')
-
 const path = require('path')
 const { name } = require('../../package.json')
 const {
@@ -26,16 +25,21 @@ const codeHighlight = require('./codeHighlight')
 const configureStore = require('../shared/store/createStore')
 const { setWindowVisibility, setWindowSize } = require('../shared/actions/window')
 const { errorOccured, resetErrors } = require('../shared/actions/errors')
-const { WindowSizes } = require('../shared/contants/window')
+const { WindowSizes } = require('../shared/constants/window')
+const execute = require('./executeAppleScript')
 const { DEFAULT_SETTINGS } = require('./defaults')
+const { HIGHLIGHT_COMPLETE, REDUX_ACTION } = require('../shared/constants/events')
 
 const width = 800
 const height = 600
-
 const windowSizes = {
   mini: {
     width: 100,
     height: 30
+  },
+  list: {
+    width: 200,
+    height: 400
   },
   normal: {
     width: 800,
@@ -46,7 +50,7 @@ const windowSizes = {
 const initialState = {}
 const store = configureStore(initialState, 'main')
 
-ipcMain.on('redux-action', (event, payload) => {
+ipcMain.on(REDUX_ACTION, (event, payload) => {
   store.dispatch(payload)
 })
 
@@ -109,6 +113,11 @@ app.on('ready', () => {
     show: false
   })
 
+  // Close main window on blur
+  windows.main.on('blur', () => {
+    store.dispatch(setWindowVisibility(false))
+  })
+
   windows.preferences = new BrowserWindow({
     width,
     height,
@@ -144,10 +153,10 @@ app.on('ready', () => {
 
   const mainMenu = Menu.buildFromTemplate([
     {
-      label: 'Show CodeStage',
+      label: 'Highlight code as...',
       type: 'normal',
       click: () => {
-        store.dispatch(setWindowSize(WindowSizes.NORMAL))
+        store.dispatch(setWindowSize(WindowSizes.LIST))
         store.dispatch(setWindowVisibility(true))
       }
     },
@@ -179,11 +188,11 @@ app.on('ready', () => {
 
   const positioner = new Positioner(windows.main)
   const getWinPosition = size => {
-    if (size === WindowSizes.MINI) {
-      // Do not cache tray position
-      return positioner.calculate('trayCenter', tray.getBounds())
+    if (size === WindowSizes.NORMAL) {
+      return positioner.calculate('center')
     }
-    return positioner.calculate('center')
+    // Do not cache tray position since it can change over time
+    return positioner.calculate('trayCenter', tray.getBounds())
   }
 
   // Register a shortcut listener.
@@ -193,7 +202,7 @@ app.on('ready', () => {
     codeHighlight(clipboard.readText(), settings)
       .then(res => {
         Object.keys(windows).forEach(win => {
-          windows[win].webContents.send('global-shortcut-pressed', res)
+          windows[win].webContents.send(HIGHLIGHT_COMPLETE, res)
         })
 
         if (!windowVisible) {
@@ -206,19 +215,27 @@ app.on('ready', () => {
       })
   }
 
+  function copyAndHighlight() {
+    // Pasting into the active application
+    // eslint-disable-next-line
+    execute(path.resolve(__dirname, 'copy.applescript'))
+      .then(onShortcutPressed)
+      .catch(error => {
+        store.dispatch(errorOccured(error.stderr))
+      })
+  }
+
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   registerShortcut(shortcut, null, onShortcutPressed)
   settings.watch('shortcut', (newVal, oldVal) =>
     registerShortcut(newVal, oldVal, onShortcutPressed)
   )
-
   // Watch language change and re-highlight the code
   settings.watch('lastUsedLanguage', language => {
     if (language) {
-      onShortcutPressed()
+      copyAndHighlight()
     }
   })
-
   store.subscribe(() => {
     const state = store.getState()
     const { size, windowVisible } = state.window
@@ -229,8 +246,9 @@ app.on('ready', () => {
           'Assistive access required',
           'Please add codestage to assistive access!'
         )
+      } else {
+        dialog.showErrorBox('Unexpected error occured', error)
       }
-      dialog.showErrorBox('Unexpected error occured', error)
       store.dispatch(resetErrors())
     }
 

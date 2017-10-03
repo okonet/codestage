@@ -7,7 +7,7 @@
   "homepage": "./",
   "build": {
     "appId": "com.koolesache.CodeStage",
-    "asarUnpack": "src/electron/paste.as",
+    "asarUnpack": ["**/*.applescript"],
     "directories": {
       "buildResources": "resources"
     }

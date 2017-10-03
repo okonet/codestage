@@ -18,41 +18,59 @@ class LangChooser extends Component {
     preferences: PropTypes.object, // eslint-disable-line
     themeDirPath: PropTypes.string,
     languagesList: PropTypes.arrayOf(PropTypes.string),
-    onConfirmSelection: PropTypes.func
+    onConfirmSelection: PropTypes.func,
+    withPreview: PropTypes.bool
+  }
+
+  static defaultProps = {
+    withPreview: false
+  }
+
+  constructor(props) {
+    super()
+    this.state = {
+      selectedLanguage: props.language
+    }
   }
 
   onLangChanged = selection => {
-    settings.set('lastUsedLanguage', selection)
+    this.setState({
+      selectedLanguage: selection
+    })
   }
 
   onConfirmSelection = selection => {
     const { onConfirmSelection } = this.props
     if (typeof onConfirmSelection === 'function') {
+      settings.set('lastUsedLanguage', selection)
       onConfirmSelection(selection)
     }
   }
 
   render() {
-    const { html, language, preferences, themeDirPath, languagesList } = this.props
+    const { html, preferences, themeDirPath, languagesList, withPreview } = this.props
+    const { selectedLanguage } = this.state
     const { theme, fontface } = preferences
     const themePath = path.join(themeDirPath, `${theme}.css`)
     const themeStylesheet = fs.readFileSync(themePath, 'utf-8')
     return (
       <section className="wrapper wrapper_vertical">
-        <section className="wrapper">
-          <section className="content codeSnippet">
-            <Box label="Code snippet" padding="0px">
-              <Preview html={html} theme={themeStylesheet} fontface={fontface} />
-            </Box>
-          </section>
-        </section>
+        {withPreview &&
+          <section className="wrapper">
+            <section className="content codeSnippet">
+              <Box label="Code snippet" padding="0px">
+                <Preview html={html} theme={themeStylesheet} fontface={fontface} />
+              </Box>
+            </section>
+          </section>}
 
         <section className="wrapper">
           <section className="content">
             <ItemsList
+              focusable
               heading="Languages"
               items={languagesList}
-              selectedItem={language}
+              selectedItem={selectedLanguage}
               onSelect={this.onLangChanged}
               onEnter={this.onConfirmSelection}
             />
