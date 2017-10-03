@@ -89,8 +89,8 @@
     "husky": "^0.14.3",
     "jest": "^21.2.1",
     "lint-staged": "^4.0.3",
-    "neutrino": "^6.1.5",
-    "neutrino-preset-react": "^6.1.5",
+    "neutrino": "^7.0.1",
+    "neutrino-preset-react": "^7.0.1",
     "prettier": "^1.5.3"
   },
   "eslintConfig": {
