@@ -9,21 +9,12 @@ import './ui/index.css'
 // Working around electron imports from CRA app:
 // https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
 const { remote, ipcRenderer } = window.require('electron')
-const fs = remote.require('fs')
-const path = remote.require('path')
 const settings = remote.require('electron-settings')
-const { resolvePackageDir } = remote.require('../../lib/')
+const { getThemes, getLanguages } = remote.require('../../lib/src/highlighters/ace')
 const { DEFAULT_SETTINGS } = remote.require('../electron/defaults')
 const { HIGHLIGHT_COMPLETE, REDUX_ACTION } = require('./shared/constants/events')
 
 const route = window.location.hash
-
-const themeDirPath = path.join(resolvePackageDir('highlight.js'), 'styles')
-const languagesList = fs
-  .readdirSync(path.join(resolvePackageDir('highlight.js'), 'lib', 'languages'))
-  .map(file => file.replace(/\.js$/, ''))
-const themesList = fs.readdirSync(themeDirPath).map(file => file.replace(/\.css$/, ''))
-
 const initialState = {}
 const store = configureStore(initialState, 'renderer')
 
@@ -34,21 +25,26 @@ if (!settings.has('theme')) {
   settings.setAll(DEFAULT_SETTINGS)
 }
 function render(Component) {
-  const props = {
-    ...sharedState,
-    preferences: settings.getAll(),
-    themeDirPath,
-    themesList,
-    languagesList
-  }
-  ReactDOM.render(
-    <AppContainer>
-      <Provider store={store}>
-        <Component route={route} {...props} />
-      </Provider>
-    </AppContainer>,
-    document.getElementById('root')
-  )
+  // const {themesList, languagesList} = await bootstrap()
+  Promise.all([getLanguages(), getThemes()]).then(res => {
+    console.log(res)
+    const languagesList = res[0]
+    const themesList = res[1]
+    const props = {
+      ...sharedState,
+      preferences: settings.getAll(),
+      themesList,
+      languagesList
+    }
+    ReactDOM.render(
+      <AppContainer>
+        <Provider store={store}>
+          <Component route={route} {...props} />
+        </Provider>
+      </AppContainer>,
+      document.getElementById('root')
+    )
+  })
 }
 
 render(App)

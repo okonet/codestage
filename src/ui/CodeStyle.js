@@ -7,8 +7,6 @@ import Preview from './Preview'
 // Working around electron imports from CRA app:
 // https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
 const { remote } = window.require('electron')
-const fs = remote.require('fs')
-const path = remote.require('path')
 const settings = remote.require('electron-settings')
 const SystemFonts = remote.require('system-font-families').default
 const systemFonts = new SystemFonts()
@@ -18,8 +16,7 @@ class CodeStyle extends Component {
   static propTypes = {
     html: PropTypes.string,
     preferences: PropTypes.object, // eslint-disable-line
-    themeDirPath: PropTypes.string,
-    themesList: PropTypes.arrayOf(PropTypes.string)
+    themesList: PropTypes.object // eslint-disable-line
   }
 
   onFontChanged = selectedFont => {
@@ -41,16 +38,15 @@ class CodeStyle extends Component {
   }
 
   render() {
-    const { html, preferences, themeDirPath, themesList } = this.props
+    const { html, preferences, themesList } = this.props
     const { fontface, fontsize, theme, subset } = preferences
-    const themePath = path.join(themeDirPath, `${theme}.css`)
-    const themeStylesheet = fs.readFileSync(themePath, 'utf-8')
+    const currentTheme = themesList[theme] || { cssText: '' }
     return (
       <section className="wrapper wrapper_vertical">
         <section className="wrapper">
           <section className="content codeSnippet">
             <Box label="Code snippet" padding="0px">
-              <Preview html={html} theme={themeStylesheet} fontface={fontface} />
+              <Preview html={html} theme={currentTheme.cssText} fontface={fontface} />
             </Box>
           </section>
         </section>
@@ -59,7 +55,7 @@ class CodeStyle extends Component {
           <section className="content">
             <ItemsList
               heading="Theme"
-              items={themesList}
+              items={Object.values(themesList).map(t => t.name)} // eslint-disable-line id-length
               selectedItem={theme}
               onSelect={this.onThemeChanged}
             />
