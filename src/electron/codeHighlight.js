@@ -24,12 +24,9 @@ module.exports = function codeHighlight(input, settings) {
       theme
     }
     const stripped = stripIndent(input)
-    console.time('render RTF')
     const result = await rtfRenderer.highlight(stripped, lastUsedLanguage || 'javascript', options)
-    console.timeEnd('render RTF')
     result.language = lastUsedLanguage
     const output = result.value
-    console.log(output)
     clipboard.write({
       text: stripped,
       rtf: output

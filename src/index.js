@@ -27,7 +27,6 @@ if (!settings.has('theme')) {
 function render(Component) {
   // const {themesList, languagesList} = await bootstrap()
   Promise.all([getLanguages(), getThemes()]).then(res => {
-    console.log(res)
     const languagesList = res[0]
     const themesList = res[1]
     const props = {
