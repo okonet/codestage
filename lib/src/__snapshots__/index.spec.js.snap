@@ -5,7 +5,7 @@ exports[`highlightRTFRenderer should encode curly brackets and back slashes 1`] 
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
 {\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cf17\\\\i\\\\cb15 {\\\\b \\\\{}\\\\par
+{\\\\cb10\\\\cf3 {\\\\b \\\\{}\\\\par
     \\\\\\\\ test\\\\par
     {\\\\b \\\\}}\\\\par
 }
@@ -17,7 +17,7 @@ exports[`highlightRTFRenderer should encode double unicode symbols 1`] = `
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
 {\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cf17\\\\i\\\\cb15 {\\\\u4096} {\\\\u55203} {\\\\u8597} {\\\\u8597}{\\\\u65038} {\\\\u40726}\\\\par
+{\\\\cb10\\\\cf3 {\\\\u4096} {\\\\u55203} {\\\\u8597} {\\\\u8597}{\\\\u65038} {\\\\u40726}\\\\par
 }
 }"
 `;
@@ -27,7 +27,7 @@ exports[`highlightRTFRenderer should encode single unicode symbols 1`] = `
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
 {\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cf17\\\\i\\\\cb15 {\\\\u226} {\\\\u8364} {\\\\u164} {\\\\u1082}{\\\\u1072}{\\\\u1078}{\\\\u1076}{\\\\u1086}{\\\\u1081}\\\\par
+{\\\\cb10\\\\cf3 {\\\\u226} {\\\\u8364} {\\\\u164} {\\\\u1082}{\\\\u1072}{\\\\u1078}{\\\\u1076}{\\\\u1086}{\\\\u1081}\\\\par
 }
 }"
 `;
@@ -37,7 +37,7 @@ exports[`highlightRTFRenderer should not add white spaces 1`] = `
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
 {\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cf17\\\\i\\\\cb15 test.then{\\\\b ((}result{\\\\b )} {\\\\b =>} {\\\\b \\\\{}\\\\par
+{\\\\cb10\\\\cf3 test.then{\\\\b ((}result{\\\\b )} {\\\\b =>} {\\\\b \\\\{}\\\\par
   console.{\\\\cf7\\\\cf7 log}{\\\\b (}result.stdout{\\\\b )}\\\\par
 {\\\\b \\\\})}\\\\par
 }
@@ -49,7 +49,7 @@ exports[`highlightRTFRenderer should render a string 1`] = `
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
 {\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cf17\\\\i\\\\cb15 const a {\\\\b =} {\\\\cf9 \\"foo\\"};\\\\par
+{\\\\cb10\\\\cf3 const a {\\\\b =} {\\\\cf9 \\"foo\\"};\\\\par
 }
 }"
 `;
@@ -59,7 +59,7 @@ exports[`highlightRTFRenderer should render javascript 1`] = `
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
 {\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red51\\\\green51\\\\blue51;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red181\\\\green213\\\\blue255;\\\\red198\\\\green219\\\\blue174;\\\\red0\\\\green0\\\\blue0;\\\\red200\\\\green0\\\\blue164;\\\\red191\\\\green191\\\\blue191;\\\\red39\\\\green90\\\\blue94;\\\\red58\\\\green0\\\\blue220;\\\\red69\\\\green0\\\\blue132;\\\\red121\\\\green14\\\\blue173;\\\\red201\\\\green0\\\\blue164;\\\\red223\\\\green0\\\\blue2;\\\\red0\\\\green142\\\\blue0;}
 \\\\f0\\\\fs40
-{\\\\cf15\\\\cb7 settings.set({\\\\cf14 'user.name'}, \\\\{\\\\par
+{\\\\cb2\\\\cf3 settings.set({\\\\cf14 'user.name'}, \\\\{\\\\par
   first: {\\\\cf14 'Cosmo'},\\\\par
   last: {\\\\cf14 'Kramer'}\\\\par
 \\\\}).then(() {\\\\cf7 =>} \\\\{\\\\par
@@ -78,7 +78,7 @@ exports[`highlightRTFRenderer should render multiple lines 1`] = `
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
 {\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cf17\\\\i\\\\cb15 line1\\\\par
+{\\\\cb10\\\\cf3 line1\\\\par
 line2\\\\par
 \\\\par
 \\\\par
@@ -93,7 +93,7 @@ exports[`highlightRTFRenderer should render specific styles 1`] = `
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
 {\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red51\\\\green51\\\\blue51;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red181\\\\green213\\\\blue255;\\\\red198\\\\green219\\\\blue174;\\\\red0\\\\green0\\\\blue0;\\\\red200\\\\green0\\\\blue164;\\\\red191\\\\green191\\\\blue191;\\\\red39\\\\green90\\\\blue94;\\\\red58\\\\green0\\\\blue220;\\\\red69\\\\green0\\\\blue132;\\\\red121\\\\green14\\\\blue173;\\\\red201\\\\green0\\\\blue164;\\\\red223\\\\green0\\\\blue2;\\\\red0\\\\green142\\\\blue0;}
 \\\\f0\\\\fs40
-{\\\\cf15\\\\cb7 \\\\par
+{\\\\cb2\\\\cf3 \\\\par
 {\\\\cf15 // Comment}\\\\par
 {\\\\cf13\\\\cf12 function} {\\\\cf12\\\\cf12\\\\cf12 test}() \\\\{\\\\}\\\\par
 \\\\par
