@@ -7,8 +7,6 @@ import Preview from './Preview'
 // Working around electron imports from CRA app:
 // https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
 const { remote } = window.require('electron')
-const fs = remote.require('fs')
-const path = remote.require('path')
 const settings = remote.require('electron-settings')
 
 class LangChooser extends Component {
@@ -16,8 +14,8 @@ class LangChooser extends Component {
     html: PropTypes.string,
     language: PropTypes.string,
     preferences: PropTypes.object, // eslint-disable-line
-    themeDirPath: PropTypes.string,
     languagesList: PropTypes.arrayOf(PropTypes.string),
+    themesList: PropTypes.object, // eslint-disable-line
     onConfirmSelection: PropTypes.func,
     withPreview: PropTypes.bool
   }
@@ -48,18 +46,17 @@ class LangChooser extends Component {
   }
 
   render() {
-    const { html, preferences, themeDirPath, languagesList, withPreview } = this.props
+    const { html, preferences, themesList, languagesList, withPreview } = this.props
     const { selectedLanguage } = this.state
     const { theme, fontface } = preferences
-    const themePath = path.join(themeDirPath, `${theme}.css`)
-    const themeStylesheet = fs.readFileSync(themePath, 'utf-8')
+    const currentTheme = themesList[theme] || { cssText: '' }
     return (
       <section className="wrapper wrapper_vertical">
         {withPreview &&
           <section className="wrapper">
             <section className="content codeSnippet">
               <Box label="Code snippet" padding="0px">
-                <Preview html={html} theme={themeStylesheet} fontface={fontface} />
+                <Preview html={html} theme={currentTheme.cssText} fontface={fontface} />
               </Box>
             </section>
           </section>}

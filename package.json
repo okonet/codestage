@@ -7,7 +7,9 @@
   "homepage": "./",
   "build": {
     "appId": "com.koolesache.CodeStage",
-    "asarUnpack": ["**/*.applescript"],
+    "asarUnpack": [
+      "**/*.applescript"
+    ],
     "directories": {
       "buildResources": "resources"
     }
@@ -17,7 +19,8 @@
     "build": "neutrino build",
     "pack": "npm run icon && npm run build && build --dir",
     "dist": "npm run icon && npm run build && build",
-    "test": "npm run lint",
+    "pretest": "npm run lint",
+    "test": "jest --coverage",
     "electron": "electron .",
     "lint": "eslint src/",
     "icon:export": "sketchtool export slices design/icon.sketch --output=./resources/icon.iconset",
@@ -27,7 +30,10 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": "git-exec-and-restage eslint --fix --"
+    "*.js": [
+      "git-exec-and-restage eslint --fix --",
+      "jest --findRelatedTests --bail"
+    ]
   },
   "keywords": [],
   "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
@@ -73,6 +79,7 @@
     "warning": "^3.0.0"
   },
   "devDependencies": {
+    "babel-jest": "^21.2.0",
     "concurrently": "^3.5.0",
     "devtron": "^1.4.0",
     "electron": "1.8.1",
@@ -82,9 +89,10 @@
     "eslint-config-okonet": "^4.0.2",
     "git-exec-and-restage": "^1.0.1",
     "husky": "^0.14.3",
+    "jest": "^21.2.1",
     "lint-staged": "^4.0.3",
-    "neutrino": "^6.1.5",
-    "neutrino-preset-react": "^6.1.5",
+    "neutrino": "^7.0.1",
+    "neutrino-preset-react": "^7.0.1",
     "prettier": "^1.5.3"
   },
   "eslintConfig": {

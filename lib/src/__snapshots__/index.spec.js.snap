@@ -1,94 +1,134 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`highlightRTFRenderer should encode curly brackets and back slashes 1`] = `
+exports[`highlight renderer should encode curly brackets and back slashes 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
+{\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cf0 \\\\{\\\\par
+{\\\\cb2\\\\cf3 {\\\\b \\\\{}\\\\par
     \\\\\\\\ test\\\\par
-    \\\\}}
-}"
-`;
-
-exports[`highlightRTFRenderer should encode double unicode symbols 1`] = `
-"{\\\\rtf1\\\\ansi\\\\deff0
-{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
-\\\\f0\\\\fs40
-{\\\\cf0 {\\\\u4096} {\\\\u55203} {\\\\u8597} {\\\\u8597}{\\\\u65038} {\\\\u40726}}
-}"
-`;
-
-exports[`highlightRTFRenderer should encode single unicode symbols 1`] = `
-"{\\\\rtf1\\\\ansi\\\\deff0
-{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
-\\\\f0\\\\fs40
-{\\\\cf0 {\\\\u226} {\\\\u8364} {\\\\u164} {\\\\u1082}{\\\\u1072}{\\\\u1078}{\\\\u1076}{\\\\u1086}{\\\\u1081}}
-}"
-`;
-
-exports[`highlightRTFRenderer should not add white spaces 1`] = `
-"{\\\\rtf1\\\\ansi\\\\deff0
-{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
-\\\\f0\\\\fs40
-{\\\\cf0 test.then((result) => \\\\{\\\\par
-  {\\\\cf5 console}.log(result.stdout)\\\\par
-\\\\})}
-}"
-`;
-
-exports[`highlightRTFRenderer should render a string 1`] = `
-"{\\\\rtf1\\\\ansi\\\\deff0
-{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
-\\\\f0\\\\fs40
-{\\\\cf0 {\\\\b const} a = {\\\\cf2 \\"foo\\"};}
-}"
-`;
-
-exports[`highlightRTFRenderer should render javascript 1`] = `
-"{\\\\rtf1\\\\ansi\\\\deff0
-{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red0\\\\green0\\\\blue0;\\\\red0\\\\green106\\\\blue0;\\\\red170\\\\green13\\\\blue145;\\\\red0\\\\green0\\\\blue136;\\\\red102\\\\green102\\\\blue0;\\\\red196\\\\green26\\\\blue22;\\\\red0\\\\green136\\\\blue0;\\\\red28\\\\green0\\\\blue207;\\\\red92\\\\green38\\\\blue153;\\\\red238\\\\green238\\\\blue238;\\\\red186\\\\green238\\\\blue186;\\\\red255\\\\green200\\\\blue189;\\\\red155\\\\green112\\\\blue63;}
-\\\\f0\\\\fs40
-{\\\\cf0 settings.set({\\\\cf5 'user.name'}, \\\\{\\\\par
-  {\\\\cf8 first}: {\\\\cf5 'Cosmo'},\\\\par
-  {\\\\cf8 last}: {\\\\cf5 'Kramer'}\\\\par
-\\\\}).then({\\\\cf8 ()} => \\\\{\\\\par
-  settings.get({\\\\cf5 'user.name.first'}).then({\\\\cf8 val} => \\\\{\\\\par
-    {\\\\cf8 console}.log(val);\\\\par
-    {\\\\cf1 // => 'Cosmo'}\\\\par
-  \\\\});\\\\par
-\\\\});\\\\par
+    {\\\\b \\\\}}\\\\par
 }
 }"
 `;
 
-exports[`highlightRTFRenderer should render multiple lines 1`] = `
+exports[`highlight renderer should encode double unicode symbols 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red68\\\\green68\\\\blue68;\\\\red136\\\\green136\\\\blue136;\\\\red136\\\\green0\\\\blue0;\\\\red188\\\\green96\\\\blue96;\\\\red120\\\\green169\\\\blue96;\\\\red57\\\\green115\\\\blue0;\\\\red31\\\\green113\\\\blue153;\\\\red77\\\\green153\\\\blue191;}
+{\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cf0 line1\\\\par
+{\\\\cb2\\\\cf3 {\\\\u4096} {\\\\u55203} {\\\\u8597} {\\\\u8597}{\\\\u65038} {\\\\u40726}\\\\par
+}
+}"
+`;
+
+exports[`highlight renderer should encode single unicode symbols 1`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
+\\\\f0\\\\fs40
+{\\\\cb2\\\\cf3 {\\\\u226} {\\\\u8364} {\\\\u164} {\\\\u1082}{\\\\u1072}{\\\\u1078}{\\\\u1076}{\\\\u1086}{\\\\u1081}\\\\par
+}
+}"
+`;
+
+exports[`highlight renderer should not add white spaces 1`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
+\\\\f0\\\\fs40
+{\\\\cb2\\\\cf3 test.then{\\\\b ((}result{\\\\b )} {\\\\b =>} {\\\\b \\\\{}\\\\par
+  console.{\\\\cf7 log}{\\\\b (}result.stdout{\\\\b )}\\\\par
+{\\\\b \\\\})}\\\\par
+}
+}"
+`;
+
+exports[`highlight renderer should render a string 1`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl\\\\red235\\\\green235\\\\blue235;\\\\red51\\\\green51\\\\blue51;\\\\red232\\\\green232\\\\blue232;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red191\\\\green191\\\\blue191;\\\\red88\\\\green72\\\\blue246;\\\\red88\\\\green92\\\\blue246;\\\\red6\\\\green150\\\\blue14;\\\\red153\\\\green0\\\\blue0;\\\\red60\\\\green76\\\\blue114;\\\\red109\\\\green121\\\\blue222;\\\\red253\\\\green151\\\\blue31;\\\\red104\\\\green118\\\\blue135;\\\\red35\\\\green110\\\\blue36;\\\\red0\\\\green0\\\\blue205;\\\\red49\\\\green132\\\\blue149;\\\\red104\\\\green104\\\\blue91;\\\\red0\\\\green0\\\\blue162;\\\\red12\\\\green7\\\\blue255;\\\\red185\\\\green6\\\\blue144;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red220\\\\green220\\\\blue220;\\\\red250\\\\green250\\\\blue255;\\\\red147\\\\green15\\\\blue128;\\\\red255\\\\green0\\\\blue0;\\\\red26\\\\green26\\\\blue166;\\\\red153\\\\green68\\\\blue9;}
+\\\\f0\\\\fs40
+{\\\\cb3\\\\cf4 {\\\\cf27 const} a {\\\\cf27 =} {\\\\cf29 \\"foo\\"};\\\\par
+}
+}"
+`;
+
+exports[`highlight renderer should render javascript 1`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red51\\\\green51\\\\blue51;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red181\\\\green213\\\\blue255;\\\\red198\\\\green219\\\\blue174;\\\\red0\\\\green0\\\\blue0;\\\\red200\\\\green0\\\\blue164;\\\\red191\\\\green191\\\\blue191;\\\\red39\\\\green90\\\\blue94;\\\\red58\\\\green0\\\\blue220;\\\\red69\\\\green0\\\\blue132;\\\\red121\\\\green14\\\\blue173;\\\\red201\\\\green0\\\\blue164;\\\\red223\\\\green0\\\\blue2;\\\\red0\\\\green142\\\\blue0;}
+\\\\f0\\\\fs40
+{\\\\cb2\\\\cf3 settings.set({\\\\cf14 'user.name'}, \\\\{\\\\par
+  first: {\\\\cf14 'Cosmo'},\\\\par
+  last: {\\\\cf14 'Kramer'}\\\\par
+\\\\}).then(() {\\\\cf7 =>} \\\\{\\\\par
+  settings.get({\\\\cf14 'user.name.first'}).then(val {\\\\cf7 =>} \\\\{\\\\par
+    {\\\\cf13 console}.{\\\\cf11 log}(val);\\\\par
+    {\\\\cf15 // => 'Cosmo'}\\\\par
+  \\\\});\\\\par
+\\\\});\\\\par
+\\\\par
+}
+}"
+`;
+
+exports[`highlight renderer should render multiple lines 1`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
+\\\\f0\\\\fs40
+{\\\\cb2\\\\cf3 line1\\\\par
 line2\\\\par
 \\\\par
 \\\\par
 line5\\\\par
+\\\\par
 }
 }"
 `;
 
-exports[`highlightRTFRenderer should render specific styles 1`] = `
+exports[`highlight renderer should render specific styles 1`] = `
 "{\\\\rtf1\\\\ansi\\\\deff0
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
-{\\\\colortbl\\\\red0\\\\green0\\\\blue0;\\\\red0\\\\green106\\\\blue0;\\\\red170\\\\green13\\\\blue145;\\\\red0\\\\green0\\\\blue136;\\\\red102\\\\green102\\\\blue0;\\\\red196\\\\green26\\\\blue22;\\\\red0\\\\green136\\\\blue0;\\\\red28\\\\green0\\\\blue207;\\\\red92\\\\green38\\\\blue153;\\\\red238\\\\green238\\\\blue238;\\\\red186\\\\green238\\\\blue186;\\\\red255\\\\green200\\\\blue189;\\\\red155\\\\green112\\\\blue63;}
+{\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red51\\\\green51\\\\blue51;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red181\\\\green213\\\\blue255;\\\\red198\\\\green219\\\\blue174;\\\\red0\\\\green0\\\\blue0;\\\\red200\\\\green0\\\\blue164;\\\\red191\\\\green191\\\\blue191;\\\\red39\\\\green90\\\\blue94;\\\\red58\\\\green0\\\\blue220;\\\\red69\\\\green0\\\\blue132;\\\\red121\\\\green14\\\\blue173;\\\\red201\\\\green0\\\\blue164;\\\\red223\\\\green0\\\\blue2;\\\\red0\\\\green142\\\\blue0;}
 \\\\f0\\\\fs40
-{\\\\cf0 \\\\par
-{\\\\cf1 // Comment}\\\\par
-{\\\\cf2 function} {\\\\cf8 test}({\\\\cf8 }) \\\\{\\\\}\\\\par
+{\\\\cb2\\\\cf3 \\\\par
+{\\\\cf15 // Comment}\\\\par
+{\\\\cf13 function} test() \\\\{\\\\}\\\\par
+\\\\par
 }
+}"
+`;
+
+exports[`renderRTF should apply complex CSS selectors to HTML 1`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl\\\\red255\\\\green0\\\\blue0;\\\\red0\\\\green0\\\\blue255;}
+\\\\f0\\\\fs40
+{\\\\cf1 test}
+}"
+`;
+
+exports[`renderRTF should apply even more complex CSS selectors to HTML 1`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl\\\\red0\\\\green255\\\\blue0;\\\\red255\\\\green0\\\\blue0;\\\\red0\\\\green0\\\\blue255;}
+\\\\f0\\\\fs40
+\\\\par
+      {\\\\cf0 \\\\par
+        1\\\\par
+        {\\\\cf1 2}\\\\par
+        {\\\\cf2 3}\\\\par
+      }
+}"
+`;
+
+exports[`renderRTF should apply simple CSS selectors to HTML 1`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl\\\\red255\\\\green0\\\\blue0;}
+\\\\f0\\\\fs40
+{\\\\cf0 test}
 }"
 `;
