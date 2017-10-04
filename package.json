@@ -7,7 +7,9 @@
   "homepage": "./",
   "build": {
     "appId": "com.koolesache.CodeStage",
-    "asarUnpack": ["**/*.applescript"],
+    "asarUnpack": [
+      "**/*.applescript"
+    ],
     "directories": {
       "buildResources": "resources"
     }
