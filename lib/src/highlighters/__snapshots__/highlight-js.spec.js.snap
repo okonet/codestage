@@ -181,6 +181,8 @@ Array [
 ]
 `;
 
+exports[`highlight should return HTML with proper class names 1`] = `"<div class=\\"hljs\\"><span class=\\"hljs-keyword\\">async</span> <span class=\\"hljs-function\\"><span class=\\"hljs-keyword\\">function</span> <span class=\\"hljs-title\\">html2rtf</span>(<span class=\\"hljs-params\\"></span>) </span>{}</div>"`;
+
 exports[`loadTheme should load highlight CSS and return a string 1`] = `
 "/*!
  * Agate by Taufik Nurrohman <https://github.com/tovic>
