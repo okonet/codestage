@@ -20,6 +20,7 @@ const Positioner = require('electron-positioner')
 const settings = require('electron-settings')
 const log = require('electron-log')
 const isDev = require('electron-is-dev')
+const NotificationCenter = require('node-notifier/notifiers/notificationcenter')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const configureStore = require('../shared/store/createStore')
@@ -29,6 +30,9 @@ const { WindowSizes } = require('../shared/constants/window')
 const execute = require('./executeAppleScript')
 const { DEFAULT_SETTINGS } = require('./defaults')
 const { HIGHLIGHT_COMPLETE, REDUX_ACTION } = require('../shared/constants/events')
+const { getLanguages } = require('../../lib/src/highlighters/ace')
+
+const notifications = new NotificationCenter({})
 
 const width = 800
 const height = 600
@@ -82,7 +86,7 @@ function registerShortcut(newShortcut, oldShortcut, callback) {
   }
 }
 
-app.on('ready', () => {
+app.on('ready', async () => {
   if (isDev) {
     // eslint-disable-next-line global-require
     require('electron-debug')({
@@ -102,6 +106,8 @@ app.on('ready', () => {
         .catch(err => console.log('An error occurred: ', err))
     })
   }
+
+  const availableLanguages = await getLanguages()
 
   windows.main = new BrowserWindow({
     width,
@@ -209,6 +215,24 @@ app.on('ready', () => {
           store.dispatch(setWindowSize(WindowSizes.MINI))
           store.dispatch(setWindowVisibility(true))
         }
+
+        notifications.notify(
+          {
+            title: 'Code highlighted!',
+            message: `Highlighted using ${res.language}`,
+            closeLabel: 'Close',
+            actions: availableLanguages,
+            dropdownLabel: 'Language'
+          },
+          (err, response, metadata) => {
+            if (err) throw err
+            console.log(metadata)
+
+            if (availableLanguages.includes(metadata.activationValue)) {
+              settings.set('lastUsedLanguage', metadata.activationValue)
+            }
+          }
+        )
       })
       .catch(error => {
         store.dispatch(errorOccured(error.stderr))
@@ -221,8 +245,8 @@ app.on('ready', () => {
     execute(path.resolve(__dirname, 'copy.applescript'))
       .then(onShortcutPressed)
       .catch(error => {
-        store.dispatch(errorOccured(error.stderr))
-      })
+      store.dispatch(errorOccured(error.stderr))
+    })
   }
 
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
