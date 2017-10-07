@@ -4,6 +4,7 @@
 
 require('babel-register')
 require('babel-polyfill')
+require('hazardous') // Needed for ASAR archives?
 const path = require('path')
 const { name } = require('../../package.json')
 const {
@@ -151,12 +152,59 @@ app.on('ready', () => {
     })
   })
 
+  async function onShortcutPressed() {
+    const state = store.getState()
+    const { windowVisible } = state.window
+    const autopaste = settings.get('autopaste', DEFAULT_SETTINGS.autopaste)
+    const res = await codeHighlight(clipboard.readText(), settings).catch(error => {
+      log.error(error)
+      store.dispatch(errorOccured(error))
+    })
+    Object.keys(windows).forEach(win => {
+      windows[win].webContents.send(HIGHLIGHT_COMPLETE, res)
+    })
+    clipboard.write({
+      text: res.stripped,
+      rtf: res.value
+    })
+    // Pasting into the active application
+    if (autopaste) {
+      try {
+        await execute(path.resolve(__dirname, 'paste.applescript'))
+      } catch (error) {
+        log.error(error)
+        store.dispatch(errorOccured(error.stderr))
+      }
+    }
+    if (!windowVisible) {
+      store.dispatch(setWindowSize(WindowSizes.MINI))
+      store.dispatch(setWindowVisibility(true))
+    }
+  }
+
+  async function copyAndHighlight() {
+    // Pasting into the active application
+    // eslint-disable-next-line
+    await execute(path.resolve(__dirname, 'copy.applescript')).catch(error => {
+      store.dispatch(errorOccured(error.stderr))
+    })
+    onShortcutPressed()
+  }
+
   const mainMenu = Menu.buildFromTemplate([
+    {
+      label: 'Highlight from clipboard',
+      accelerator: settings.get('shortcut', DEFAULT_SETTINGS.shortcut),
+      type: 'normal',
+      click: () => {
+        onShortcutPressed()
+      }
+    },
     {
       label: 'Highlight code as...',
       type: 'normal',
       click: () => {
-        store.dispatch(setWindowSize(WindowSizes.LIST))
+        store.dispatch(setWindowSize(WindowSizes.NORMAL))
         store.dispatch(setWindowVisibility(true))
       }
     },
@@ -194,42 +242,13 @@ app.on('ready', () => {
     // Do not cache tray position since it can change over time
     return positioner.calculate('trayCenter', tray.getBounds())
   }
-
-  // Register a shortcut listener.
-  const onShortcutPressed = () => {
-    const state = store.getState()
-    const { windowVisible } = state.window
-    codeHighlight(clipboard.readText(), settings)
-      .then(res => {
-        Object.keys(windows).forEach(win => {
-          windows[win].webContents.send(HIGHLIGHT_COMPLETE, res)
-        })
-
-        if (!windowVisible) {
-          store.dispatch(setWindowSize(WindowSizes.MINI))
-          store.dispatch(setWindowVisibility(true))
-        }
-      })
-      .catch(error => {
-        store.dispatch(errorOccured(error.stderr))
-      })
-  }
-
-  function copyAndHighlight() {
-    // Pasting into the active application
-    // eslint-disable-next-line
-    execute(path.resolve(__dirname, 'copy.applescript'))
-      .then(onShortcutPressed)
-      .catch(error => {
-        store.dispatch(errorOccured(error.stderr))
-      })
-  }
-
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   registerShortcut(shortcut, null, onShortcutPressed)
-  settings.watch('shortcut', (newVal, oldVal) =>
-    registerShortcut(newVal, oldVal, onShortcutPressed)
-  )
+  settings.watch('shortcut', (newVal, oldVal) => {
+    if (newVal) {
+      registerShortcut(newVal, oldVal, onShortcutPressed)
+    }
+  })
   // Watch language change and re-highlight the code
   settings.watch('lastUsedLanguage', language => {
     if (language) {

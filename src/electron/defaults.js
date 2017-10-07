@@ -4,9 +4,9 @@ const DEFAULT_SETTINGS = {
   shortcut: 'Command+Alt+V',
   fontface: 'Courier New',
   fontsize: 64, // 32pt
-  theme: 'default',
-  subset: '',
-  lastUsedLanguage: null,
+  theme: 'chrome',
+  subset: [],
+  lastUsedLanguage: 'javascript',
   autopaste: true
 }
 
