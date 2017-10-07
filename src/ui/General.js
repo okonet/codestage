@@ -26,9 +26,9 @@ const MAC_MODIFIERS = {
 }
 
 const Form = styled.div`
- display: block;
- width: 100%;
- padding: 2rem;
+  display: block;
+  width: 100%;
+  padding: 2rem;
 `
 const FormRow = styled.div`
   display: flex;
@@ -56,7 +56,7 @@ class General extends Component {
   }
 
   resetSettings = () => {
-    settings.deleteAll()
+    settings.setAll(DEFAULT_SETTINGS)
   }
 
   render() {

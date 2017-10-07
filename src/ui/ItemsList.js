@@ -8,9 +8,9 @@ export default class ItemsList extends Component {
     focusable: PropTypes.bool,
     heading: PropTypes.string,
     items: PropTypes.array.isRequired, // eslint-disable-line
-    selectedItem: PropTypes.string.isRequired,
-    onSelect: PropTypes.func,
-    onEnter: PropTypes.func
+    selectedItem: PropTypes.string,
+    onChange: PropTypes.func,
+    onSelect: PropTypes.func
   }
 
   static defaultProps = {
@@ -73,19 +73,19 @@ export default class ItemsList extends Component {
   }
 
   onSelectionChange = index => {
-    const { onSelect } = this.props
+    const { onChange } = this.props
     const { items } = this.state
-    if (typeof onSelect === 'function') {
-      onSelect(items[index])
+    if (typeof onChange === 'function') {
+      onChange(items[index])
     }
   }
 
   onEnterPressed = () => {
-    const { onEnter } = this.props
+    const { onSelect } = this.props
     const { items } = this.state
     const selectedIndex = this.getSelectedIndex()
-    if (typeof onEnter === 'function') {
-      onEnter(items[selectedIndex])
+    if (typeof onSelect === 'function') {
+      onSelect(items[selectedIndex])
     }
   }
 
