@@ -21,6 +21,7 @@ const Positioner = require('electron-positioner')
 const settings = require('electron-settings')
 const log = require('electron-log')
 const isDev = require('electron-is-dev')
+const clipboardWatcher = require('electron-clipboard-watcher')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const configureStore = require('../shared/store/createStore')
@@ -63,6 +64,9 @@ const windows = {}
 
 // We'll need this to prevent from quiting the app by closing Preferences window
 let forceQuit = false
+
+// ClipboardWatcher instance to remove on quit
+let watcher = null
 
 // Hide dock icon before the app starts
 if (isPlatform('macOS')) {
@@ -152,21 +156,34 @@ app.on('ready', () => {
     })
   })
 
+  // Start watching for clipboard changes
+  watcher = clipboardWatcher({
+    // handler for when text data is copied into the highlight
+    // and rehighlight appropriately to display in preferences
+    onTextChange: async text => {
+      console.log(text)
+      const result = await codeHighlight(text, settings).catch(error => {
+        store.dispatch(errorOccured(error.stderr))
+      })
+      Object.keys(windows).forEach(win => {
+        windows[win].webContents.send(HIGHLIGHT_COMPLETE, result)
+      })
+      clipboard.writeRTF(result.value)
+    }
+  })
+
   async function onShortcutPressed() {
     const state = store.getState()
     const { windowVisible } = state.window
     const autopaste = settings.get('autopaste', DEFAULT_SETTINGS.autopaste)
-    const res = await codeHighlight(clipboard.readText(), settings).catch(error => {
+    const result = await codeHighlight(clipboard.readText(), settings).catch(error => {
       log.error(error)
       store.dispatch(errorOccured(error))
     })
     Object.keys(windows).forEach(win => {
-      windows[win].webContents.send(HIGHLIGHT_COMPLETE, res)
+      windows[win].webContents.send(HIGHLIGHT_COMPLETE, result)
     })
-    clipboard.write({
-      text: res.stripped,
-      rtf: res.value
-    })
+    clipboard.writeRTF(result.value)
     // Pasting into the active application
     if (autopaste) {
       try {
@@ -294,4 +311,6 @@ app.on('will-quit', () => {
   })
   // Unregister all shortcuts.
   globalShortcut.unregisterAll()
+  // Remove highlight watcher
+  watcher.stop()
 })
