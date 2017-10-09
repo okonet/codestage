@@ -7,8 +7,7 @@ exports[`highlight renderer should encode curly brackets and back slashes 1`] = 
 \\\\f0\\\\fs40
 {\\\\cb2\\\\cf3 {\\\\b \\\\{}\\\\par
     \\\\\\\\ test\\\\par
-    {\\\\b \\\\}}\\\\par
-}
+    {\\\\b \\\\}}}
 }"
 `;
 
@@ -17,8 +16,7 @@ exports[`highlight renderer should encode double unicode symbols 1`] = `
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
 {\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cb2\\\\cf3 {\\\\u4096} {\\\\u55203} {\\\\u8597} {\\\\u8597}{\\\\u65038} {\\\\u40726}\\\\par
-}
+{\\\\cb2\\\\cf3 {\\\\u4096} {\\\\u55203} {\\\\u8597} {\\\\u8597}{\\\\u65038} {\\\\u40726}}
 }"
 `;
 
@@ -27,8 +25,16 @@ exports[`highlight renderer should encode single unicode symbols 1`] = `
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
 {\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
 \\\\f0\\\\fs40
-{\\\\cb2\\\\cf3 {\\\\u226} {\\\\u8364} {\\\\u164} {\\\\u1082}{\\\\u1072}{\\\\u1078}{\\\\u1076}{\\\\u1086}{\\\\u1081}\\\\par
-}
+{\\\\cb2\\\\cf3 {\\\\u226} {\\\\u8364} {\\\\u164} {\\\\u1082}{\\\\u1072}{\\\\u1078}{\\\\u1076}{\\\\u1086}{\\\\u1081}}
+}"
+`;
+
+exports[`highlight renderer should not add unnecessary new lines 1`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
+\\\\f0\\\\fs40
+{\\\\cb2\\\\cf3 }
 }"
 `;
 
@@ -39,8 +45,7 @@ exports[`highlight renderer should not add white spaces 1`] = `
 \\\\f0\\\\fs40
 {\\\\cb2\\\\cf3 test.then{\\\\b ((}result{\\\\b )} {\\\\b =>} {\\\\b \\\\{}\\\\par
   console.{\\\\cf7 log}{\\\\b (}result.stdout{\\\\b )}\\\\par
-{\\\\b \\\\})}\\\\par
-}
+{\\\\b \\\\})}}
 }"
 `;
 
@@ -49,8 +54,7 @@ exports[`highlight renderer should render a string 1`] = `
 {\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
 {\\\\colortbl\\\\red235\\\\green235\\\\blue235;\\\\red51\\\\green51\\\\blue51;\\\\red232\\\\green232\\\\blue232;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red191\\\\green191\\\\blue191;\\\\red88\\\\green72\\\\blue246;\\\\red88\\\\green92\\\\blue246;\\\\red6\\\\green150\\\\blue14;\\\\red153\\\\green0\\\\blue0;\\\\red60\\\\green76\\\\blue114;\\\\red109\\\\green121\\\\blue222;\\\\red253\\\\green151\\\\blue31;\\\\red104\\\\green118\\\\blue135;\\\\red35\\\\green110\\\\blue36;\\\\red0\\\\green0\\\\blue205;\\\\red49\\\\green132\\\\blue149;\\\\red104\\\\green104\\\\blue91;\\\\red0\\\\green0\\\\blue162;\\\\red12\\\\green7\\\\blue255;\\\\red185\\\\green6\\\\blue144;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red220\\\\green220\\\\blue220;\\\\red250\\\\green250\\\\blue255;\\\\red147\\\\green15\\\\blue128;\\\\red255\\\\green0\\\\blue0;\\\\red26\\\\green26\\\\blue166;\\\\red153\\\\green68\\\\blue9;}
 \\\\f0\\\\fs40
-{\\\\cb3\\\\cf4 {\\\\cf27 const} a {\\\\cf27 =} {\\\\cf29 \\"foo\\"};\\\\par
-}
+{\\\\cb3\\\\cf4 {\\\\cf27 const} a {\\\\cf27 =} {\\\\cf29 \\"foo\\"};}
 }"
 `;
 
@@ -68,7 +72,6 @@ exports[`highlight renderer should render javascript 1`] = `
     {\\\\cf15 // => 'Cosmo'}\\\\par
   \\\\});\\\\par
 \\\\});\\\\par
-\\\\par
 }
 }"
 `;
@@ -83,7 +86,20 @@ line2\\\\par
 \\\\par
 \\\\par
 line5\\\\par
+}
+}"
+`;
+
+exports[`highlight renderer should render multiple lines 2`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl\\\\red232\\\\green232\\\\blue232;\\\\red170\\\\green170\\\\blue170;\\\\red255\\\\green255\\\\blue255;\\\\red0\\\\green0\\\\blue0;\\\\red221\\\\green17\\\\blue68;\\\\red0\\\\green128\\\\blue128;\\\\red0\\\\green153\\\\blue153;\\\\red0\\\\green134\\\\blue179;\\\\red153\\\\green153\\\\blue136;\\\\red0\\\\green153\\\\blue38;\\\\red255\\\\green255\\\\blue204;\\\\red245\\\\green245\\\\blue245;\\\\red181\\\\green213\\\\blue255;\\\\red252\\\\green255\\\\blue0;\\\\red164\\\\green229\\\\blue101;\\\\red0\\\\green0\\\\blue0;\\\\red250\\\\green250\\\\blue255;\\\\red191\\\\green191\\\\blue191;}
+\\\\f0\\\\fs40
+{\\\\cb2\\\\cf3 line1\\\\par
+line2\\\\par
 \\\\par
+\\\\par
+line5\\\\par
 }
 }"
 `;
@@ -96,7 +112,6 @@ exports[`highlight renderer should render specific styles 1`] = `
 {\\\\cb2\\\\cf3 \\\\par
 {\\\\cf15 // Comment}\\\\par
 {\\\\cf13 function} test() \\\\{\\\\}\\\\par
-\\\\par
 }
 }"
 `;
@@ -130,5 +145,14 @@ exports[`renderRTF should apply simple CSS selectors to HTML 1`] = `
 {\\\\colortbl\\\\red255\\\\green0\\\\blue0;}
 \\\\f0\\\\fs40
 {\\\\cf0 test}
+}"
+`;
+
+exports[`renderRTF should not add unnecessary new lines 1`] = `
+"{\\\\rtf1\\\\ansi\\\\deff0
+{\\\\fonttbl{\\\\f0\\\\fmodern\\\\fprq1\\\\fcharset0 Courier New;}}
+{\\\\colortbl}
+\\\\f0\\\\fs40
+
 }"
 `;
