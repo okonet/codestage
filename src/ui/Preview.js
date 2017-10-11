@@ -14,11 +14,7 @@ function Preview({ html, fontface, theme }) {
         {theme}
       </style>
       <pre>
-        <code
-          className="hljs"
-          style={{ fontFamily: fontface }}
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <code style={{ fontFamily: fontface }} dangerouslySetInnerHTML={{ __html: html }} />
       </pre>
     </PreviewContainer>
   )
