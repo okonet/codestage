@@ -189,8 +189,7 @@ app.on('ready', () => {
       try {
         await execute(path.resolve(__dirname, 'paste.applescript'))
       } catch (error) {
-        log.error(error)
-        store.dispatch(errorOccured(error.stderr))
+        log.error(error.stderr)
       }
     }
     if (!windowVisible) {
@@ -199,13 +198,24 @@ app.on('ready', () => {
     }
   }
 
-  async function copyAndHighlight() {
-    // Pasting into the active application
-    // eslint-disable-next-line
-    await execute(path.resolve(__dirname, 'copy.applescript')).catch(error => {
-      store.dispatch(errorOccured(error.stderr))
-    })
-    onShortcutPressed()
+  async function copyToClipboard() {
+    try {
+      await execute(path.resolve(__dirname, 'activate.applescript'))
+      await execute(path.resolve(__dirname, 'copy.applescript'))
+    } catch (error) {
+      log.error(error.stderr)
+    }
+  }
+
+  // Pasting into the active application
+  async function selectAndHighlight() {
+    try {
+      await execute(path.resolve(__dirname, 'activate.applescript'))
+      await execute(path.resolve(__dirname, 'selectall.applescript'))
+      await onShortcutPressed()
+    } catch (error) {
+      log.error(error.stderr)
+    }
   }
 
   const mainMenu = Menu.buildFromTemplate([
@@ -218,9 +228,10 @@ app.on('ready', () => {
       }
     },
     {
-      label: 'Highlight code as...',
+      label: 'Highlight selection as...',
       type: 'normal',
-      click: () => {
+      click: async () => {
+        await copyToClipboard()
         store.dispatch(setWindowSize(WindowSizes.NORMAL))
         store.dispatch(setWindowVisibility(true))
       }
@@ -269,7 +280,7 @@ app.on('ready', () => {
   // Watch language change and re-highlight the code
   settings.watch('lastUsedLanguage', language => {
     if (language) {
-      copyAndHighlight()
+      selectAndHighlight()
     }
   })
   store.subscribe(() => {
