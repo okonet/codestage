@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Box } from 'react-desktop/macOs'
-import './App.css'
+import styled from 'styled-components'
 import ItemsList from './ItemsList'
 import Preview from './Preview'
 
@@ -8,6 +7,29 @@ import Preview from './Preview'
 // https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
 const { remote } = window.require('electron')
 const settings = remote.require('electron-settings')
+
+const Wrapper = styled.section`
+  display: flex;
+  width: 100%;
+`
+
+const SidebarWrapper = styled.aside`
+  flex: 0 0 260px;
+  box-sizing: border-box;
+`
+
+const PreviewWrapper = styled.main`
+  display: flex;
+  flex: 1;
+  padding: 28px;
+  box-sizing: border-box;
+  background-color: rgba(198, 205, 213, 0.85);
+  border-color: rgba(0, 0, 0, 0.125);
+  border-style: solid;
+  border-width: 0 0 0 1px;
+  width: 100%;
+  height: 100%;
+`
 
 class LangChooser extends Component {
   static propTypes = {
@@ -20,7 +42,7 @@ class LangChooser extends Component {
     withPreview: PropTypes.bool
   }
 
-  static defaultProps = {
+  static props = {
     withPreview: false
   }
 
@@ -51,29 +73,23 @@ class LangChooser extends Component {
     const { theme, fontface } = preferences
     const currentTheme = themesList[theme] || { cssText: '' }
     return (
-      <section className="wrapper wrapper_vertical">
-        {withPreview &&
-          <section className="wrapper">
-            <section className="content codeSnippet">
-              <Box label="Code snippet" padding="0px">
-                <Preview html={html} theme={currentTheme.cssText} fontface={fontface} />
-              </Box>
-            </section>
-          </section>}
+      <Wrapper>
+        <SidebarWrapper>
+          <ItemsList
+            focusable
+            heading="Languages"
+            items={languagesList}
+            selectedItem={selectedLanguage}
+            onChange={this.onLangChanged}
+            onSelect={this.onConfirmSelection}
+          />
+        </SidebarWrapper>
 
-        <section className="wrapper">
-          <section className="content">
-            <ItemsList
-              focusable
-              heading="Languages"
-              items={languagesList}
-              selectedItem={selectedLanguage}
-              onChange={this.onLangChanged}
-              onSelect={this.onConfirmSelection}
-            />
-          </section>
-        </section>
-      </section>
+        {withPreview &&
+          <PreviewWrapper>
+            <Preview html={html} theme={currentTheme.cssText} fontface={fontface} />
+          </PreviewWrapper>}
+      </Wrapper>
     )
   }
 }
