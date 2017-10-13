@@ -120,7 +120,11 @@ app.on('ready', () => {
 
   // Close main window on blur
   windows.main.on('blur', () => {
-    store.dispatch(setWindowVisibility(false))
+    const state = store.getState()
+    const { size, windowVisible } = state.window
+    if (windowVisible && size !== WindowSizes.NORMAL) {
+      store.dispatch(setWindowVisibility(false))
+    }
   })
 
   windows.preferences = new BrowserWindow({
