@@ -108,14 +108,17 @@ export default class ItemsList extends Component {
     const selectedIndex = this.getSelectedIndex()
     switch (evt.key) {
       case 'ArrowUp': {
+        evt.preventDefault()
         this.onSelectionChange(Math.max(0, selectedIndex - 1))
         break
       }
       case 'ArrowDown': {
+        evt.preventDefault()
         this.onSelectionChange(Math.min(selectedIndex + 1, items.length - 1))
         break
       }
       case 'Enter': {
+        evt.preventDefault()
         this.onEnterPressed()
         break
       }
