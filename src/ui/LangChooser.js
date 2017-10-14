@@ -42,7 +42,7 @@ class LangChooser extends Component {
     withPreview: PropTypes.bool
   }
 
-  static props = {
+  static defaultProps = {
     withPreview: false
   }
 
