@@ -4,6 +4,7 @@
 
 require('babel-register')
 require('babel-polyfill')
+require('hazardous') // Needed for ASAR archives?
 const path = require('path')
 const { name } = require('../../package.json')
 const {
@@ -20,6 +21,7 @@ const Positioner = require('electron-positioner')
 const settings = require('electron-settings')
 const log = require('electron-log')
 const isDev = require('electron-is-dev')
+const clipboardWatcher = require('electron-clipboard-watcher')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
 const configureStore = require('../shared/store/createStore')
@@ -62,6 +64,9 @@ const windows = {}
 
 // We'll need this to prevent from quiting the app by closing Preferences window
 let forceQuit = false
+
+// ClipboardWatcher instance to remove on quit
+let watcher = null
 
 // Hide dock icon before the app starts
 if (isPlatform('macOS')) {
@@ -115,7 +120,11 @@ app.on('ready', () => {
 
   // Close main window on blur
   windows.main.on('blur', () => {
-    store.dispatch(setWindowVisibility(false))
+    const state = store.getState()
+    const { size, windowVisible } = state.window
+    if (windowVisible && size !== WindowSizes.NORMAL) {
+      store.dispatch(setWindowVisibility(false))
+    }
   })
 
   windows.preferences = new BrowserWindow({
@@ -151,12 +160,83 @@ app.on('ready', () => {
     })
   })
 
+  // Start watching for clipboard changes
+  watcher = clipboardWatcher({
+    // handler for when text data is copied into the highlight
+    // and rehighlight appropriately to display in preferences
+    onTextChange: async text => {
+      console.log(text)
+      const result = await codeHighlight(text, settings).catch(error => {
+        store.dispatch(errorOccured(error.stderr))
+      })
+      Object.keys(windows).forEach(win => {
+        windows[win].webContents.send(HIGHLIGHT_COMPLETE, result)
+      })
+      clipboard.writeRTF(result.value)
+    }
+  })
+
+  async function onShortcutPressed() {
+    const state = store.getState()
+    const { windowVisible } = state.window
+    const autopaste = settings.get('autopaste', DEFAULT_SETTINGS.autopaste)
+    const result = await codeHighlight(clipboard.readText(), settings).catch(error => {
+      log.error(error)
+      store.dispatch(errorOccured(error))
+    })
+    Object.keys(windows).forEach(win => {
+      windows[win].webContents.send(HIGHLIGHT_COMPLETE, result)
+    })
+    clipboard.writeRTF(result.value)
+    // Pasting into the active application
+    if (autopaste) {
+      try {
+        await execute(path.resolve(__dirname, 'paste.applescript'))
+      } catch (error) {
+        log.error(error.stderr)
+      }
+    }
+    if (!windowVisible) {
+      store.dispatch(setWindowSize(WindowSizes.MINI))
+      store.dispatch(setWindowVisibility(true))
+    }
+  }
+
+  async function copyToClipboard() {
+    try {
+      await execute(path.resolve(__dirname, 'activate.applescript'))
+      await execute(path.resolve(__dirname, 'copy.applescript'))
+    } catch (error) {
+      log.error(error.stderr)
+    }
+  }
+
+  // Pasting into the active application
+  async function selectAndHighlight() {
+    try {
+      await execute(path.resolve(__dirname, 'activate.applescript'))
+      await execute(path.resolve(__dirname, 'selectall.applescript'))
+      await onShortcutPressed()
+    } catch (error) {
+      log.error(error.stderr)
+    }
+  }
+
   const mainMenu = Menu.buildFromTemplate([
     {
-      label: 'Highlight code as...',
+      label: 'Highlight from clipboard',
+      accelerator: settings.get('shortcut', DEFAULT_SETTINGS.shortcut),
       type: 'normal',
       click: () => {
-        store.dispatch(setWindowSize(WindowSizes.LIST))
+        onShortcutPressed()
+      }
+    },
+    {
+      label: 'Highlight selection as...',
+      type: 'normal',
+      click: async () => {
+        await copyToClipboard()
+        store.dispatch(setWindowSize(WindowSizes.NORMAL))
         store.dispatch(setWindowVisibility(true))
       }
     },
@@ -194,46 +274,17 @@ app.on('ready', () => {
     // Do not cache tray position since it can change over time
     return positioner.calculate('trayCenter', tray.getBounds())
   }
-
-  // Register a shortcut listener.
-  const onShortcutPressed = () => {
-    const state = store.getState()
-    const { windowVisible } = state.window
-    codeHighlight(clipboard.readText(), settings)
-      .then(res => {
-        Object.keys(windows).forEach(win => {
-          windows[win].webContents.send(HIGHLIGHT_COMPLETE, res)
-        })
-
-        if (!windowVisible) {
-          store.dispatch(setWindowSize(WindowSizes.MINI))
-          store.dispatch(setWindowVisibility(true))
-        }
-      })
-      .catch(error => {
-        store.dispatch(errorOccured(error.stderr))
-      })
-  }
-
-  function copyAndHighlight() {
-    // Pasting into the active application
-    // eslint-disable-next-line
-    execute(path.resolve(__dirname, 'copy.applescript'))
-      .then(onShortcutPressed)
-      .catch(error => {
-        store.dispatch(errorOccured(error.stderr))
-      })
-  }
-
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   registerShortcut(shortcut, null, onShortcutPressed)
-  settings.watch('shortcut', (newVal, oldVal) =>
-    registerShortcut(newVal, oldVal, onShortcutPressed)
-  )
+  settings.watch('shortcut', (newVal, oldVal) => {
+    if (newVal) {
+      registerShortcut(newVal, oldVal, onShortcutPressed)
+    }
+  })
   // Watch language change and re-highlight the code
   settings.watch('lastUsedLanguage', language => {
     if (language) {
-      copyAndHighlight()
+      selectAndHighlight()
     }
   })
   store.subscribe(() => {
@@ -275,4 +326,6 @@ app.on('will-quit', () => {
   })
   // Unregister all shortcuts.
   globalShortcut.unregisterAll()
+  // Remove highlight watcher
+  watcher.stop()
 })
