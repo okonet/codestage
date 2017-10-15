@@ -59,9 +59,10 @@ ipcRenderer.on(REDUX_ACTION, (event, payload) => {
   store.dispatch(payload)
 })
 
-ipcRenderer.on(HIGHLIGHT_COMPLETE, (event, { html, language, relevance }) => {
+ipcRenderer.on(HIGHLIGHT_COMPLETE, (event, { text, html, language, relevance }) => {
   sharedState = {
     ...sharedState,
+    text,
     html,
     language,
     relevance

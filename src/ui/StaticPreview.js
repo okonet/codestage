@@ -13,7 +13,7 @@ const PreviewContainer = styled.div`
   overflow: scroll;
 `
 
-function Preview({ html, fontface, theme }) {
+function StaticPreview({ html, fontface, theme }) {
   return (
     <PreviewContainer>
       <style>
@@ -26,10 +26,10 @@ function Preview({ html, fontface, theme }) {
   )
 }
 
-Preview.propTypes = {
+StaticPreview.propTypes = {
   html: PropTypes.string.isRequired,
   fontface: PropTypes.string,
   theme: PropTypes.string.isRequired
 }
 
-export default Preview
+export default StaticPreview

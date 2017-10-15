@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Box } from 'react-desktop/macOs'
 import './App.css'
 import ItemsList from './ItemsList'
-import Preview from './Preview'
+import Preview from './StaticPreview'
 
 // Working around electron imports from CRA app:
 // https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c

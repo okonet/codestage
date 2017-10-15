@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import styled from 'styled-components'
 import ItemsList from './ItemsList'
-import Preview from './Preview'
+import Preview from './DynamicPreview'
 
 // Working around electron imports from CRA app:
 // https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
@@ -68,10 +68,11 @@ class LangChooser extends Component {
   }
 
   render() {
-    const { html, preferences, themesList, languagesList, withPreview } = this.props
+    const { text, html, language, preferences, themesList, languagesList, withPreview } = this.props
     const { selectedLanguage } = this.state
     const { theme, fontface } = preferences
     const currentTheme = themesList[theme] || { cssText: '' }
+    console.log(text)
     return (
       <Wrapper>
         <SidebarWrapper>
@@ -87,7 +88,7 @@ class LangChooser extends Component {
 
         {withPreview &&
           <PreviewWrapper>
-            <Preview html={html} theme={currentTheme.cssText} fontface={fontface} />
+            <Preview value={text} theme={theme} language={selectedLanguage} fontface={fontface} />
           </PreviewWrapper>}
       </Wrapper>
     )
