@@ -170,12 +170,11 @@ app.on('ready', () => {
         store.dispatch(errorOccured(error.stderr))
       })
       Object.keys(windows).forEach(win => {
-        windows[win].webContents.send(HIGHLIGHT_COMPLETE, Object.assign({},
-          result,
-          {
+        windows[win].webContents.send(
+          HIGHLIGHT_COMPLETE,
+          Object.assign({}, result, {
             text
-          }
-          )
+          })
         )
       })
       clipboard.writeRTF(result.value)

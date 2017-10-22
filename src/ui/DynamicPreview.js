@@ -1,8 +1,6 @@
 import React, { PropTypes } from 'react'
 import styled from 'styled-components'
-// import ace from 'brace'
-import AceEditor from 'react-ace';
-import { requireAceModule } from '../../lib/src/highlighters/ace'
+import AceEditor from 'react-ace'
 
 const PreviewContainer = styled.div`
   align-self: center;
@@ -17,23 +15,19 @@ const PreviewContainer = styled.div`
 `
 
 function DynamicPreview({ value, fontface, language, theme }) {
-  console.log(value, fontface, language, theme)
-  require(`brace/mode/${language}`)
-  require(`brace/theme/${theme}`)
+  require(`brace/mode/${language}`) // eslint-disable-line
+  require(`brace/theme/${theme}`) // eslint-disable-line
   return (
     <PreviewContainer>
-      <AceEditor
-        mode={language}
-        theme={theme}
-        value={value}
-      />
+      <AceEditor mode={language} theme={theme} value={value} style={{ fontFamily: fontface }} />
     </PreviewContainer>
   )
 }
 
 DynamicPreview.propTypes = {
-  html: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   fontface: PropTypes.string,
+  language: PropTypes.string.isRequired,
   theme: PropTypes.string.isRequired
 }
 

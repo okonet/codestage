@@ -33,7 +33,7 @@ const PreviewWrapper = styled.main`
 
 class LangChooser extends Component {
   static propTypes = {
-    html: PropTypes.string,
+    text: PropTypes.string,
     language: PropTypes.string,
     preferences: PropTypes.object, // eslint-disable-line
     languagesList: PropTypes.arrayOf(PropTypes.string),
@@ -68,16 +68,14 @@ class LangChooser extends Component {
   }
 
   render() {
-    const { text, html, language, preferences, themesList, languagesList, withPreview } = this.props
+    const { text, preferences, languagesList, withPreview } = this.props
     const { selectedLanguage } = this.state
     const { theme, fontface } = preferences
-    const currentTheme = themesList[theme] || { cssText: '' }
-    console.log(text)
     return (
       <Wrapper>
         <SidebarWrapper>
           <ItemsList
-            focusable
+            focusable={false}
             heading="Languages"
             items={languagesList}
             selectedItem={selectedLanguage}
@@ -86,10 +84,11 @@ class LangChooser extends Component {
           />
         </SidebarWrapper>
 
-        {withPreview &&
+        {withPreview && (
           <PreviewWrapper>
             <Preview value={text} theme={theme} language={selectedLanguage} fontface={fontface} />
-          </PreviewWrapper>}
+          </PreviewWrapper>
+        )}
       </Wrapper>
     )
   }

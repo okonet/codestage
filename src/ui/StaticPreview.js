@@ -16,9 +16,7 @@ const PreviewContainer = styled.div`
 function StaticPreview({ html, fontface, theme }) {
   return (
     <PreviewContainer>
-      <style>
-        {theme}
-      </style>
+      <style>{theme}</style>
       <pre style={{ fontFamily: fontface, whiteSpace: 'pre-wrap' }}>
         <code dangerouslySetInnerHTML={{ __html: html }} />
       </pre>
