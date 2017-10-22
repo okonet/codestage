@@ -92,9 +92,9 @@
     "git-exec-and-restage": "^1.0.1",
     "husky": "^0.14.3",
     "jest": "^21.2.1",
-    "lint-staged": "^4.0.3",
-    "neutrino": "^7.0.1",
-    "neutrino-preset-react": "^7.0.1",
+    "lint-staged": "^4.3.0",
+    "neutrino": "^7.2.1",
+    "neutrino-preset-react": "^7.2.1",
     "prettier": "^1.5.3"
   },
   "eslintConfig": {
