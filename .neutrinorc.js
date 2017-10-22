@@ -1,18 +1,6 @@
 module.exports = {
-  use: [
-    ["neutrino-preset-react", {
-      babel: {
-        presets: [
-          ['babel-preset-env', {
-            targets: {
-              browsers: [
-                'Chrome 59',
-              ]
-            }
-          }]
-        ]
-      }
-    }],
+  "use": [
+    "neutrino-preset-react",
     (neutrino) => neutrino.config.target('electron-renderer')
   ]
 }
