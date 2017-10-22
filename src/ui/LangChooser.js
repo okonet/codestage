@@ -74,7 +74,7 @@ class LangChooser extends Component {
       <Wrapper>
         <SidebarWrapper>
           <ItemsList
-            focusable={false}
+            focusable
             heading="Languages"
             items={languagesList}
             selectedItem={selectedLanguage}

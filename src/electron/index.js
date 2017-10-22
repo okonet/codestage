@@ -160,59 +160,42 @@ app.on('ready', () => {
     })
   })
 
-  // Start watching for clipboard changes
-  watcher = clipboardWatcher({
-    // handler for when text data is copied into the highlight
-    // and rehighlight appropriately to display in preferences
-    onTextChange: async text => {
-      console.log(text)
-      const result = await codeHighlight(text, settings).catch(error => {
-        store.dispatch(errorOccured(error.stderr))
-      })
-      Object.keys(windows).forEach(win => {
-        windows[win].webContents.send(
-          HIGHLIGHT_COMPLETE,
-          Object.assign({}, result, {
-            text
-          })
-        )
-      })
-      clipboard.writeRTF(result.value)
-    }
-  })
+  function handleError(error) {
+    log.error(error)
+    store.dispatch(errorOccured(error))
+  }
 
-  async function onShortcutPressed() {
-    const state = store.getState()
-    const { windowVisible } = state.window
+  async function pasteToActiveApp() {
     const autopaste = settings.get('autopaste', DEFAULT_SETTINGS.autopaste)
-    const result = await codeHighlight(clipboard.readText(), settings).catch(error => {
-      log.error(error)
-      store.dispatch(errorOccured(error))
-    })
-    Object.keys(windows).forEach(win => {
-      windows[win].webContents.send(HIGHLIGHT_COMPLETE, result)
-    })
-    clipboard.writeRTF(result.value)
     // Pasting into the active application
     if (autopaste) {
       try {
         await execute(path.resolve(__dirname, 'paste.applescript'))
       } catch (error) {
-        log.error(error.stderr)
+        handleError(error)
       }
-    }
-    if (!windowVisible) {
-      store.dispatch(setWindowSize(WindowSizes.MINI))
-      store.dispatch(setWindowVisibility(true))
     }
   }
 
-  async function copyToClipboard() {
-    try {
-      await execute(path.resolve(__dirname, 'activate.applescript'))
-      await execute(path.resolve(__dirname, 'copy.applescript'))
-    } catch (error) {
-      log.error(error.stderr)
+  async function highlightText(text) {
+    const result = await codeHighlight(text, settings).catch(handleError)
+    Object.keys(windows).forEach(win => {
+      windows[win].webContents.send(
+        HIGHLIGHT_COMPLETE,
+        Object.assign({}, result, {
+          text
+        })
+      )
+    })
+    clipboard.writeRTF(result.value)
+  }
+
+  async function onShortcutPressed() {
+    const state = store.getState()
+    const { windowVisible } = state.window
+    if (!windowVisible) {
+      store.dispatch(setWindowSize(WindowSizes.NORMAL))
+      store.dispatch(setWindowVisibility(true))
     }
   }
 
@@ -221,26 +204,36 @@ app.on('ready', () => {
     try {
       await execute(path.resolve(__dirname, 'activate.applescript'))
       await execute(path.resolve(__dirname, 'selectall.applescript'))
-      await onShortcutPressed()
+      await highlightText(clipboard.readText())
+      await pasteToActiveApp()
     } catch (error) {
-      log.error(error.stderr)
+      handleError(error)
     }
   }
+
+  // Watch for clipboard changes
+  watcher = clipboardWatcher({
+    // When clipboard content changes rehighlight it and
+    // put RTF into RTF part of clipboard ready to use in Keynote.app
+    onTextChange: async text => {
+      await highlightText(text)
+    }
+  })
 
   const mainMenu = Menu.buildFromTemplate([
     {
       label: 'Highlight from clipboard',
-      accelerator: settings.get('shortcut', DEFAULT_SETTINGS.shortcut),
       type: 'normal',
-      click: () => {
-        onShortcutPressed()
+      click: async () => {
+        await highlightText(clipboard.readText())
+        await pasteToActiveApp()
       }
     },
     {
-      label: 'Highlight selection as...',
+      label: 'Open CodeStage...',
       type: 'normal',
-      click: async () => {
-        await copyToClipboard()
+      accelerator: settings.get('shortcut', DEFAULT_SETTINGS.shortcut),
+      click: () => {
         store.dispatch(setWindowSize(WindowSizes.NORMAL))
         store.dispatch(setWindowVisibility(true))
       }
@@ -303,7 +296,7 @@ app.on('ready', () => {
           'Please add codestage to assistive access!'
         )
       } else {
-        dialog.showErrorBox('Unexpected error occured', error)
+        console.error('Unexpected error occured', error)
       }
       store.dispatch(resetErrors())
     }
