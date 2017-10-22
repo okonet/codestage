@@ -10,25 +10,24 @@ const settings = remote.require('electron-settings')
 
 const Wrapper = styled.section`
   display: flex;
-  width: 100%;
+  flex: 1;
 `
 
 const SidebarWrapper = styled.aside`
-  flex: 0 0 260px;
+  flex: 0 0 230px;
   box-sizing: border-box;
 `
 
 const PreviewWrapper = styled.main`
   display: flex;
-  flex: 1;
-  padding: 28px;
+  flex: 0 1 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   box-sizing: border-box;
   background-color: rgba(198, 205, 213, 0.85);
-  border-color: rgba(0, 0, 0, 0.125);
-  border-style: solid;
+  border: 0 solid rgba(0, 0, 0, 0.125);
   border-width: 0 0 0 1px;
-  width: 100%;
-  height: 100%;
 `
 
 class LangChooser extends Component {
@@ -46,10 +45,10 @@ class LangChooser extends Component {
     withPreview: false
   }
 
-  constructor(props) {
+  constructor({ language, preferences, languagesList }) {
     super()
     this.state = {
-      selectedLanguage: props.language
+      selectedLanguage: language || preferences.lastUsedLanguage || languagesList[0]
     }
   }
 
