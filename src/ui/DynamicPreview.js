@@ -19,7 +19,13 @@ function DynamicPreview({ value, fontface, language, theme }) {
   require(`brace/theme/${theme}`) // eslint-disable-line
   return (
     <PreviewContainer>
-      <AceEditor mode={language} theme={theme} value={value} style={{ fontFamily: fontface }} />
+      <AceEditor
+        mode={language}
+        theme={theme}
+        value={value}
+        showGutter={false}
+        style={{ fontFamily: fontface }}
+      />
     </PreviewContainer>
   )
 }
