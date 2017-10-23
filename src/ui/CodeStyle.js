@@ -46,7 +46,7 @@ class CodeStyle extends Component {
         <section className="wrapper">
           <section className="content codeSnippet">
             <Box label="Code snippet" padding="0px">
-              <Preview html={html} theme={currentTheme.cssText} fontface={fontface} />
+              <Preview html={html} theme={currentTheme} fontface={fontface} />
             </Box>
           </section>
         </section>

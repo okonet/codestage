@@ -7,6 +7,7 @@ import { setWindowSize, setWindowVisibility } from '../shared/actions/window'
 import { WindowSizes } from '../shared/constants/window'
 import Baloon from './Baloon'
 import LangChooser from './LangChooser'
+import Editor from './Editor'
 
 const TransparentWindow = styled.div`
   display: flex;
@@ -34,11 +35,12 @@ function Main({ size, windowVisible, onClick, closeWindow, ...rest }) {
     >
       {size === WindowSizes.MINI && <BaloonWithTimer onTimeout={closeWindow} {...rest} />}
       {size === WindowSizes.LIST && <LangChooser {...rest} onConfirmSelection={closeWindow} />}
-      {size === WindowSizes.NORMAL &&
+      {size === WindowSizes.NORMAL && (
         <Window padding="0px" style={{ background: 'none' }}>
           <TitleBar controls onCloseClick={closeWindow} />
-          <LangChooser {...rest} onConfirmSelection={closeWindow} withPreview />
-        </Window>}
+          <Editor {...rest} onConfirmSelection={closeWindow} />
+        </Window>
+      )}
     </TransparentWindow>
   )
 }

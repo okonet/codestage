@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux'
-import window from './window'
+import editor from './editor'
 import errors from './errors'
+import window from './window'
 
 export default function getRootReducer(scope = 'main') {
   let reducers = {
+    editor,
     errors,
     window
   }
