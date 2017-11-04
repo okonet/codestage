@@ -11,10 +11,12 @@ module.exports = async function codeHighlight(input, settings) {
   const fontsize = settings.get('fontsize', DEFAULT_SETTINGS.fontsize)
   const theme = settings.get('theme', DEFAULT_SETTINGS.theme)
   const lastUsedLanguage = settings.get('lastUsedLanguage', DEFAULT_SETTINGS.lastUsedLanguage)
+  const lineNumbers = settings.get('lineNumbers', DEFAULT_SETTINGS.lineNumbers)
   const options = {
     fontface,
     fontsize,
-    theme
+    theme,
+    lineNumbers
   }
   const stripped = stripIndent(input)
   const result = await rtfRenderer

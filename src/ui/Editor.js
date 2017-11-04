@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Button, SegmentedControl, SegmentedControlItem } from 'react-desktop/macOs'
+import { Button, Checkbox, SegmentedControl, SegmentedControlItem } from 'react-desktop/macOs'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import ItemsList from './ItemsList'
@@ -84,10 +84,14 @@ class Editor extends Component {
     }
   }
 
+  onLineNumbersSettingChanged = event => {
+    settings.set('lineNumbers', event.target.checked)
+  }
+
   render() {
     const { mode, html, text, preferences, languagesList, themesList, changeMode } = this.props
     const { selectedLanguage } = this.state
-    const { theme, fontface } = preferences
+    const { theme, fontface, lineNumbers } = preferences
 
     if (mode === EditorModes.THEME) {
       return (
@@ -149,6 +153,11 @@ class Editor extends Component {
               >
                 Change theme...
               </Button>
+              <Checkbox
+                label="Display line numbers"
+                onChange={this.onLineNumbersSettingChanged}
+                defaultChecked={lineNumbers}
+              />
             </SegmentedControlItem>
           </SegmentedControl>
         </SidebarWrapper>
@@ -160,6 +169,7 @@ class Editor extends Component {
               theme={themesList[theme]}
               language={selectedLanguage}
               fontface={fontface}
+              showGutter={lineNumbers}
             />
           </PreviewContainer>
         </PreviewWrapper>

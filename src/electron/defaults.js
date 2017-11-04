@@ -7,6 +7,7 @@ const DEFAULT_SETTINGS = {
   theme: 'chrome',
   subset: [],
   lastUsedLanguage: 'javascript',
+  lineNumbers: false,
   autopaste: true
 }
 

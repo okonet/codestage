@@ -187,7 +187,12 @@ app.on('ready', () => {
         })
       )
     })
-    clipboard.writeRTF(result.value)
+    // Explictely write to `text` of clipboard the same value as before
+    // in order not to trigger the clipboard watcher
+    clipboard.write({
+      text,
+      rtf: result.value
+    })
     const state = store.getState()
     const { windowVisible } = state.window
     if (!windowVisible) {
@@ -222,6 +227,7 @@ app.on('ready', () => {
     // When clipboard content changes rehighlight it and
     // put RTF into RTF part of clipboard ready to use in Keynote.app
     onTextChange: async text => {
+      console.log(text)
       await highlightText(text)
     }
   })
