@@ -285,12 +285,10 @@ app.on('ready', () => {
       registerShortcut(newVal, oldVal, onShortcutPressed)
     }
   })
-  // Watch language change and re-highlight the code
-  settings.watch('lastUsedLanguage', language => {
-    if (language) {
-      selectAndHighlight()
-    }
-  })
+  // Watch language and theme change and re-highlight the code
+  settings.watch('lastUsedLanguage', selectAndHighlight)
+  settings.watch('theme', selectAndHighlight)
+
   store.subscribe(() => {
     const state = store.getState()
     const { size, windowVisible } = state.window
