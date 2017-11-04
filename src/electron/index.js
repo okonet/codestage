@@ -188,6 +188,12 @@ app.on('ready', () => {
       )
     })
     clipboard.writeRTF(result.value)
+    const state = store.getState()
+    const { windowVisible } = state.window
+    if (!windowVisible) {
+      store.dispatch(setWindowSize(WindowSizes.MINI))
+      store.dispatch(setWindowVisibility(true))
+    }
   }
 
   async function onShortcutPressed() {
