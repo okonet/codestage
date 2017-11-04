@@ -73,7 +73,7 @@ class Editor extends Component {
 
   onThemeChanged = theme => {
     settings.set('theme', theme)
-    this.props.changeMode(EditorModes.LANGUAGE)
+    this.props.changeMode(EditorModes.STYLE)
   }
 
   onConfirmSelection = selection => {
