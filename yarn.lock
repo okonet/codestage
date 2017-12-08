@@ -4340,10 +4340,6 @@ hoek@4.x.x:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.0.tgz#72d9d0754f7fe25ca2d01ad8f8f9a9449a89526d"
 
-hoist-non-react-statics@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
-
 hoist-non-react-statics@^2.2.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
@@ -7695,10 +7691,6 @@ react-desktop@^0.3.2:
   dependencies:
     radium "^0.19.5"
 
-react-display-name@^0.2.0:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/react-display-name/-/react-display-name-0.2.3.tgz#f50204d430c9ca819bc0bade0306e9175d8d1987"
-
 react-dom@^15.4.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.6.2.tgz#41cfadf693b757faf2708443a1d1fd5a02bef730"
@@ -7707,14 +7699,6 @@ react-dom@^15.4.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
-
-react-focus-onkeydown@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-focus-onkeydown/-/react-focus-onkeydown-1.2.0.tgz#edbffc81a2f54dc507fd810fb575ca42326462c4"
-  dependencies:
-    hoist-non-react-statics "^1.2.0"
-    prop-types "^15.5.10"
-    react-display-name "^0.2.0"
 
 react-frame-component@^2.0.0:
   version "2.0.0"
