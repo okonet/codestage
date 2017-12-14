@@ -55,6 +55,7 @@
     "electron-settings": "^3.0.14",
     "emphasize": "^1.2.0",
     "execa": "^0.6.0",
+    "grid-styled": "^2.0.0-11",
     "hazardous": "^0.2.3",
     "highlight-rtf-renderer": "file:./lib",
     "key-event-to-string": "^1.1.1",

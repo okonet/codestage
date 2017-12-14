@@ -1,11 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 import styled from 'styled-components'
+import { Box } from 'grid-styled'
 import Preview from './StaticPreview'
 import { ThemePropType } from '../shared/constants/editor'
 
-const Wrapper = styled.section`
-  display: flex;
-  flex: 1;
+const Wrapper = styled(Box)`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 `
 
 const PreviewItem = styled.button`
@@ -55,7 +61,7 @@ class ThemePicker extends Component {
     const { value, language, fontface, themesList } = this.props
     const { selectedTheme } = this.state
     return (
-      <Wrapper>
+      <Wrapper p={2}>
         {Object.keys(themesList).map(theme => (
           <PreviewItem
             key={theme}
