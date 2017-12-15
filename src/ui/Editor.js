@@ -51,10 +51,13 @@ class Editor extends Component {
     changeMode: PropTypes.func
   }
 
-  constructor({ language, preferences, languagesList }) {
+  constructor({ language, preferences, languagesList, theme, themesList, ...rest }) {
     super()
+    console.log(rest)
     this.state = {
-      selectedLanguage: language || preferences.lastUsedLanguage || languagesList[0]
+      selectedLanguage: language || preferences.lastUsedLanguage || languagesList[0],
+      theme: theme || preferences.theme || themesList[0],
+      lineNumbers: preferences.lineNumbers
     }
   }
 
@@ -65,20 +68,23 @@ class Editor extends Component {
   }
 
   onThemeChanged = theme => {
-    settings.set('theme', theme)
+    this.setState({ theme })
     this.props.changeMode(EditorModes.STYLE)
   }
+
   onConfirmSelection = () => {
     const { onConfirmSelection } = this.props
-    const { selectedLanguage } = this.state
+    const { lineNumbers, selectedLanguage, theme } = this.state
     if (typeof onConfirmSelection === 'function') {
       settings.set('lastUsedLanguage', selectedLanguage)
+      settings.set('theme', theme)
+      settings.set('lineNumbers', lineNumbers)
       onConfirmSelection(selectedLanguage)
     }
   }
 
   onLineNumbersSettingChanged = event => {
-    settings.set('lineNumbers', event.target.checked)
+    this.setState({ lineNumbers: event.target.checked })
   }
 
   render() {
@@ -92,8 +98,8 @@ class Editor extends Component {
       themesList,
       changeMode
     } = this.props
-    const { selectedLanguage } = this.state
-    const { theme, fontface, lineNumbers } = preferences
+    const { selectedLanguage, theme, lineNumbers } = this.state
+    const { fontface } = preferences
 
     if (mode === EditorModes.THEME) {
       return (

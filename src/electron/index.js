@@ -185,8 +185,10 @@ app.on('ready', async () => {
 
     notifications.notify(
       {
-        title: 'Code highlighted!',
-        message: `Highlighted using ${result.language}`,
+        title: `Highlighted as ${result.language}`,
+        message: `Switch to Keynote and Paste from clipboard...
+Language: ${result.language}
+Theme: ${result.theme}`,
         closeLabel: 'Close',
         actions: OPEN_ACTION_VALUE
       },
@@ -286,6 +288,8 @@ app.on('ready', async () => {
   // Watch language and theme change and re-highlight the code
   settings.watch('lastUsedLanguage', selectAndHighlight)
   settings.watch('theme', selectAndHighlight)
+  settings.watch('lineNumbers', selectAndHighlight)
+  settings.watch('fontface', selectAndHighlight)
 
   store.subscribe(() => {
     const state = store.getState()
