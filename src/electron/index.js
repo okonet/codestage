@@ -30,7 +30,6 @@ const { WindowSizes } = require('../shared/constants/window')
 const execute = require('./executeAppleScript')
 const { DEFAULT_SETTINGS } = require('./defaults')
 const { HIGHLIGHT_COMPLETE, REDUX_ACTION } = require('../shared/constants/events')
-const { getLanguages } = require('../../lib/src/highlighters/ace')
 
 const notifications = new NotificationCenter({})
 
@@ -106,8 +105,6 @@ app.on('ready', async () => {
         .catch(err => console.log('An error occurred: ', err))
     })
   }
-
-  const availableLanguages = await getLanguages()
 
   windows.main = new BrowserWindow({
     width,
@@ -221,15 +218,14 @@ app.on('ready', async () => {
             title: 'Code highlighted!',
             message: `Highlighted using ${res.language}`,
             closeLabel: 'Close',
-            actions: availableLanguages,
-            dropdownLabel: 'Language'
+            actions: 'Language'
           },
           (err, response, metadata) => {
-            if (err) throw err
-            console.log(metadata)
+            if (err) store.dialog(errorOccured(err))
 
-            if (availableLanguages.includes(metadata.activationValue)) {
-              settings.set('lastUsedLanguage', metadata.activationValue)
+            if (metadata.activationValue === 'Change language') {
+              store.dispatch(setWindowVisibility(true))
+              store.dispatch(setWindowSize(WindowSizes.NORMAL))
             }
           }
         )
