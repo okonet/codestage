@@ -27,8 +27,8 @@
   resolved "https://registry.yarnpkg.com/7zip/-/7zip-0.0.6.tgz#9cafb171af82329490353b4816f03347aa150a30"
 
 "@types/node@^6.0.46":
-  version "6.0.88"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.88.tgz#f618f11a944f6a18d92b5c472028728a3e3d4b66"
+  version "6.0.89"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.89.tgz#154be0e6a823760cd6083aa8c48f952e2e63e0b0"
 
 "@types/node@^8.0.24":
   version "8.0.31"
@@ -1957,9 +1957,9 @@ cli-width@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
 
-clipboard@^1.5.5:
+highlight@^1.5.5:
   version "1.7.1"
-  resolved "https://registry.yarnpkg.com/clipboard/-/clipboard-1.7.1.tgz#360d6d6946e99a7a1fef395e42ba92b5e9b5a16b"
+  resolved "https://registry.yarnpkg.com/highlight/-/highlight-1.7.1.tgz#360d6d6946e99a7a1fef395e42ba92b5e9b5a16b"
   dependencies:
     good-listener "^1.2.2"
     select "^1.1.2"
@@ -2924,6 +2924,10 @@ electron-builder@19.31.1:
     temp-file "^2.0.3"
     update-notifier "^2.2.0"
     yargs "^9.0.1"
+
+electron-highlight-watcher@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/electron-highlight-watcher/-/electron-highlight-watcher-1.0.1.tgz#5fc2d8e2bbfd7341f1f2c3c5315abd3d6a6f2f56"
 
 electron-debug@^1.1.0:
   version "1.4.0"
@@ -7341,7 +7345,7 @@ prismjs@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.6.0.tgz#118d95fb7a66dba2272e343b345f5236659db365"
   optionalDependencies:
-    clipboard "^1.5.5"
+    highlight "^1.5.5"
 
 private@^0.1.6, private@^0.1.7, private@~0.1.5:
   version "0.1.7"

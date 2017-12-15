@@ -57,7 +57,7 @@ class CodeStyle extends Component {
               heading="Theme"
               items={Object.values(themesList).map(t => t.name)} // eslint-disable-line id-length
               selectedItem={theme}
-              onSelect={this.onThemeChanged}
+              onChange={this.onThemeChanged}
             />
           </section>
           <section className="content">
@@ -65,7 +65,7 @@ class CodeStyle extends Component {
               heading="Font"
               items={fontList}
               selectedItem={fontface}
-              onSelect={this.onFontChanged}
+              onChange={this.onFontChanged}
             />
           </section>
           <section className="content">
