@@ -17,7 +17,6 @@ const {
   clipboard,
   BrowserWindow
 } = require('electron')
-const Positioner = require('electron-positioner')
 const settings = require('electron-settings')
 const log = require('electron-log')
 const isDev = require('electron-is-dev')
@@ -31,23 +30,10 @@ const { WindowSizes } = require('../shared/constants/window')
 const execute = require('./executeAppleScript')
 const { DEFAULT_SETTINGS } = require('./defaults')
 const { HIGHLIGHT_COMPLETE, REDUX_ACTION } = require('../shared/constants/events')
+const { windows } = require('../shared/constants/window')
 
 const width = 800
 const height = 600
-const windowSizes = {
-  mini: {
-    width: 100,
-    height: 30
-  },
-  list: {
-    width: 200,
-    height: 400
-  },
-  normal: {
-    width: 800,
-    height: 600
-  }
-}
 
 const initialState = {}
 const store = configureStore(initialState, 'main')
@@ -59,8 +45,6 @@ ipcMain.on(REDUX_ACTION, (event, payload) => {
 // Prevent garbage collection
 // Otherwise the tray icon would randomly hide after some time
 let tray = null
-// Create a reference to be able to destroy it
-const windows = {}
 
 // We'll need this to prevent from quiting the app by closing Preferences window
 let forceQuit = false
@@ -276,14 +260,6 @@ app.on('ready', () => {
   tray = new Tray(path.join(__dirname, '..', '..', 'public', 'iconTemplate@2x.png'))
   tray.setContextMenu(mainMenu)
 
-  const positioner = new Positioner(windows.main)
-  const getWinPosition = size => {
-    if (size === WindowSizes.NORMAL) {
-      return positioner.calculate('center')
-    }
-    // Do not cache tray position since it can change over time
-    return positioner.calculate('trayCenter', tray.getBounds())
-  }
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   registerShortcut(shortcut, null, onShortcutPressed)
   settings.watch('shortcut', (newVal, oldVal) => {
@@ -297,7 +273,6 @@ app.on('ready', () => {
 
   store.subscribe(() => {
     const state = store.getState()
-    const { size, windowVisible } = state.window
     const { assistiveAccessDisabled, error } = state.errors
     if (error) {
       if (assistiveAccessDisabled) {
@@ -310,16 +285,6 @@ app.on('ready', () => {
       }
       store.dispatch(resetErrors())
     }
-
-    if (windowVisible) {
-      windows.main.show()
-    } else {
-      windows.main.hide()
-    }
-    windows.main.setBounds(
-      Object.assign(windowSizes[size], getWinPosition(size)),
-      windowVisible && size !== WindowSizes.MINI
-    )
   })
 })
 
