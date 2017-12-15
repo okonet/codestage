@@ -21,6 +21,7 @@ const Positioner = require('electron-positioner')
 const settings = require('electron-settings')
 const log = require('electron-log')
 const isDev = require('electron-is-dev')
+const NotificationCenter = require('node-notifier/notifiers/notificationcenter')
 const clipboardWatcher = require('electron-clipboard-watcher')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
@@ -31,6 +32,8 @@ const { WindowSizes } = require('../shared/constants/window')
 const execute = require('./executeAppleScript')
 const { DEFAULT_SETTINGS } = require('./defaults')
 const { HIGHLIGHT_COMPLETE, REDUX_ACTION } = require('../shared/constants/events')
+
+const notifications = new NotificationCenter({})
 
 const width = 800
 const height = 600
@@ -87,7 +90,7 @@ function registerShortcut(newShortcut, oldShortcut, callback) {
   }
 }
 
-app.on('ready', () => {
+app.on('ready', async () => {
   if (isDev) {
     // eslint-disable-next-line global-require
     require('electron-debug')({
@@ -274,6 +277,54 @@ app.on('ready', () => {
     // Do not cache tray position since it can change over time
     return positioner.calculate('trayCenter', tray.getBounds())
   }
+
+  // Register a shortcut listener.
+  const onShortcutPressed = () => {
+    const state = store.getState()
+    const { windowVisible } = state.window
+    codeHighlight(clipboard.readText(), settings)
+      .then(res => {
+        Object.keys(windows).forEach(win => {
+          windows[win].webContents.send(HIGHLIGHT_COMPLETE, res)
+        })
+
+        if (!windowVisible) {
+          store.dispatch(setWindowSize(WindowSizes.MINI))
+          store.dispatch(setWindowVisibility(true))
+        }
+
+        notifications.notify(
+          {
+            title: 'Code highlighted!',
+            message: `Highlighted using ${res.language}`,
+            closeLabel: 'Close',
+            actions: 'Language'
+          },
+          (err, response, metadata) => {
+            if (err) store.dialog(errorOccured(err))
+
+            if (metadata.activationValue === 'Change language') {
+              store.dispatch(setWindowVisibility(true))
+              store.dispatch(setWindowSize(WindowSizes.NORMAL))
+            }
+          }
+        )
+      })
+      .catch(error => {
+        store.dispatch(errorOccured(error.stderr))
+      })
+  }
+
+  function copyAndHighlight() {
+    // Pasting into the active application
+    // eslint-disable-next-line
+    execute(path.resolve(__dirname, 'copy.applescript'))
+      .then(onShortcutPressed)
+      .catch(error => {
+      store.dispatch(errorOccured(error.stderr))
+    })
+  }
+
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   registerShortcut(shortcut, null, onShortcutPressed)
   settings.watch('shortcut', (newVal, oldVal) => {
