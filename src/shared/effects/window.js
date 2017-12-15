@@ -10,7 +10,7 @@ export const windowSizes = {
     height: 400
   },
   normal: {
-    width: 800,
+    width: 900,
     height: 600
   }
 }

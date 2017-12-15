@@ -8,6 +8,7 @@ import ThemePicker from './ThemePicker'
 import Preview from './DynamicPreview'
 import { EditorModes, ThemePropType } from '../shared/constants/editor'
 import { setMode } from '../shared/actions/editor'
+import { setWindowVisibility } from '../shared/actions/window'
 // Working around electron imports from CRA app:
 // https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
 const { remote } = window.require('electron')
@@ -38,6 +39,7 @@ const PreviewContainer = styled.div`
 
 class Editor extends Component {
   static propTypes = {
+    closeWindow: PropTypes.func.isRequired,
     mode: PropTypes.oneOf(Object.keys(EditorModes)).isRequired,
     html: PropTypes.string,
     text: PropTypes.string,
@@ -80,7 +82,16 @@ class Editor extends Component {
   }
 
   render() {
-    const { mode, html, text, preferences, languagesList, themesList, changeMode } = this.props
+    const {
+      closeWindow,
+      mode,
+      html,
+      text,
+      preferences,
+      languagesList,
+      themesList,
+      changeMode
+    } = this.props
     const { selectedLanguage } = this.state
     const { theme, fontface, lineNumbers } = preferences
 
@@ -110,8 +121,8 @@ class Editor extends Component {
       )
     }
     return (
-      <Flex column>
-        <Flex flex="0 1 100%">
+      <Flex column style={{ width: '100%' }}>
+        <Flex flex="1">
           <Box width={300} my={2}>
             <SegmentedControl>
               <SegmentedControlItem
@@ -167,11 +178,16 @@ class Editor extends Component {
             </PreviewContainer>
           </PreviewWrapper>
         </Flex>
-        <Box m={1}>
-          <Button color="blue" onClick={this.onConfirmSelection}>
-            Done
-          </Button>
-        </Box>
+        <Flex m={1} justify="flex-end">
+          <Box>
+            <Button color="blue" onClick={this.onConfirmSelection}>
+              Re-highlight
+            </Button>
+          </Box>
+          <Box ml={1}>
+            <Button onClick={closeWindow}>Close</Button>
+          </Box>
+        </Flex>
       </Flex>
     )
   }
@@ -184,6 +200,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   changeMode: mode => {
     dispatch(setMode(mode))
+  },
+  closeWindow: () => {
+    dispatch(setWindowVisibility(false))
   }
 })
 
