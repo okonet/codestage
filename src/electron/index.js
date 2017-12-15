@@ -20,6 +20,7 @@ const {
 const settings = require('electron-settings')
 const log = require('electron-log')
 const isDev = require('electron-is-dev')
+const NotificationCenter = require('node-notifier/notifiers/notificationcenter')
 const clipboardWatcher = require('electron-clipboard-watcher')
 const isPlatform = require('./isPlatform')
 const codeHighlight = require('./codeHighlight')
@@ -31,6 +32,8 @@ const execute = require('./executeAppleScript')
 const { DEFAULT_SETTINGS } = require('./defaults')
 const { HIGHLIGHT_COMPLETE, REDUX_ACTION } = require('../shared/constants/events')
 const { windows } = require('../shared/constants/window')
+
+const notifications = new NotificationCenter({})
 
 const width = 800
 const height = 600
@@ -71,7 +74,7 @@ function registerShortcut(newShortcut, oldShortcut, callback) {
   }
 }
 
-app.on('ready', () => {
+app.on('ready', async () => {
   if (isDev) {
     // eslint-disable-next-line global-require
     require('electron-debug')({
@@ -177,12 +180,25 @@ app.on('ready', () => {
       text,
       rtf: result.value
     })
-    const state = store.getState()
-    const { windowVisible } = state.window
-    if (!windowVisible) {
-      store.dispatch(setWindowSize(WindowSizes.MINI))
-      store.dispatch(setWindowVisibility(true))
-    }
+
+    const OPEN_ACTION_VALUE = 'Languages'
+
+    notifications.notify(
+      {
+        title: 'Code highlighted!',
+        message: `Highlighted using ${result.language}`,
+        closeLabel: 'Close',
+        actions: OPEN_ACTION_VALUE
+      },
+      (err, response, metadata) => {
+        if (err) store.dispatch(errorOccured(err))
+
+        if (metadata.activationValue === OPEN_ACTION_VALUE) {
+          store.dispatch(setWindowVisibility(true))
+          store.dispatch(setWindowSize(WindowSizes.NORMAL))
+        }
+      }
+    )
   }
 
   async function onShortcutPressed() {
