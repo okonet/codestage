@@ -26,5 +26,5 @@ module.exports = async function codeHighlight(input, settings) {
       ${error}`)
     })
   result.language = lastUsedLanguage
-  return result
+  return Object.assign({}, result, options)
 }
