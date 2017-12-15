@@ -1,7 +1,17 @@
 {
-  "presets": ["es2015", "stage-0"],
+  "presets": [
+    [ "env", {
+      "targets": {
+        "chrome": 59,
+        "node": 8
+      },
+      "useBuiltIns": true,
+      "debug": true
+    }]
+  ],
   "plugins": [
-    "babel-plugin-styled-components",
+    "transform-object-rest-spread",
+    "styled-components",
     "add-module-exports"
   ]
 }
