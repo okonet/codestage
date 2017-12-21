@@ -5,13 +5,6 @@
   "description": "Hassle free code highlighting macOS helper app for your Keynote slides",
   "main": "src/index.js",
   "homepage": "./",
-  "build": {
-    "appId": "com.koolesache.CodeStage",
-    "asarUnpack": ["**/*.applescript"],
-    "directories": {
-      "buildResources": "resources"
-    }
-  },
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -107,7 +100,12 @@
       "electronPackagerConfig": {
         "packageManager": "yarn",
         "icon": "resources/icon",
-        "ignore": [".idea", "coverage"]
+        "ignore": [".idea", "coverage"],
+        "appBundleId": "com.koolesache.CodeStage",
+        "appCategoryType": "public.app-category.productivity",
+        "asar": {
+          "unpack": "**/*.applescript"
+        }
       },
       "electronWinstallerConfig": {
         "name": "codestage"
