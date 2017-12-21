@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-// import './App.css'
 import Main from './Main'
 import Preferences from './Preferences'
 
