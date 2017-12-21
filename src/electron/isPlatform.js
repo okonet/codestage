@@ -1,18 +1,16 @@
-'use strict';
-
 module.exports = function isPlatform(name) {
-  let handle;
+  let handle
 
   switch (name) {
     case 'windows':
-      handle = 'win32';
-      break;
+      handle = 'win32'
+      break
     case 'macOS':
-      handle = 'darwin';
-      break;
+      handle = 'darwin'
+      break
     default:
-      handle = name;
+      handle = name
   }
 
-  return process.platform === handle;
-};
+  return process.platform === handle
+}
