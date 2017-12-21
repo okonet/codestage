@@ -32,6 +32,10 @@
     vue-template-compiler "^2.0.0-alpha.8"
     vue-template-es2015-compiler "^1.4.2"
 
+"@types/node@*":
+  version "8.5.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.5.2.tgz#83b8103fa9a2c2e83d78f701a9aa7c9539739aa5"
+
 "@types/node@^6.0.46":
   version "6.0.89"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.89.tgz#154be0e6a823760cd6083aa8c48f952e2e63e0b0"
@@ -1229,6 +1233,10 @@ brace@^0.10.0:
   dependencies:
     w3c-blob "0.0.1"
 
+brace@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/brace/-/brace-0.11.0.tgz#155cd80607687dc8cb908f0df94e62a033c1d563"
+
 braces@^1.8.2:
   version "1.8.5"
   resolved "https://registry.yarnpkg.com/braces/-/braces-1.8.5.tgz#ba77962e12dff969d6b76711e914b737857bf6a7"
@@ -2395,9 +2403,9 @@ electron-debug@^1.1.0:
     electron-is-dev "^0.3.0"
     electron-localshortcut "^3.0.0"
 
-electron-devtools-installer@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/electron-devtools-installer/-/electron-devtools-installer-2.2.0.tgz#9813e6811afcd69ddca3cae5416db72ea7ecfb6a"
+electron-devtools-installer@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/electron-devtools-installer/-/electron-devtools-installer-2.2.3.tgz#58b9a4ec507377bc46e091cd43714188e0c369be"
   dependencies:
     "7zip" "0.0.6"
     cross-unzip "0.0.2"
@@ -2554,10 +2562,6 @@ electron-is-accelerator@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/electron-is-accelerator/-/electron-is-accelerator-0.1.2.tgz#509e510c26a56b55e17f863a4b04e111846ab27b"
 
-electron-is-dev@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-0.1.2.tgz#8a1043e32b3a1da1c3f553dce28ce764246167e3"
-
 electron-is-dev@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-0.3.0.tgz#14e6fda5c68e9e4ecbeff9ccf037cbd7c05c5afe"
@@ -2571,9 +2575,9 @@ electron-localshortcut@^3.0.0:
     keyboardevent-from-electron-accelerator "^0.7.0"
     keyboardevents-areequal "^0.2.1"
 
-electron-log@^2.2.3:
-  version "2.2.9"
-  resolved "https://registry.yarnpkg.com/electron-log/-/electron-log-2.2.9.tgz#e0484cb1a8a84593095e3b69f47361ae15d73bdf"
+electron-log@^2.2.13:
+  version "2.2.13"
+  resolved "https://registry.yarnpkg.com/electron-log/-/electron-log-2.2.13.tgz#15571ca695484fec39ddb9b3a9ff6e83e2a0d980"
 
 electron-osx-sign@^0.4.1:
   version "0.4.7"
@@ -2613,15 +2617,15 @@ electron-positioner@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/electron-positioner/-/electron-positioner-3.0.0.tgz#1a3b75c9cc1e29dd37c663b23fd876d4ffab9996"
 
-electron-prebuilt-compile@1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/electron-prebuilt-compile/-/electron-prebuilt-compile-1.8.1.tgz#8abca77d8f3262afdb535c36be93874bdbca6a0a"
+electron-prebuilt-compile@1.8.2-beta.3:
+  version "1.8.2-beta.3"
+  resolved "https://registry.yarnpkg.com/electron-prebuilt-compile/-/electron-prebuilt-compile-1.8.2-beta.3.tgz#ff910d3d3567e4fe106bfe2285bd30b06c63add5"
   dependencies:
     babel-plugin-array-includes "^2.0.3"
     babel-plugin-transform-async-to-generator "^6.8.0"
     babel-preset-es2016-node5 "^1.1.2"
     babel-preset-react "^6.11.1"
-    electron "1.8.1"
+    electron "1.8.2-beta.3"
     electron-compile "*"
     electron-compilers "*"
     yargs "^6.6.0"
@@ -2640,17 +2644,17 @@ electron-rebuild@^1.6.0:
     spawn-rx "^2.0.10"
     yargs "^7.0.2"
 
-electron-redux@^1.2.10:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/electron-redux/-/electron-redux-1.3.0.tgz#acd666258cbbddf6ed7da7f81cd76e5aad13280a"
+electron-redux@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/electron-redux/-/electron-redux-1.3.1.tgz#650a76cdeb12358f57b5c7db744224d08999ae08"
   dependencies:
     debug "^2.3.3"
     flux-standard-action "^1.0.0"
     redux "^3.4.0"
 
-electron-settings@^3.0.14:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/electron-settings/-/electron-settings-3.1.2.tgz#fb8aeca65ce026b1e66fc36085d8eebf7d764159"
+electron-settings@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/electron-settings/-/electron-settings-3.1.4.tgz#1b670837fd00626395714210291fb4af8ff52880"
   dependencies:
     clone "^2.1.1"
     jsonfile "^4.0.0"
@@ -2691,9 +2695,9 @@ electron-winstaller@^2.5.0:
     lodash.template "^4.2.2"
     temp "^0.8.3"
 
-electron@1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-1.8.1.tgz#19b6f39f2013e204a91a60bc3086dc7a4a07ed88"
+electron@1.8.2-beta.3:
+  version "1.8.2-beta.3"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-1.8.2-beta.3.tgz#2e391ccbd62768a3b3b260b8f2e3f16473567aec"
   dependencies:
     "@types/node" "^8.0.24"
     electron-download "^3.0.1"
@@ -3082,18 +3086,6 @@ execa@^0.4.0:
     npm-run-path "^1.0.0"
     object-assign "^4.0.1"
     path-key "^1.0.0"
-    strip-eof "^1.0.0"
-
-execa@^0.6.0:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/execa/-/execa-0.6.3.tgz#57b69a594f081759c69e5370f0d17b9cb11658fe"
-  dependencies:
-    cross-spawn "^5.0.1"
-    get-stream "^3.0.0"
-    is-stream "^1.1.0"
-    npm-run-path "^2.0.0"
-    p-finally "^1.0.0"
-    signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
 execa@^0.7.0:
@@ -3944,12 +3936,33 @@ hast-to-hyperscript@^3.0.0:
     trim "0.0.1"
     unist-util-is "^2.0.0"
 
+hast-to-hyperscript@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/hast-to-hyperscript/-/hast-to-hyperscript-4.0.0.tgz#3eb25483ec72a8e9a71e4b1ad7eb8f7c86f755db"
+  dependencies:
+    comma-separated-tokens "^1.0.0"
+    is-nan "^1.2.1"
+    kebab-case "^1.0.0"
+    property-information "^3.0.0"
+    space-separated-tokens "^1.0.0"
+    trim "0.0.1"
+    unist-util-is "^2.0.0"
+
 hast-util-from-parse5@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hast-util-from-parse5/-/hast-util-from-parse5-1.1.0.tgz#359cc339dc8ccf1dfaca41915ad63fd546130acd"
   dependencies:
     camelcase "^3.0.0"
     has "^1.0.1"
+    hastscript "^3.0.0"
+    property-information "^3.1.0"
+    vfile-location "^2.0.0"
+
+hast-util-from-parse5@^2.0.1:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/hast-util-from-parse5/-/hast-util-from-parse5-2.1.0.tgz#f6123d83d3689630b097e13e430d16d9d1bd8884"
+  dependencies:
+    camelcase "^3.0.0"
     hastscript "^3.0.0"
     property-information "^3.1.0"
     vfile-location "^2.0.0"
@@ -4010,11 +4023,10 @@ hawk@~6.0.2:
     hoek "4.x.x"
     sntp "2.x.x"
 
-hazardous@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/hazardous/-/hazardous-0.2.3.tgz#a16da251f9ed1b97a4e778ad9a3ace7e0067f9c6"
+hazardous@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/hazardous/-/hazardous-0.3.0.tgz#f72212ef349039de7f5b7a86589de7662a870222"
   dependencies:
-    asar "^0.13.0"
     callsite "^1.0.0"
 
 he@^1.1.0:
@@ -6613,6 +6625,12 @@ parse5@^2.1.5:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-2.2.3.tgz#0c4fc41c1000c5e6b93d48b03f8083837834e9f6"
 
+parse5@^3.0.0:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/parse5/-/parse5-3.0.3.tgz#042f792ffdd36851551cf4e9e066b3874ab45b5c"
+  dependencies:
+    "@types/node" "*"
+
 parse5@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-3.0.2.tgz#05eff57f0ef4577fb144a79f8b9a967a6cc44510"
@@ -7149,7 +7167,7 @@ qw@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/qw/-/qw-1.0.1.tgz#efbfdc740f9ad054304426acb183412cc8b996d4"
 
-radium@^0.19.5:
+radium@^0.19.6:
   version "0.19.6"
   resolved "https://registry.yarnpkg.com/radium/-/radium-0.19.6.tgz#b86721d08dbd303b061a4ae2ebb06cc6e335ae72"
   dependencies:
@@ -7185,11 +7203,11 @@ rcedit@^0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/rcedit/-/rcedit-0.9.0.tgz#3910df57345399e2b0325f4a519007f89e55ef1c"
 
-react-ace@^5.4.0:
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/react-ace/-/react-ace-5.4.0.tgz#6dadbbe4d1ca49da62f7579963dd064759358ddc"
+react-ace@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/react-ace/-/react-ace-5.8.0.tgz#872d9ee8b664300ed5ab9edac6234bbe90836836"
   dependencies:
-    brace "^0.10.0"
+    brace "^0.11.0"
     lodash.get "^4.4.2"
     lodash.isequal "^4.1.1"
     prop-types "^15.5.8"
@@ -7198,11 +7216,11 @@ react-deep-force-update@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-2.1.1.tgz#8ea4263cd6455a050b37445b3f08fd839d86e909"
 
-react-desktop@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/react-desktop/-/react-desktop-0.3.2.tgz#7659c2614f76a7eba3a0245ab65ea9322baf7caa"
+react-desktop@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/react-desktop/-/react-desktop-0.3.3.tgz#03cf238f675397f5fdb60e82082e7fabbf39017b"
   dependencies:
-    radium "^0.19.5"
+    radium "^0.19.6"
 
 react-dom@^15.4.2:
   version "15.6.2"
@@ -7255,9 +7273,9 @@ react-redux@^5.0.5:
     loose-envify "^1.1.0"
     prop-types "^15.5.10"
 
-react-virtualized@^9.9.0:
-  version "9.11.1"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.11.1.tgz#984b59987d9f9f58937bf15f365c659b198a4968"
+react-virtualized@^9.14.1:
+  version "9.14.1"
+  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.14.1.tgz#4d08385728e33e43205789b42c14e7a85b1cf2bd"
   dependencies:
     babel-runtime "^6.23.0"
     classnames "^2.2.3"
@@ -7538,12 +7556,27 @@ rehype-parse@^3.1.0:
     parse5 "^2.1.5"
     xtend "^4.0.1"
 
+rehype-parse@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/rehype-parse/-/rehype-parse-4.0.0.tgz#a0a35e02d34fe5e84269881c1cd92d78a6987004"
+  dependencies:
+    hast-util-from-parse5 "^2.0.1"
+    parse5 "^3.0.0"
+    xtend "^4.0.1"
+
 rehype-react@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/rehype-react/-/rehype-react-3.0.1.tgz#a54f3a40969a059b5b9aa7c591b13e0344a8bc60"
   dependencies:
     has "^1.0.1"
     hast-to-hyperscript "^3.0.0"
+
+rehype-react@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/rehype-react/-/rehype-react-3.0.2.tgz#5aa35f6e07ca1a47f3c9aa9ab4361b1cba05a590"
+  dependencies:
+    has "^1.0.1"
+    hast-to-hyperscript "^4.0.0"
 
 rehype-stringify@^3.0.0:
   version "3.0.0"
@@ -8342,7 +8375,7 @@ strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
-styled-components@^2.2.0, styled-components@^2.2.4:
+styled-components@^2.2.0:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-2.2.4.tgz#dd87fd3dafd359e7a0d570aec1bd07d691c0b5a2"
   dependencies:
@@ -8351,6 +8384,19 @@ styled-components@^2.2.0, styled-components@^2.2.4:
     fbjs "^0.8.9"
     hoist-non-react-statics "^1.2.0"
     is-function "^1.0.1"
+    is-plain-object "^2.0.1"
+    prop-types "^15.5.4"
+    stylis "^3.4.0"
+    supports-color "^3.2.3"
+
+styled-components@^2.3.3:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-2.3.3.tgz#351d0be84699db750c73d95617e4334157421f71"
+  dependencies:
+    buffer "^5.0.3"
+    css-to-react-native "^2.0.3"
+    fbjs "^0.8.9"
+    hoist-non-react-statics "^1.2.0"
     is-plain-object "^2.0.1"
     prop-types "^15.5.4"
     stylis "^3.4.0"
@@ -8873,6 +8919,18 @@ underscore.string@~2.2.0rc:
 unified@^6.1.3:
   version "6.1.5"
   resolved "https://registry.yarnpkg.com/unified/-/unified-6.1.5.tgz#716937872621a63135e62ced2f3ac6a063c6fb87"
+  dependencies:
+    bail "^1.0.0"
+    extend "^3.0.0"
+    is-plain-obj "^1.1.0"
+    trough "^1.0.0"
+    vfile "^2.0.0"
+    x-is-function "^1.0.4"
+    x-is-string "^0.1.0"
+
+unified@^6.1.6:
+  version "6.1.6"
+  resolved "https://registry.yarnpkg.com/unified/-/unified-6.1.6.tgz#5ea7f807a0898f1f8acdeefe5f25faa010cc42b1"
   dependencies:
     bail "^1.0.0"
     extend "^3.0.0"
