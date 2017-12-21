@@ -1,0 +1,25 @@
+{
+  "application/javascript": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "chrome": 59,
+            "node": 8
+          },
+          "useBuiltIns": true,
+          "debug": true
+        }
+      ],
+      "react"
+    ],
+    "plugins": [
+      "transform-object-rest-spread",
+      "transform-class-properties",
+      "styled-components",
+      "add-module-exports"
+    ],
+    "sourceMaps": "inline"
+  }
+}

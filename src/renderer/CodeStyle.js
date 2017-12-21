@@ -1,14 +1,10 @@
 import React, { Component, PropTypes } from 'react'
+import settings from 'electron-settings'
+import SystemFonts from 'system-font-families'
 import { Box } from 'react-desktop/macOs'
-import './App.css'
 import ItemsList from './ItemsList'
 import Preview from './StaticPreview'
 
-// Working around electron imports from CRA app:
-// https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
-const { remote } = window.require('electron')
-const settings = remote.require('electron-settings')
-const SystemFonts = remote.require('system-font-families').default
 const systemFonts = new SystemFonts()
 const fontList = systemFonts.getFontsSync()
 

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import settings from 'electron-settings'
 import { Button, Checkbox, SegmentedControl, SegmentedControlItem } from 'react-desktop/macOs'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -9,10 +10,6 @@ import Preview from './DynamicPreview'
 import { EditorModes, ThemePropType } from '../shared/constants/editor'
 import { setMode } from '../shared/actions/editor'
 import { setWindowVisibility } from '../shared/actions/window'
-// Working around electron imports from CRA app:
-// https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
-const { remote } = window.require('electron')
-const settings = remote.require('electron-settings')
 
 const Wrapper = styled.section`
   display: flex;

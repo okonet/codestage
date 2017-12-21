@@ -3,7 +3,7 @@
   "name": "codestage",
   "version": "0.0.1",
   "description": "Hassle free code highlighting macOS helper app for your Keynote slides",
-  "main": "src/electron/index.js",
+  "main": "src/index.js",
   "homepage": "./",
   "build": {
     "appId": "com.koolesache.CodeStage",
@@ -15,17 +15,17 @@
     }
   },
   "scripts": {
-    "start": "concurrently --kill-others \"neutrino start\" \"npm run electron\"",
-    "build": "neutrino build",
-    "pack": "npm run icon && npm run build && build --dir",
-    "dist": "npm run icon && npm run build && build",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "premake": "npm run icon",
+    "make": "electron-forge make",
     "pretest": "npm run lint",
     "test": "jest --coverage",
     "electron": "electron .",
     "lint": "eslint src/",
     "icon:export": "sketchtool export slices design/icon.sketch --output=./resources/icon.iconset",
     "icon:create": "iconutil -c icns ./resources/icon.iconset",
-    "menuicon:export": "sketchtool export artboards design/iconTemplate.sketch --output=./public",
+    "menuicon:export": "sketchtool export artboards design/iconTemplate.sketch --output=resources",
     "icon": "npm run icon:export && npm run icon:create && npm run menuicon:export",
     "precommit": "lint-staged"
   },
@@ -39,21 +39,17 @@
   "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
   "license": "MPL-2.0",
   "dependencies": {
-    "babel": "^6.23.0",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-styled-components": "^1.3.0",
     "babel-polyfill": "^6.23.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-register": "^6.24.1",
     "brace": "^0.10.0",
     "electron-clipboard-watcher": "^1.0.1",
+    "electron-compile": "^6.4.2",
     "electron-debug": "^1.1.0",
     "electron-is-dev": "^0.1.2",
     "electron-log": "^2.2.3",
     "electron-positioner": "^3.0.0",
     "electron-redux": "^1.2.10",
     "electron-settings": "^3.0.14",
+    "electron-squirrel-startup": "^1.0.0",
     "emphasize": "^1.2.0",
     "execa": "^0.6.0",
     "grid-styled": "^2.0.0-11",
@@ -66,7 +62,7 @@
     "react-desktop": "^0.3.2",
     "react-dom": "^15.4.2",
     "react-frame-component": "^2.0.0",
-    "react-hot-loader": "3.1.3",
+    "react-hot-loader": "^3.1.3",
     "react-lowlight": "^1.0.4",
     "react-prism": "^4.1.0",
     "react-redux": "^5.0.5",
@@ -84,22 +80,26 @@
     "warning": "^3.0.0"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
     "babel-jest": "^21.2.0",
-    "concurrently": "^3.5.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-styled-components": "^1.3.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "devtron": "^1.4.0",
-    "electron": "1.8.1",
-    "electron-builder": "19.31.1",
     "electron-devtools-installer": "^2.2.0",
+    "electron-forge": "^4.1.6",
+    "electron-prebuilt-compile": "1.8.1",
     "eslint": "^3.19.0",
     "eslint-config-okonet": "^4.0.2",
     "git-exec-and-restage": "^1.0.1",
     "husky": "^0.14.3",
     "jest": "^21.2.1",
     "lint-staged": "^4.3.0",
-    "neutrino": "^7.3.2",
-    "neutrino-preset-react": "^7.3.2",
-    "prettier": "^1.5.3",
-    "uglifyjs-webpack-plugin": "^1.1.2"
+    "prettier": "^1.5.3"
   },
   "eslintConfig": {
     "extends": "okonet",
@@ -112,6 +112,33 @@
         "error",
         "safe"
       ]
+    }
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "darwin": [
+          "zip",
+          "dmg"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "yarn",
+        "icon": "resources/icon",
+        "ignore": [
+          ".idea",
+          "coverage"
+        ]
+      },
+      "electronWinstallerConfig": {
+        "name": "codestage"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "okonet",
+        "name": "codestage"
+      }
     }
   }
 }

@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
+import settings from 'electron-settings'
 import { Checkbox, Label, TextInput, Button } from 'react-desktop/macOs'
 import styled from 'styled-components'
 import ShortcutRecorder from './ShortcutRecorder'
-
-// Working around electron imports from CRA app:
-// https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
-const { remote } = window.require('electron')
-const settings = remote.require('electron-settings')
-const { DEFAULT_SETTINGS } = remote.require('../electron/defaults')
+import { DEFAULT_SETTINGS } from '../shared/constants/defaults'
 
 const ELECTRON_MODIFIERS = {
   cmd: 'Command',
@@ -36,13 +32,13 @@ const FormRow = styled.div`
 `
 
 const FormLabel = styled.div`
-  margin-right: .5rem;
+  margin-right: 0.5rem;
   width: 30%;
   text-align: right;
 `
 
 const OffsetField = styled.div`
-  padding-left: calc(30% + .5rem);
+  padding-left: calc(30% + 0.5rem);
   width: 100%;
 `
 

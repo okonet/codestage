@@ -1,12 +1,10 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 
-'use strict'
+import stripIndent from 'strip-indent'
+import rtfRenderer from '../../lib/'
+import { DEFAULT_SETTINGS } from '../shared/constants/defaults'
 
-const stripIndent = require('strip-indent')
-const rtfRenderer = require('../../lib/')
-const { DEFAULT_SETTINGS } = require('./defaults')
-
-module.exports = async function codeHighlight(input, settings) {
+export default async function codeHighlight(input, settings) {
   const fontface = settings.get('fontface', DEFAULT_SETTINGS.fontface)
   const fontsize = settings.get('fontsize', DEFAULT_SETTINGS.fontsize)
   const theme = settings.get('theme', DEFAULT_SETTINGS.theme)
