@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Box } from 'react-desktop/macOs'
 import './App.css'
 import ItemsList from './ItemsList'
-import Preview from './Preview'
+import Preview from './StaticPreview'
 
 // Working around electron imports from CRA app:
 // https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
@@ -46,7 +46,7 @@ class CodeStyle extends Component {
         <section className="wrapper">
           <section className="content codeSnippet">
             <Box label="Code snippet" padding="0px">
-              <Preview html={html} theme={currentTheme.cssText} fontface={fontface} />
+              <Preview html={html} theme={currentTheme} fontface={fontface} />
             </Box>
           </section>
         </section>

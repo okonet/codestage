@@ -17,7 +17,6 @@ const {
   clipboard,
   BrowserWindow
 } = require('electron')
-const Positioner = require('electron-positioner')
 const settings = require('electron-settings')
 const log = require('electron-log')
 const isDev = require('electron-is-dev')
@@ -32,25 +31,12 @@ const { WindowSizes } = require('../shared/constants/window')
 const execute = require('./executeAppleScript')
 const { DEFAULT_SETTINGS } = require('./defaults')
 const { HIGHLIGHT_COMPLETE, REDUX_ACTION } = require('../shared/constants/events')
+const { windows } = require('../shared/constants/window')
 
 const notifications = new NotificationCenter({})
 
 const width = 800
 const height = 600
-const windowSizes = {
-  mini: {
-    width: 100,
-    height: 30
-  },
-  list: {
-    width: 200,
-    height: 400
-  },
-  normal: {
-    width: 800,
-    height: 600
-  }
-}
 
 const initialState = {}
 const store = configureStore(initialState, 'main')
@@ -62,8 +48,6 @@ ipcMain.on(REDUX_ACTION, (event, payload) => {
 // Prevent garbage collection
 // Otherwise the tray icon would randomly hide after some time
 let tray = null
-// Create a reference to be able to destroy it
-const windows = {}
 
 // We'll need this to prevent from quiting the app by closing Preferences window
 let forceQuit = false
@@ -163,54 +147,66 @@ app.on('ready', async () => {
     })
   })
 
-  // Start watching for clipboard changes
-  watcher = clipboardWatcher({
-    // handler for when text data is copied into the highlight
-    // and rehighlight appropriately to display in preferences
-    onTextChange: async text => {
-      console.log(text)
-      const result = await codeHighlight(text, settings).catch(error => {
-        store.dispatch(errorOccured(error.stderr))
-      })
-      Object.keys(windows).forEach(win => {
-        windows[win].webContents.send(HIGHLIGHT_COMPLETE, result)
-      })
-      clipboard.writeRTF(result.value)
-    }
-  })
+  function handleError(error) {
+    log.error(error)
+    store.dispatch(errorOccured(error))
+  }
 
-  async function onShortcutPressed() {
-    const state = store.getState()
-    const { windowVisible } = state.window
+  async function pasteToActiveApp() {
     const autopaste = settings.get('autopaste', DEFAULT_SETTINGS.autopaste)
-    const result = await codeHighlight(clipboard.readText(), settings).catch(error => {
-      log.error(error)
-      store.dispatch(errorOccured(error))
-    })
-    Object.keys(windows).forEach(win => {
-      windows[win].webContents.send(HIGHLIGHT_COMPLETE, result)
-    })
-    clipboard.writeRTF(result.value)
     // Pasting into the active application
     if (autopaste) {
       try {
         await execute(path.resolve(__dirname, 'paste.applescript'))
       } catch (error) {
-        log.error(error.stderr)
+        handleError(error)
       }
-    }
-    if (!windowVisible) {
-      store.dispatch(setWindowSize(WindowSizes.MINI))
-      store.dispatch(setWindowVisibility(true))
     }
   }
 
-  async function copyToClipboard() {
-    try {
-      await execute(path.resolve(__dirname, 'activate.applescript'))
-      await execute(path.resolve(__dirname, 'copy.applescript'))
-    } catch (error) {
-      log.error(error.stderr)
+  async function highlightText(text) {
+    const result = await codeHighlight(text, settings).catch(handleError)
+    Object.keys(windows).forEach(win => {
+      windows[win].webContents.send(
+        HIGHLIGHT_COMPLETE,
+        Object.assign({}, result, {
+          text
+        })
+      )
+    })
+    // Explictely write to `text` of clipboard the same value as before
+    // in order not to trigger the clipboard watcher
+    clipboard.write({
+      text,
+      rtf: result.value
+    })
+
+    const OPEN_ACTION_VALUE = 'Languages'
+
+    notifications.notify(
+      {
+        title: 'Code highlighted!',
+        message: `Highlighted using ${result.language}`,
+        closeLabel: 'Close',
+        actions: OPEN_ACTION_VALUE
+      },
+      (err, response, metadata) => {
+        if (err) store.dispatch(errorOccured(err))
+
+        if (metadata.activationValue === OPEN_ACTION_VALUE) {
+          store.dispatch(setWindowVisibility(true))
+          store.dispatch(setWindowSize(WindowSizes.NORMAL))
+        }
+      }
+    )
+  }
+
+  async function onShortcutPressed() {
+    const state = store.getState()
+    const { windowVisible } = state.window
+    if (!windowVisible) {
+      store.dispatch(setWindowSize(WindowSizes.NORMAL))
+      store.dispatch(setWindowVisibility(true))
     }
   }
 
@@ -219,26 +215,37 @@ app.on('ready', async () => {
     try {
       await execute(path.resolve(__dirname, 'activate.applescript'))
       await execute(path.resolve(__dirname, 'selectall.applescript'))
-      await onShortcutPressed()
+      await highlightText(clipboard.readText())
+      await pasteToActiveApp()
     } catch (error) {
-      log.error(error.stderr)
+      handleError(error)
     }
   }
+
+  // Watch for clipboard changes
+  watcher = clipboardWatcher({
+    // When clipboard content changes rehighlight it and
+    // put RTF into RTF part of clipboard ready to use in Keynote.app
+    onTextChange: async text => {
+      console.log(text)
+      await highlightText(text)
+    }
+  })
 
   const mainMenu = Menu.buildFromTemplate([
     {
       label: 'Highlight from clipboard',
-      accelerator: settings.get('shortcut', DEFAULT_SETTINGS.shortcut),
       type: 'normal',
-      click: () => {
-        onShortcutPressed()
+      click: async () => {
+        await highlightText(clipboard.readText())
+        await pasteToActiveApp()
       }
     },
     {
-      label: 'Highlight selection as...',
+      label: 'Open CodeStage...',
       type: 'normal',
-      click: async () => {
-        await copyToClipboard()
+      accelerator: settings.get('shortcut', DEFAULT_SETTINGS.shortcut),
+      click: () => {
         store.dispatch(setWindowSize(WindowSizes.NORMAL))
         store.dispatch(setWindowVisibility(true))
       }
@@ -269,62 +276,6 @@ app.on('ready', async () => {
   tray = new Tray(path.join(__dirname, '..', '..', 'public', 'iconTemplate@2x.png'))
   tray.setContextMenu(mainMenu)
 
-  const positioner = new Positioner(windows.main)
-  const getWinPosition = size => {
-    if (size === WindowSizes.NORMAL) {
-      return positioner.calculate('center')
-    }
-    // Do not cache tray position since it can change over time
-    return positioner.calculate('trayCenter', tray.getBounds())
-  }
-
-  // Register a shortcut listener.
-  const onShortcutPressed = () => {
-    const state = store.getState()
-    const { windowVisible } = state.window
-    codeHighlight(clipboard.readText(), settings)
-      .then(res => {
-        Object.keys(windows).forEach(win => {
-          windows[win].webContents.send(HIGHLIGHT_COMPLETE, res)
-        })
-
-        if (!windowVisible) {
-          store.dispatch(setWindowSize(WindowSizes.MINI))
-          store.dispatch(setWindowVisibility(true))
-        }
-
-        notifications.notify(
-          {
-            title: 'Code highlighted!',
-            message: `Highlighted using ${res.language}`,
-            closeLabel: 'Close',
-            actions: 'Language'
-          },
-          (err, response, metadata) => {
-            if (err) store.dialog(errorOccured(err))
-
-            if (metadata.activationValue === 'Change language') {
-              store.dispatch(setWindowVisibility(true))
-              store.dispatch(setWindowSize(WindowSizes.NORMAL))
-            }
-          }
-        )
-      })
-      .catch(error => {
-        store.dispatch(errorOccured(error.stderr))
-      })
-  }
-
-  function copyAndHighlight() {
-    // Pasting into the active application
-    // eslint-disable-next-line
-    execute(path.resolve(__dirname, 'copy.applescript'))
-      .then(onShortcutPressed)
-      .catch(error => {
-      store.dispatch(errorOccured(error.stderr))
-    })
-  }
-
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   registerShortcut(shortcut, null, onShortcutPressed)
   settings.watch('shortcut', (newVal, oldVal) => {
@@ -332,15 +283,12 @@ app.on('ready', async () => {
       registerShortcut(newVal, oldVal, onShortcutPressed)
     }
   })
-  // Watch language change and re-highlight the code
-  settings.watch('lastUsedLanguage', language => {
-    if (language) {
-      selectAndHighlight()
-    }
-  })
+  // Watch language and theme change and re-highlight the code
+  settings.watch('lastUsedLanguage', selectAndHighlight)
+  settings.watch('theme', selectAndHighlight)
+
   store.subscribe(() => {
     const state = store.getState()
-    const { size, windowVisible } = state.window
     const { assistiveAccessDisabled, error } = state.errors
     if (error) {
       if (assistiveAccessDisabled) {
@@ -349,20 +297,10 @@ app.on('ready', async () => {
           'Please add codestage to assistive access!'
         )
       } else {
-        dialog.showErrorBox('Unexpected error occured', error)
+        console.error('Unexpected error occured', error)
       }
       store.dispatch(resetErrors())
     }
-
-    if (windowVisible) {
-      windows.main.show()
-    } else {
-      windows.main.hide()
-    }
-    windows.main.setBounds(
-      Object.assign(windowSizes[size], getWinPosition(size)),
-      windowVisible && size !== WindowSizes.MINI
-    )
   })
 })
 

@@ -148,10 +148,31 @@ Array [
 ]
 `;
 
+exports[`highlight should add gutter to the output 1`] = `
+"<div class='ace_static_highlight' style='counter-reset:ace_line 
+0'><div class='ace_line'><span class='ace_gutter ace_gutter-cell'>1</span><span class='ace_text ace_xml'>line</span>
+</div><div class='ace_line'><span class='ace_gutter ace_gutter-cell'>2</span><span class='ace_text ace_xml'>line</span></div></div>"
+`;
+
 exports[`highlight should not add unnecessary new line 1`] = `
 "<div class='ace_static_highlight' style='counter-reset:ace_line 
 0'><div class='ace_line'><span class='ace_markup ace_list'>1. </span><span class='ace_list'>line</span>
 </div><div class='ace_line'><span class='ace_markup ace_list'>2. </span><span class='ace_list'>line</span></div></div>"
+`;
+
+exports[`highlight should pad line numbers in the gutter depending on lines number 1`] = `
+"<div class='ace_static_highlight' style='counter-reset:ace_line 
+0'><div class='ace_line'><span class='ace_gutter ace_gutter-cell'> 1</span><span class='ace_text ace_xml'>line</span>
+</div><div class='ace_line'><span class='ace_gutter ace_gutter-cell'> 2</span><span class='ace_text ace_xml'>line</span>
+</div><div class='ace_line'><span class='ace_gutter ace_gutter-cell'> 3</span><span class='ace_text ace_xml'>line</span>
+</div><div class='ace_line'><span class='ace_gutter ace_gutter-cell'> 4</span><span class='ace_text ace_xml'>line</span>
+</div><div class='ace_line'><span class='ace_gutter ace_gutter-cell'> 5</span><span class='ace_text ace_xml'>line</span>
+</div><div class='ace_line'><span class='ace_gutter ace_gutter-cell'> 6</span><span class='ace_text ace_xml'>line</span>
+</div><div class='ace_line'><span class='ace_gutter ace_gutter-cell'> 7</span><span class='ace_text ace_xml'>line</span>
+</div><div class='ace_line'><span class='ace_gutter ace_gutter-cell'> 8</span><span class='ace_text ace_xml'>line</span>
+</div><div class='ace_line'><span class='ace_gutter ace_gutter-cell'> 9</span><span class='ace_text ace_xml'>line</span>
+</div><div class='ace_line'><span class='ace_gutter ace_gutter-cell'>10</span><span class='ace_text ace_xml'>line</span>
+</div><div class='ace_line'><span class='ace_gutter ace_gutter-cell'>11</span></div></div>"
 `;
 
 exports[`highlight should return HTML with proper class names 1`] = `

@@ -84,6 +84,7 @@ export default class ItemsList extends Component {
     const { onSelect } = this.props
     const { items } = this.state
     const selectedIndex = this.getSelectedIndex()
+    this.onSelectionChange(selectedIndex)
     if (typeof onSelect === 'function') {
       onSelect(items[selectedIndex])
     }
@@ -144,7 +145,7 @@ export default class ItemsList extends Component {
           />
         </ListViewHeader>
         <AutoSizer>
-          {({ height, width }) =>
+          {({ height, width }) => (
             <ArrowKeyStepper
               columnCount={1}
               rowCount={items.length}
@@ -152,7 +153,7 @@ export default class ItemsList extends Component {
               ref={this.setRef}
               onScrollToChange={this.onStepperChanged}
             >
-              {({ onSectionRendered }) =>
+              {({ onSectionRendered }) => (
                 <List
                   width={width}
                   height={height}
@@ -161,8 +162,10 @@ export default class ItemsList extends Component {
                   rowRenderer={this.rowRenderer}
                   onSectionRendered={onSectionRendered}
                   scrollToIndex={selectedIndex}
-                />}
-            </ArrowKeyStepper>}
+                />
+              )}
+            </ArrowKeyStepper>
+          )}
         </AutoSizer>
       </ListView>
     )
