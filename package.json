@@ -7,9 +7,7 @@
   "homepage": "./",
   "build": {
     "appId": "com.koolesache.CodeStage",
-    "asarUnpack": [
-      "**/*.applescript"
-    ],
+    "asarUnpack": ["**/*.applescript"],
     "directories": {
       "buildResources": "resources"
     }
@@ -30,10 +28,8 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "git-exec-and-restage eslint --fix --",
-      "jest --findRelatedTests --bail"
-    ]
+    "*.js": ["git-exec-and-restage eslint --fix --", "jest --findRelatedTests --bail"],
+    "*.{js,json,css,md}": "git-exec-and-restage prettier --write --"
   },
   "keywords": [],
   "author": "Andrey Okonetchnikov <andrey@okonet.ru>",
@@ -90,8 +86,8 @@
     "git-exec-and-restage": "^1.0.1",
     "husky": "^0.14.3",
     "jest": "^21.2.1",
-    "lint-staged": "^4.3.0",
-    "prettier": "^1.5.3"
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.9.2"
   },
   "eslintConfig": {
     "extends": "okonet",
@@ -100,26 +96,18 @@
     },
     "rules": {
       "no-console": "off",
-      "strict": [
-        "error",
-        "safe"
-      ]
+      "strict": ["error", "safe"]
     }
   },
   "config": {
     "forge": {
       "make_targets": {
-        "darwin": [
-          "zip"
-        ]
+        "darwin": ["zip"]
       },
       "electronPackagerConfig": {
         "packageManager": "yarn",
         "icon": "resources/icon",
-        "ignore": [
-          ".idea",
-          "coverage"
-        ]
+        "ignore": [".idea", "coverage"]
       },
       "electronWinstallerConfig": {
         "name": "codestage"
