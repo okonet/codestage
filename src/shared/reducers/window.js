@@ -3,8 +3,8 @@ import { windows, WindowSizes } from '../constants/window'
 import { resizeWindowEffect, toggleWindowEffect } from '../effects/window'
 
 const initialState = {
-  windowVisible: false,
-  size: WindowSizes.MINI
+  windowVisible: true,
+  size: WindowSizes.NORMAL
 }
 
 export default function window(state = initialState, action) {

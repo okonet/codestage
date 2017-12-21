@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { TitleBar, Toolbar, ToolbarNav, ToolbarNavItem, Window } from 'react-desktop/macOs'
-import './App.css'
+// import './App.css'
 import General from './General'
 import CodeStyle from './CodeStyle'
 

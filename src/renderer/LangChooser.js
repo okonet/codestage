@@ -1,12 +1,8 @@
 import React, { Component, PropTypes } from 'react'
+import settings from 'electron-settings'
 import styled from 'styled-components'
 import ItemsList from './ItemsList'
 import Preview from './DynamicPreview'
-
-// Working around electron imports from CRA app:
-// https://medium.freecodecamp.com/building-an-electron-application-with-create-react-app-97945861647c
-const { remote } = window.require('electron')
-const settings = remote.require('electron-settings')
 
 const Wrapper = styled.section`
   display: flex;

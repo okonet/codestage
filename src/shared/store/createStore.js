@@ -46,7 +46,7 @@ export default function configureStore(initialState, scope = 'main') {
   const store = createStore(rootReducer, initialState, enhancer)
 
   if (module.hot) {
-    module.hot.accept('../reducers', () => {
+    module.hot.accept(() => {
       const getNextRootReducer = require('../reducers') // eslint-disable-line
 
       store.replaceReducer(getNextRootReducer(scope))

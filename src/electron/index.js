@@ -1,13 +1,9 @@
-/* eslint import/no-extraneous-dependencies: 0 */
-
-'use strict'
-
-require('babel-register')
-require('babel-polyfill')
-require('hazardous') // Needed for ASAR archives?
-const path = require('path')
-const { name } = require('../../package.json')
-const {
+// Needed for ASAR archives
+import 'hazardous'
+import 'babel-polyfill'
+import path from 'path'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {
   ipcMain,
   app,
   dialog,
@@ -16,22 +12,24 @@ const {
   globalShortcut,
   clipboard,
   BrowserWindow
-} = require('electron')
-const settings = require('electron-settings')
-const log = require('electron-log')
-const isDev = require('electron-is-dev')
-const NotificationCenter = require('node-notifier/notifiers/notificationcenter')
-const clipboardWatcher = require('electron-clipboard-watcher')
-const isPlatform = require('./isPlatform')
-const codeHighlight = require('./codeHighlight')
-const configureStore = require('../shared/store/createStore')
-const { setWindowVisibility, setWindowSize } = require('../shared/actions/window')
-const { errorOccured, resetErrors } = require('../shared/actions/errors')
-const { WindowSizes } = require('../shared/constants/window')
-const execute = require('./executeAppleScript')
-const { DEFAULT_SETTINGS } = require('./defaults')
-const { HIGHLIGHT_COMPLETE, REDUX_ACTION } = require('../shared/constants/events')
-const { windows } = require('../shared/constants/window')
+} from 'electron'
+import { enableLiveReload } from 'electron-compile'
+import settings from 'electron-settings'
+import log from 'electron-log'
+import isDev from 'electron-is-dev'
+import NotificationCenter from 'node-notifier/notifiers/notificationcenter'
+import clipboardWatcher from 'electron-clipboard-watcher'
+import isPlatform from './isPlatform'
+import codeHighlight from './codeHighlight'
+import configureStore from '../shared/store/createStore'
+import { setWindowVisibility, setWindowSize } from '../shared/actions/window'
+import { errorOccured, resetErrors } from '../shared/actions/errors'
+import { windows, WindowSizes } from '../shared/constants/window'
+import { DEFAULT_SETTINGS } from '../shared/constants/defaults'
+import { HIGHLIGHT_COMPLETE, REDUX_ACTION } from '../shared/constants/events'
+import execute from './executeAppleScript'
+
+const { name } = require('../../package.json')
 
 const notifications = new NotificationCenter({})
 
@@ -76,22 +74,24 @@ function registerShortcut(newShortcut, oldShortcut, callback) {
 
 app.on('ready', async () => {
   if (isDev) {
-    // eslint-disable-next-line global-require
-    require('electron-debug')({
-      showDevTools: 'undocked'
-    })
+    enableLiveReload()
 
     const {
       default: installExtension,
       REACT_DEVELOPER_TOOLS,
       REDUX_DEVTOOLS
-    } = require('electron-devtools-installer') // eslint-disable-line global-require
+    } = require('electron-devtools-installer') // eslint-disable-line
 
     const extensions = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]
     extensions.forEach(extension => {
       installExtension(extension)
         .then(ext => console.log(`Added Extension:  ${ext}`))
         .catch(err => console.log('An error occurred: ', err))
+    })
+
+    // eslint-disable-next-line global-require
+    require('electron-debug')({
+      showDevTools: 'undocked'
     })
   }
 
@@ -126,7 +126,8 @@ app.on('ready', async () => {
     show: false
   })
 
-  const startUrl = isDev ? 'http://localhost:5000' : `file://${__dirname}/../../build/index.html`
+  // const startUrl = isDev ? 'http://localhost:5000' : `file://${__dirname}/../../build/index.html`
+  const startUrl = `file://${__dirname}/../renderer/index.html`
 
   windows.main.loadURL(`${startUrl}#main`)
   windows.preferences.loadURL(`${startUrl}#preferences`)
@@ -275,7 +276,7 @@ Theme: ${result.theme}`,
       type: 'normal'
     }
   ])
-  tray = new Tray(path.join(__dirname, '..', '..', 'public', 'iconTemplate@2x.png'))
+  tray = new Tray(path.join(__dirname, '..', '..', 'resources', 'iconTemplate@2x.png'))
   tray.setContextMenu(mainMenu)
 
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
