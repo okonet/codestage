@@ -5596,7 +5596,7 @@ macaddress@^0.2.8:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
 
-macos-alias@~0.2.5:
+macos-alias@^0.2.11, macos-alias@~0.2.5:
   version "0.2.11"
   resolved "https://registry.yarnpkg.com/macos-alias/-/macos-alias-0.2.11.tgz#feeea6c13ba119814a43fc43c470b31e59ef718a"
   dependencies:
