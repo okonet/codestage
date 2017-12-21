@@ -74,7 +74,7 @@ function registerShortcut(newShortcut, oldShortcut, callback) {
 
 app.on('ready', async () => {
   if (isDev) {
-    enableLiveReload()
+    enableLiveReload({ strategy: 'react-hmr' })
 
     const {
       default: installExtension,

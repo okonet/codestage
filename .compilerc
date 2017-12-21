@@ -1,25 +1,55 @@
 {
-  "application/javascript": {
-    "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "chrome": 59,
-            "node": 8
-          },
-          "useBuiltIns": true,
-          "debug": true
-        }
-      ],
-      "react"
-    ],
-    "plugins": [
-      "transform-object-rest-spread",
-      "transform-class-properties",
-      "styled-components",
-      "add-module-exports"
-    ],
-    "sourceMaps": "inline"
+  "env": {
+    "development": {
+      "application/javascript": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "chrome": 59,
+                "node": 8
+              },
+              "include": ["transform-es2015-classes"],
+              "useBuiltIns": true,
+              "debug": true
+            }
+          ],
+          "react"
+        ],
+        "plugins": [
+          "react-hot-loader/babel",
+          "transform-object-rest-spread",
+          "transform-class-properties",
+          "styled-components",
+          "add-module-exports"
+        ],
+        "sourceMaps": "inline"
+      }
+    },
+    "production": {
+      "application/javascript": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "chrome": 59,
+                "node": 8
+              },
+              "useBuiltIns": true
+            }
+          ],
+          "react"
+        ],
+        "plugins": [
+          "transform-object-rest-spread",
+          "transform-class-properties",
+          "styled-components",
+          "add-module-exports"
+        ],
+        "sourceMaps": "none"
+      }
+    }
   }
 }
