@@ -91,7 +91,6 @@
     "husky": "^0.14.3",
     "jest": "^21.2.1",
     "lint-staged": "^4.3.0",
-    "macos-alias": "^0.2.11",
     "prettier": "^1.5.3"
   },
   "eslintConfig": {
@@ -111,8 +110,7 @@
     "forge": {
       "make_targets": {
         "darwin": [
-          "zip",
-          "dmg"
+          "zip"
         ]
       },
       "electronPackagerConfig": {
