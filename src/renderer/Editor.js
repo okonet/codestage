@@ -51,7 +51,7 @@ class Editor extends Component {
   constructor({ language, languagesList, preferences, theme, themesList }) {
     super()
     this.state = {
-      selectedLanguage: language || preferences.lastUsedLanguage || languagesList[0],
+      language: language || preferences.language || languagesList[0],
       theme: theme || preferences.theme || themesList[0],
       lineNumbers: preferences.lineNumbers
     }
@@ -59,7 +59,7 @@ class Editor extends Component {
 
   onLangChanged = selection => {
     this.setState({
-      selectedLanguage: selection
+      language: selection
     })
   }
 
@@ -90,7 +90,7 @@ class Editor extends Component {
       themesList,
       changeMode
     } = this.props
-    const { selectedLanguage, theme, lineNumbers } = this.state
+    const { language, theme, lineNumbers } = this.state
     const { fontface } = preferences
 
     if (mode === EditorModes.THEME) {
@@ -101,7 +101,7 @@ class Editor extends Component {
               value={html}
               selectedTheme={theme}
               themesList={themesList}
-              language={selectedLanguage}
+              language={language}
               fontface={fontface}
               onConfirmSelection={this.onThemeChanged}
             />
@@ -135,7 +135,7 @@ class Editor extends Component {
                     focusable
                     heading="Languages"
                     items={languagesList}
-                    selectedItem={selectedLanguage}
+                    selectedItem={language}
                     onChange={this.onLangChanged}
                     onSelect={this.onConfirmSelection}
                   />
@@ -169,7 +169,7 @@ class Editor extends Component {
               <Preview
                 value={text}
                 theme={themesList[theme]}
-                language={selectedLanguage}
+                language={language}
                 fontface={fontface}
                 showGutter={lineNumbers}
               />

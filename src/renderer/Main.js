@@ -66,11 +66,11 @@ const mapDispatchToProps = dispatch => ({
     }
   },
   confirmSelection: state => {
-    const { lineNumbers, selectedLanguage, theme } = state
+    const { lineNumbers, language, theme } = state
     settings.set('highlight', {
       ...settings.get('highlight'),
+      language,
       lineNumbers,
-      lastUsedLanguage: selectedLanguage,
       theme
     })
     dispatch(setWindowVisibility(false))

@@ -4,7 +4,7 @@ export const DEFAULT_SETTINGS = Object.freeze({
     fontface: 'Courier New',
     fontsize: 64, // 32pt
     theme: 'chrome',
-    lastUsedLanguage: 'javascript',
+    language: 'javascript',
     lineNumbers: false
   },
   shortcut: 'Command+Alt+V',

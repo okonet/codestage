@@ -44,20 +44,20 @@ class LangChooser extends Component {
   constructor({ language, preferences, languagesList }) {
     super()
     this.state = {
-      selectedLanguage: language || preferences.lastUsedLanguage || languagesList[0]
+      selectedLanguage: language || preferences.language || languagesList[0]
     }
   }
 
   onLangChanged = selection => {
     this.setState({
-      selectedLanguage: selection
+      language: selection
     })
   }
 
   onConfirmSelection = selection => {
     const { onConfirmSelection } = this.props
     if (typeof onConfirmSelection === 'function') {
-      settings.set('highlight.lastUsedLanguage', selection)
+      settings.set('highlight.language', selection)
       onConfirmSelection(selection)
     }
   }
