@@ -31,7 +31,7 @@ class ThemePicker extends Component {
     value: PropTypes.string,
     language: PropTypes.string.isRequired,
     fontface: PropTypes.string.isRequired,
-    selectedTheme: PropTypes.object.isRequired, // eslint-disable-line
+    selectedTheme: PropTypes.string.isRequired,
     themesList: PropTypes.objectOf(ThemePropType).isRequired,
     onConfirmSelection: PropTypes.func
   }
@@ -39,7 +39,7 @@ class ThemePicker extends Component {
   constructor({ selectedTheme, themesList }) {
     super()
     this.state = {
-      selectedTheme: selectedTheme || themesList[0]
+      selectedTheme: selectedTheme || themesList[0].name
     }
   }
 
