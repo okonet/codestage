@@ -16,21 +16,21 @@ class CodeStyle extends Component {
   }
 
   onFontChanged = selectedFont => {
-    settings.set('fontface', selectedFont)
+    settings.set('highlight.fontface', selectedFont)
   }
 
   onFontSizeChanged = event => {
     const { value } = event.target
-    settings.set('fontsize', value)
+    settings.set('highlight.fontsize', value)
   }
 
   onThemeChanged = selectedTheme => {
-    settings.set('theme', selectedTheme)
+    settings.set('highlight.theme', selectedTheme)
   }
 
   onSubsetChanged = event => {
     const { value } = event.target
-    settings.set('subset', value)
+    settings.set('highlight.subset', value)
   }
 
   render() {

@@ -57,7 +57,7 @@ class LangChooser extends Component {
   onConfirmSelection = selection => {
     const { onConfirmSelection } = this.props
     if (typeof onConfirmSelection === 'function') {
-      settings.set('lastUsedLanguage', selection)
+      settings.set('highlight.lastUsedLanguage', selection)
       onConfirmSelection(selection)
     }
   }

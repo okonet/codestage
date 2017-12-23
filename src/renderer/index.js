@@ -17,10 +17,6 @@ const store = configureStore(initialState, 'renderer')
 
 let sharedState = {}
 
-// If running for the first time set settings to use defaults
-if (!settings.has('theme')) {
-  settings.setAll(DEFAULT_SETTINGS)
-}
 function render() {
   const App = require('./App') // eslint-disable-line
   Promise.all([getLanguages(), getThemes()]).then(res => {
@@ -28,7 +24,7 @@ function render() {
     const themesList = res[1]
     const props = {
       ...sharedState,
-      preferences: settings.getAll(),
+      preferences: settings.get('highlight'),
       themesList,
       languagesList
     }
@@ -46,10 +42,7 @@ function render() {
 render()
 
 Object.keys(DEFAULT_SETTINGS).forEach(key => {
-  settings.watch(key, (newVal, oldVal) => {
-    console.log(`Settings updated for ${key}: ${oldVal} -> ${newVal}`)
-    render()
-  })
+  settings.watch(key, render)
 })
 
 ipcRenderer.on(REDUX_ACTION, (event, payload) => {
@@ -64,7 +57,6 @@ ipcRenderer.on(HIGHLIGHT_COMPLETE, (event, { text, html, language, relevance }) 
     language,
     relevance
   }
-  console.log(sharedState)
   render()
 })
 

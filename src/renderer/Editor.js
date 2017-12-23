@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import settings from 'electron-settings'
 import { Button, Checkbox, SegmentedControl, SegmentedControlItem } from 'react-desktop/macOs'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -41,16 +40,16 @@ class Editor extends Component {
     html: PropTypes.string,
     text: PropTypes.string,
     language: PropTypes.string,
-    preferences: PropTypes.object, // eslint-disable-line
     languagesList: PropTypes.arrayOf(PropTypes.string),
+    preferences: PropTypes.object, // eslint-disable-line
+    theme: PropTypes.string,
     themesList: PropTypes.objectOf(ThemePropType).isRequired,
     onConfirmSelection: PropTypes.func,
     changeMode: PropTypes.func
   }
 
-  constructor({ language, preferences, languagesList, theme, themesList, ...rest }) {
+  constructor({ language, languagesList, preferences, theme, themesList }) {
     super()
-    console.log(rest)
     this.state = {
       selectedLanguage: language || preferences.lastUsedLanguage || languagesList[0],
       theme: theme || preferences.theme || themesList[0],
@@ -71,12 +70,8 @@ class Editor extends Component {
 
   onConfirmSelection = () => {
     const { onConfirmSelection } = this.props
-    const { lineNumbers, selectedLanguage, theme } = this.state
     if (typeof onConfirmSelection === 'function') {
-      settings.set('lastUsedLanguage', selectedLanguage)
-      settings.set('theme', theme)
-      settings.set('lineNumbers', lineNumbers)
-      onConfirmSelection(selectedLanguage)
+      onConfirmSelection(this.state)
     }
   }
 

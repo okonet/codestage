@@ -95,6 +95,11 @@ app.on('ready', async () => {
     })
   }
 
+  // If running for the first time set settings to use defaults
+  if (!settings.has('highlight')) {
+    settings.setAll(DEFAULT_SETTINGS)
+  }
+
   windows.main = new BrowserWindow({
     width,
     height,
@@ -295,10 +300,7 @@ Theme: ${result.theme}`,
     }
   })
   // Watch language and theme change and re-highlight the code
-  settings.watch('lastUsedLanguage', selectAndHighlight)
-  settings.watch('theme', selectAndHighlight)
-  settings.watch('lineNumbers', selectAndHighlight)
-  settings.watch('fontface', selectAndHighlight)
+  settings.watch('highlight', selectAndHighlight)
 
   store.subscribe(() => {
     const state = store.getState()
@@ -328,6 +330,6 @@ app.on('will-quit', () => {
   })
   // Unregister all shortcuts.
   globalShortcut.unregisterAll()
-  // Remove highlight watcher
+  // Remove clipboard watcher
   watcher.stop()
 })
