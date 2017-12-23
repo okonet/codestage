@@ -1,0 +1,6 @@
+{
+  "extends": "okonet",
+  "parserOptions": {
+    "ecmaVersion": 6
+  }
+}

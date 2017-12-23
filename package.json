@@ -82,16 +82,6 @@
     "lint-staged": "^6.0.0",
     "prettier": "^1.9.2"
   },
-  "eslintConfig": {
-    "extends": "okonet",
-    "parserOptions": {
-      "ecmaVersion": 6
-    },
-    "rules": {
-      "no-console": "off",
-      "strict": ["error", "safe"]
-    }
-  },
   "config": {
     "forge": {
       "make_targets": {
