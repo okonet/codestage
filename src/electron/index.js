@@ -114,6 +114,11 @@ app.on('ready', async () => {
     }
   })
 
+  // Sync window state with the store
+  windows.main.on('close', () => {
+    store.dispatch(setWindowVisibility(false))
+  })
+
   windows.preferences = new BrowserWindow({
     width,
     height,
@@ -283,6 +288,7 @@ Theme: ${result.theme}`,
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   registerShortcut(shortcut, null, onShortcutPressed)
   settings.watch('shortcut', (newVal, oldVal) => {
+    console.log('Shortcut changed: %s -> %s', newVal, oldVal)
     if (newVal) {
       tray.setContextMenu(getMenu()) // Update shortcut accelerators in the menu
       registerShortcut(newVal, oldVal, onShortcutPressed)
