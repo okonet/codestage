@@ -235,54 +235,56 @@ Theme: ${result.theme}`,
     }
   })
 
-  const mainMenu = Menu.buildFromTemplate([
-    {
-      label: 'Highlight from clipboard',
-      type: 'normal',
-      click: async () => {
-        await highlightText(clipboard.readText())
-        await pasteToActiveApp()
+  function getMenu() {
+    return Menu.buildFromTemplate([
+      {
+        label: 'Highlight from clipboard',
+        type: 'normal',
+        click: async () => {
+          await highlightText(clipboard.readText())
+          await pasteToActiveApp()
+        }
+      },
+      {
+        label: 'Open CodeStage...',
+        type: 'normal',
+        accelerator: settings.get('shortcut', DEFAULT_SETTINGS.shortcut),
+        click: () => {
+          store.dispatch(setWindowSize(WindowSizes.NORMAL))
+          store.dispatch(setWindowVisibility(true))
+        }
+      },
+      {
+        type: 'separator'
+      },
+      {
+        role: 'about'
+      },
+      {
+        label: 'Preferences...',
+        type: 'normal',
+        click: () => {
+          windows.preferences.show()
+        }
+      },
+      {
+        type: 'separator'
+      },
+      {
+        label: `Quit ${name}`,
+        role: 'quit',
+        type: 'normal'
       }
-    },
-    {
-      label: 'Open CodeStage...',
-      type: 'normal',
-      accelerator: settings.get('shortcut', DEFAULT_SETTINGS.shortcut),
-      click: () => {
-        store.dispatch(setWindowSize(WindowSizes.NORMAL))
-        store.dispatch(setWindowVisibility(true))
-      }
-    },
-    {
-      type: 'separator'
-    },
-    {
-      role: 'about'
-    },
-    {
-      accelerator: 'Cmd+,',
-      label: 'Preferences...',
-      type: 'normal',
-      click: () => {
-        windows.preferences.show()
-      }
-    },
-    {
-      type: 'separator'
-    },
-    {
-      label: `Quit ${name}`,
-      role: 'quit',
-      type: 'normal'
-    }
-  ])
+    ])
+  }
   tray = new Tray(path.join(__dirname, '..', '..', 'resources', 'iconTemplate@2x.png'))
-  tray.setContextMenu(mainMenu)
+  tray.setContextMenu(getMenu())
 
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   registerShortcut(shortcut, null, onShortcutPressed)
   settings.watch('shortcut', (newVal, oldVal) => {
     if (newVal) {
+      tray.setContextMenu(getMenu()) // Update shortcut accelerators in the menu
       registerShortcut(newVal, oldVal, onShortcutPressed)
     }
   })
