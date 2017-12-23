@@ -28,14 +28,9 @@ class CodeStyle extends Component {
     settings.set('highlight.theme', selectedTheme)
   }
 
-  onSubsetChanged = event => {
-    const { value } = event.target
-    settings.set('highlight.subset', value)
-  }
-
   render() {
     const { html, preferences, themesList } = this.props
-    const { fontface, fontsize, theme, subset } = preferences
+    const { fontface, fontsize, theme } = preferences
     const currentTheme = themesList[theme] || { cssText: '' }
     return (
       <section className="wrapper wrapper_vertical">
@@ -65,8 +60,6 @@ class CodeStyle extends Component {
             />
           </section>
           <section className="content">
-            <input type="text" value={subset} onChange={this.onSubsetChanged} />
-
             <input type="number" value={fontsize} onChange={this.onFontSizeChanged} />
           </section>
         </section>

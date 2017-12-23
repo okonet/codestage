@@ -4,7 +4,6 @@ export const DEFAULT_SETTINGS = Object.freeze({
     fontface: 'Courier New',
     fontsize: 64, // 32pt
     theme: 'chrome',
-    subset: [],
     lastUsedLanguage: 'javascript',
     lineNumbers: false
   },
