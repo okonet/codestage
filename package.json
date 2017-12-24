@@ -92,7 +92,10 @@
         "icon": "resources/icon",
         "ignore": [".idea", "coverage"],
         "appBundleId": "com.koolesache.CodeStage",
-        "appCategoryType": "public.app-category.productivity"
+        "appCategoryType": "public.app-category.productivity",
+        "asar": {
+          "unpackDir": "{src/scripts,node_modules/node-notifier/vendor}"
+        }
       },
       "electronWinstallerConfig": {
         "name": "codestage"
