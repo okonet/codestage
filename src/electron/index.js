@@ -85,8 +85,8 @@ app.on('ready', async () => {
     const extensions = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]
     extensions.forEach(extension => {
       installExtension(extension)
-        .then(ext => console.log(`Added Extension:  ${ext}`))
-        .catch(err => console.log('An error occurred: ', err))
+        .then(ext => log.info(`Added Extension:  ${ext}`))
+        .catch(err => log.info('An error occurred: ', err))
     })
 
     // eslint-disable-next-line global-require
@@ -159,7 +159,6 @@ app.on('ready', async () => {
   })
 
   function handleError(error) {
-    log.error(error)
     store.dispatch(errorOccured(error))
   }
 
@@ -204,7 +203,10 @@ Theme: ${result.theme}`,
         actions: OPEN_ACTION_VALUE
       },
       (err, response, metadata) => {
-        if (err) store.dispatch(errorOccured(err))
+        if (err) {
+          // notifier throws error even if it works normally so we will skip it.
+          // handleError(err)
+        }
 
         if (metadata.activationValue === OPEN_ACTION_VALUE) {
           store.dispatch(setWindowVisibility(true))
@@ -240,7 +242,7 @@ Theme: ${result.theme}`,
     // When clipboard content changes rehighlight it and
     // put RTF into RTF part of clipboard ready to use in Keynote.app
     onTextChange: async text => {
-      console.log(text)
+      log.log(text)
       await highlightText(text)
     }
   })
@@ -293,7 +295,7 @@ Theme: ${result.theme}`,
   const shortcut = settings.get('shortcut', DEFAULT_SETTINGS.shortcut)
   registerShortcut(shortcut, null, onShortcutPressed)
   settings.watch('shortcut', (newVal, oldVal) => {
-    console.log('Shortcut changed: %s -> %s', newVal, oldVal)
+    log.log('Shortcut changed: %s -> %s', newVal, oldVal)
     if (newVal) {
       tray.setContextMenu(getMenu()) // Update shortcut accelerators in the menu
       registerShortcut(newVal, oldVal, onShortcutPressed)
@@ -312,7 +314,7 @@ Theme: ${result.theme}`,
           'Please add codestage to assistive access!'
         )
       } else {
-        console.error('Unexpected error occured', error)
+        log.error('Unexpected error occured', error)
       }
       store.dispatch(resetErrors())
     }
