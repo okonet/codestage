@@ -27,7 +27,7 @@ import { errorOccured, resetErrors } from '../shared/actions/errors'
 import { windows, WindowSizes } from '../shared/constants/window'
 import { DEFAULT_SETTINGS } from '../shared/constants/defaults'
 import { HIGHLIGHT_COMPLETE, REDUX_ACTION } from '../shared/constants/events'
-import execute from './executeAppleScript'
+import execAppleScript from './executeAppleScript'
 
 const { name } = require('../../package.json')
 
@@ -168,7 +168,7 @@ app.on('ready', async () => {
     // Pasting into the active application
     if (autopaste) {
       try {
-        await execute(path.resolve(__dirname, 'paste.applescript'))
+        await execAppleScript('paste')
       } catch (error) {
         handleError(error)
       }
@@ -226,8 +226,8 @@ Theme: ${result.theme}`,
   // Pasting into the active application
   async function selectAndHighlight() {
     try {
-      await execute(path.resolve(__dirname, 'activate.applescript'))
-      await execute(path.resolve(__dirname, 'selectall.applescript'))
+      await execAppleScript('activate')
+      await execAppleScript('selectall')
       await highlightText(clipboard.readText())
       await pasteToActiveApp()
     } catch (error) {

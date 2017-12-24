@@ -1,9 +1,11 @@
-const execa = require('execa')
+import path from 'path'
+import execa from 'execa'
 
-module.exports = function executeAppleScript(pathToScript) {
-  return execa('osascript', [pathToScript]).catch(
-    error =>
-      new Error(`Error executing ${pathToScript}: 
-${error}`)
-  )
+export default function execAppleScript(scriptName) {
+  const pathToScript = path.resolve(__dirname, '..', 'scripts', `${scriptName}.applescript`)
+  return execa('osascript', [pathToScript]).catch(err => {
+    throw new Error(`Error executing AppleScript named ${scriptName}:
+
+${err}`)
+  })
 }
