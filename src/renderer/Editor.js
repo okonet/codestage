@@ -119,7 +119,7 @@ class Editor extends Component {
             <Box m={1}>
               <Button
                 onClick={() => {
-                  changeMode(EditorModes.LANGUAGE)
+                  changeMode(EditorModes.STYLE)
                 }}
               >
                 Done

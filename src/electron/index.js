@@ -125,14 +125,14 @@ app.on('ready', async () => {
   })
 
   windows.preferences = new BrowserWindow({
-    width,
-    height,
+    width: 500,
+    height: 300,
     center: true,
     frame: true,
     maximizable: false,
     minimizable: false,
     fullscreenable: false,
-    titleBarStyle: 'hidden-inset',
+    title: 'Preferences',
     show: false
   })
 
