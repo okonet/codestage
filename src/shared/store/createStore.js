@@ -41,13 +41,14 @@ export default function configureStore(initialState, scope = 'main') {
   const enhanced = [applyMiddleware(...middleware)]
 
   const rootReducer = getRootReducer(scope)
-  const composeEnhancers = typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose // eslint-disable-line
+  const composeEnhancers =
+    (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose // eslint-disable-line
   const enhancer = composeEnhancers(...enhanced)
   const store = createStore(rootReducer, initialState, enhancer)
 
   if (module.hot) {
     module.hot.accept(() => {
-      const getNextRootReducer = require('../reducers') // eslint-disable-line
+      const getNextRootReducer = require('../reducers').default // eslint-disable-line
 
       store.replaceReducer(getNextRootReducer(scope))
     })

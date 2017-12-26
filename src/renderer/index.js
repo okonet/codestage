@@ -18,7 +18,7 @@ const store = configureStore(initialState, 'renderer')
 let sharedState = {}
 
 function render() {
-  const App = require('./App') // eslint-disable-line
+  const App = require('./App').default // eslint-disable-line
   Promise.all([getLanguages(), getThemes()]).then(res => {
     const languagesList = res[0]
     const themesList = res[1]

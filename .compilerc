@@ -9,7 +9,6 @@
               "targets": {
                 "electron": "1.8"
               },
-              "include": ["transform-es2015-classes"],
               "useBuiltIns": true,
               "debug": true
             }
@@ -20,8 +19,7 @@
           "react-hot-loader/babel",
           "transform-object-rest-spread",
           "transform-class-properties",
-          "styled-components",
-          "add-module-exports"
+          "styled-components"
         ],
         "sourceMaps": "inline"
       }
@@ -43,8 +41,7 @@
         "plugins": [
           "transform-object-rest-spread",
           "transform-class-properties",
-          "styled-components",
-          "add-module-exports"
+          "styled-components"
         ],
         "sourceMaps": "none"
       }
