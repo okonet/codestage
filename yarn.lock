@@ -8453,13 +8453,6 @@ synchronous-promise@^1.0.7:
   version "1.0.18"
   resolved "https://registry.yarnpkg.com/synchronous-promise/-/synchronous-promise-1.0.18.tgz#936e8763e6554088cdcf78dc64f7473b972fcefc"
 
-system-font-families@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/system-font-families/-/system-font-families-0.5.0.tgz#baa79d47d0b9af21b5026894fdf32ba1e9302295"
-  dependencies:
-    babel-polyfill "^6.23.0"
-    ttfinfo "https://github.com/rBurgett/ttfinfo.git"
-
 table@^3.7.8:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/table/-/table-3.8.3.tgz#2bbc542f0fda9861a755d3947fefd8b3f513855f"
@@ -8803,10 +8796,6 @@ truncate-utf8-bytes@^1.0.0:
 tryit@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tryit/-/tryit-1.0.3.tgz#393be730a9446fd1ead6da59a014308f36c289cb"
-
-"ttfinfo@https://github.com/rBurgett/ttfinfo.git":
-  version "0.2.0"
-  resolved "https://github.com/rBurgett/ttfinfo.git#f00e43e2a6d4c8a12a677df20b7804492d50863c"
 
 tunnel-agent@^0.6.0:
   version "0.6.0"
