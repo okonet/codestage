@@ -3345,6 +3345,12 @@ follow-redirects@1.2.6:
   dependencies:
     debug "^3.1.0"
 
+font-manager@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/font-manager/-/font-manager-0.2.2.tgz#18a1c5b6ec7f91e22a17c71cbbaa0ea4e68e3a44"
+  dependencies:
+    nan "~2.2.0"
+
 for-in@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -5907,6 +5913,10 @@ nan@^2.3.2, nan@^2.4.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.8.0.tgz#ed715f3fe9de02b57a5e6252d90a96675e1f085a"
 
+nan@~2.2.0:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.2.1.tgz#d68693f6b34bb41d66bc68b3a4f9defc79d7149b"
+
 natives@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/natives/-/natives-1.1.1.tgz#011acce1f7cbd87f7ba6b3093d6cd9392be1c574"
@@ -7148,6 +7158,10 @@ radium@^0.19.6:
     exenv "^1.2.1"
     inline-style-prefixer "^2.0.5"
     prop-types "^15.5.8"
+
+ramda@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
 
 random-path@^0.1.0:
   version "0.1.1"
@@ -8439,12 +8453,6 @@ synchronous-promise@^1.0.7:
   version "1.0.18"
   resolved "https://registry.yarnpkg.com/synchronous-promise/-/synchronous-promise-1.0.18.tgz#936e8763e6554088cdcf78dc64f7473b972fcefc"
 
-system-font-families@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/system-font-families/-/system-font-families-1.0.0.tgz#356a4ef64a68120001244a86f2212363a7f15124"
-  dependencies:
-    ttfinfo "https://github.com/rBurgett/ttfinfo.git"
-
 table@^3.7.8:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/table/-/table-3.8.3.tgz#2bbc542f0fda9861a755d3947fefd8b3f513855f"
@@ -8788,10 +8796,6 @@ truncate-utf8-bytes@^1.0.0:
 tryit@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tryit/-/tryit-1.0.3.tgz#393be730a9446fd1ead6da59a014308f36c289cb"
-
-"ttfinfo@https://github.com/rBurgett/ttfinfo.git":
-  version "0.2.0"
-  resolved "https://github.com/rBurgett/ttfinfo.git#f00e43e2a6d4c8a12a677df20b7804492d50863c"
 
 tunnel-agent@^0.6.0:
   version "0.6.0"

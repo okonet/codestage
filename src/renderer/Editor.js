@@ -9,6 +9,7 @@ import Preview from './DynamicPreview'
 import { EditorModes, ThemePropType } from '../shared/constants/editor'
 import { setMode } from '../shared/actions/editor'
 import { setWindowVisibility } from '../shared/actions/window'
+import FontChooser from './FontChooser'
 
 const Wrapper = styled.section`
   display: flex;
@@ -48,9 +49,11 @@ class Editor extends Component {
     changeMode: PropTypes.func
   }
 
-  constructor({ language, languagesList, preferences, theme, themesList }) {
+  constructor({ fontface, fontsize, language, languagesList, preferences, theme, themesList }) {
     super()
     this.state = {
+      fontface: fontface || preferences.fontface,
+      fontsize: fontsize || preferences.fontsize,
       language: language || preferences.language || languagesList[0],
       theme: theme || preferences.theme || themesList[0],
       lineNumbers: preferences.lineNumbers
@@ -60,6 +63,13 @@ class Editor extends Component {
   onLangChanged = selection => {
     this.setState({
       language: selection
+    })
+  }
+
+  onFontChanged = ({ fontface, fontsize }) => {
+    this.setState({
+      fontface,
+      fontsize
     })
   }
 
@@ -80,18 +90,8 @@ class Editor extends Component {
   }
 
   render() {
-    const {
-      closeWindow,
-      mode,
-      html,
-      text,
-      preferences,
-      languagesList,
-      themesList,
-      changeMode
-    } = this.props
-    const { language, theme, lineNumbers } = this.state
-    const { fontface } = preferences
+    const { closeWindow, mode, html, text, languagesList, themesList, changeMode } = this.props
+    const { fontface, fontsize, language, theme, lineNumbers } = this.state
 
     if (mode === EditorModes.THEME) {
       return (
@@ -108,7 +108,7 @@ class Editor extends Component {
             <Box m={1}>
               <Button
                 onClick={() => {
-                  changeMode(EditorModes.LANGUAGE)
+                  changeMode(EditorModes.STYLE)
                 }}
               >
                 Done
@@ -121,7 +121,7 @@ class Editor extends Component {
     return (
       <Flex column style={{ width: '100%' }}>
         <Flex flex="1">
-          <Box width={300} my={2}>
+          <Box width={300} mt={1}>
             <SegmentedControl>
               <SegmentedControlItem
                 title="Language"
@@ -148,18 +148,38 @@ class Editor extends Component {
                   changeMode(EditorModes.STYLE)
                 }}
               >
-                <Button
-                  onClick={() => {
-                    changeMode(EditorModes.THEME)
-                  }}
-                >
-                  Change theme...
-                </Button>
-                <Checkbox
-                  label="Display line numbers"
-                  onChange={this.onLineNumbersSettingChanged}
-                  defaultChecked={lineNumbers}
-                />
+                <Box p={1}>
+                  <Button
+                    onClick={() => {
+                      changeMode(EditorModes.THEME)
+                    }}
+                  >
+                    Change theme...
+                  </Button>
+                  <Checkbox
+                    label="Display line numbers"
+                    onChange={this.onLineNumbersSettingChanged}
+                    defaultChecked={lineNumbers}
+                  />
+                </Box>
+              </SegmentedControlItem>
+              <SegmentedControlItem
+                title="Font"
+                selected={mode === EditorModes.FONT}
+                onSelect={() => {
+                  changeMode(EditorModes.FONT)
+                }}
+              >
+                <Box p={1}>
+                  <FontChooser
+                    fontface={fontface}
+                    fontsize={fontsize}
+                    onChange={this.onFontChanged}
+                    onConfirm={() => {
+                      changeMode(EditorModes.STYLE)
+                    }}
+                  />
+                </Box>
               </SegmentedControlItem>
             </SegmentedControl>
           </Box>
@@ -171,6 +191,7 @@ class Editor extends Component {
                 theme={themesList[theme]}
                 language={language}
                 fontface={fontface}
+                fontsize={fontsize}
                 showGutter={lineNumbers}
               />
             </PreviewContainer>
