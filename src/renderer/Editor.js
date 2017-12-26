@@ -1,21 +1,15 @@
 import React, { Component, PropTypes } from 'react'
 import { Button, Checkbox, SegmentedControl, SegmentedControlItem } from 'react-desktop/macOs'
 import { connect } from 'react-redux'
-import SystemFonts from 'system-font-families'
 import styled from 'styled-components'
 import { Flex, Box } from 'grid-styled'
 import ItemsList from './ItemsList'
 import ThemePicker from './ThemePicker'
 import Preview from './DynamicPreview'
-import { EditorModes, FontSizes, ThemePropType } from '../shared/constants/editor'
+import { EditorModes, ThemePropType } from '../shared/constants/editor'
 import { setMode } from '../shared/actions/editor'
 import { setWindowVisibility } from '../shared/actions/window'
-import Slider from './Slider'
-import SliderPane from './SliderPane'
-import Select from './Select'
-
-const systemFonts = new SystemFonts()
-const fontList = systemFonts.getFontsSync()
+import FontChooser from './FontChooser'
 
 const Wrapper = styled.section`
   display: flex;
@@ -72,15 +66,10 @@ class Editor extends Component {
     })
   }
 
-  onFontChanged = selection => {
+  onFontChanged = ({ fontface, fontsize }) => {
     this.setState({
-      fontface: selection
-    })
-  }
-
-  onFontSizeChanged = selection => {
-    this.setState({
-      fontsize: selection
+      fontface,
+      fontsize
     })
   }
 
@@ -132,86 +121,67 @@ class Editor extends Component {
     return (
       <Flex column style={{ width: '100%' }}>
         <Flex flex="1">
-          <Box width={300} my={2}>
-            <Slider activePane={mode === EditorModes.FONT ? 1 : 0}>
-              <SliderPane>
-                <SegmentedControl>
-                  <SegmentedControlItem
-                    title="Language"
-                    selected={mode === EditorModes.LANGUAGE}
-                    onSelect={() => {
-                      changeMode(EditorModes.LANGUAGE)
-                    }}
-                  >
-                    <Wrapper style={{ height: 500 }}>
-                      <ItemsList
-                        focusable
-                        heading="Languages"
-                        items={languagesList}
-                        selectedItem={language}
-                        onChange={this.onLangChanged}
-                        onSelect={this.onConfirmSelection}
-                      />
-                    </Wrapper>
-                  </SegmentedControlItem>
-                  <SegmentedControlItem
-                    title="Style"
-                    selected={mode === EditorModes.STYLE}
-                    onSelect={() => {
-                      changeMode(EditorModes.STYLE)
-                    }}
-                  >
-                    <Box p={1}>
-                      <Button
-                        onClick={() => {
-                          changeMode(EditorModes.THEME)
-                        }}
-                      >
-                        Change theme...
-                      </Button>
-                      <Checkbox
-                        label="Display line numbers"
-                        onChange={this.onLineNumbersSettingChanged}
-                        defaultChecked={lineNumbers}
-                      />
-                      <Button
-                        onClick={() => {
-                          changeMode(EditorModes.FONT)
-                        }}
-                      >
-                        Change font
-                      </Button>
-                      <Select
-                        name="fontsize"
-                        values={FontSizes}
-                        valueRenderer={value => `${value / 2}pt`}
-                        selectedValue={fontsize}
-                        onSelect={this.onFontSizeChanged}
-                      />
-                    </Box>
-                  </SegmentedControlItem>
-                </SegmentedControl>
-              </SliderPane>
-              <SliderPane>
-                <Button
-                  onClick={() => {
-                    changeMode(EditorModes.STYLE)
-                  }}
-                >
-                  Back
-                </Button>
+          <Box width={300} mt={1}>
+            <SegmentedControl>
+              <SegmentedControlItem
+                title="Language"
+                selected={mode === EditorModes.LANGUAGE}
+                onSelect={() => {
+                  changeMode(EditorModes.LANGUAGE)
+                }}
+              >
                 <Wrapper style={{ height: 500 }}>
                   <ItemsList
                     focusable
-                    heading="fonts"
-                    items={fontList}
-                    selectedItem={fontface}
-                    onChange={this.onFontChanged}
+                    heading="Languages"
+                    items={languagesList}
+                    selectedItem={language}
+                    onChange={this.onLangChanged}
                     onSelect={this.onConfirmSelection}
                   />
                 </Wrapper>
-              </SliderPane>
-            </Slider>
+              </SegmentedControlItem>
+              <SegmentedControlItem
+                title="Style"
+                selected={mode === EditorModes.STYLE}
+                onSelect={() => {
+                  changeMode(EditorModes.STYLE)
+                }}
+              >
+                <Box p={1}>
+                  <Button
+                    onClick={() => {
+                      changeMode(EditorModes.THEME)
+                    }}
+                  >
+                    Change theme...
+                  </Button>
+                  <Checkbox
+                    label="Display line numbers"
+                    onChange={this.onLineNumbersSettingChanged}
+                    defaultChecked={lineNumbers}
+                  />
+                </Box>
+              </SegmentedControlItem>
+              <SegmentedControlItem
+                title="Font"
+                selected={mode === EditorModes.FONT}
+                onSelect={() => {
+                  changeMode(EditorModes.FONT)
+                }}
+              >
+                <Box p={1}>
+                  <FontChooser
+                    fontface={fontface}
+                    fontsize={fontsize}
+                    onChange={this.onFontChanged}
+                    onConfirm={() => {
+                      changeMode(EditorModes.STYLE)
+                    }}
+                  />
+                </Box>
+              </SegmentedControlItem>
+            </SegmentedControl>
           </Box>
 
           <PreviewWrapper align="center" justify="center">

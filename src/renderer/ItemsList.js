@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { equals } from 'ramda'
 import { ArrowKeyStepper, AutoSizer, List } from 'react-virtualized'
 import { ListView, ListViewRow, ListViewHeader, Text } from 'react-desktop/macOs'
 import SearchField from './SearchField'
@@ -27,6 +28,15 @@ export default class ItemsList extends Component {
 
   componentDidMount() {
     this.syncScrollPosition()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!equals(this.props.items, nextProps.items)) {
+      this.setState({
+        items: nextProps.items,
+        query: ''
+      })
+    }
   }
 
   componentDidUpdate() {

@@ -14,7 +14,7 @@ const TransparentWindow = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
-  -webkit-app-region: ${props => (props.size === WindowSizes.NORMAL ? 'drag' : 'inherit')};
+  -webkit-app-region: ${props => (props.size === WindowSizes.NORMAL ? 'inherit' : 'inherit')};
 `
 
 const BaloonWithTimer = withTimer({
