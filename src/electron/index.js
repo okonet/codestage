@@ -103,7 +103,11 @@ app.on('ready', async () => {
   windows.main = new BrowserWindow({
     width,
     height,
-    frame: false,
+    center: true,
+    frame: true,
+    maximizable: false,
+    minimizable: false,
+    fullscreenable: false,
     alwaysOnTop: true,
     skipTaskbar: true,
     vibrancy: 'light',
@@ -137,17 +141,12 @@ app.on('ready', async () => {
   })
 
   // const startUrl = isDev ? 'http://localhost:5000' : `file://${__dirname}/../../build/index.html`
-  const startUrl = `file://${__dirname}/../renderer/index.html`
+  const startUrl = `file://${__dirname}/../renderer/`
 
-  windows.main.loadURL(`${startUrl}#main`)
-  windows.preferences.loadURL(`${startUrl}#preferences`)
+  windows.main.loadURL(`${startUrl}main.html#main`)
+  windows.preferences.loadURL(`${startUrl}preferences.html#preferences`)
 
   Object.keys(windows).forEach(win => {
-    // Provides a way to require node/electron stuff in CRA
-    windows[win].webContents.on('dom-ready', () => {
-      windows.main.webContents.executeJavaScript('window.require')
-    })
-
     // Prevent closing the application when window is closed
     windows[win].on('close', event => {
       if (!forceQuit) {
