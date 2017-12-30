@@ -21,7 +21,10 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": ["git-exec-and-restage eslint --fix --", "jest --findRelatedTests --bail"],
+    "*.js": [
+      "git-exec-and-restage eslint --fix --",
+      "jest --findRelatedTests --bail"
+    ],
     "*.{js,json,css,md}": "git-exec-and-restage prettier --write --"
   },
   "keywords": [],
@@ -86,12 +89,17 @@
   "config": {
     "forge": {
       "make_targets": {
-        "darwin": ["zip"]
+        "darwin": [
+          "zip"
+        ]
       },
       "electronPackagerConfig": {
         "packageManager": "yarn",
         "icon": "resources/icon",
-        "ignore": [".idea", "coverage"],
+        "ignore": [
+          ".idea",
+          "coverage"
+        ],
         "appBundleId": "com.koolesache.CodeStage",
         "appCategoryType": "public.app-category.productivity",
         "asar": {
