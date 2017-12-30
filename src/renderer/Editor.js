@@ -175,9 +175,7 @@ class Editor extends Component {
                     fontface={fontface}
                     fontsize={fontsize}
                     onChange={this.onFontChanged}
-                    onConfirm={() => {
-                      changeMode(EditorModes.STYLE)
-                    }}
+                    onConfirm={this.onConfirmSelection}
                   />
                 </Box>
               </SegmentedControlItem>
