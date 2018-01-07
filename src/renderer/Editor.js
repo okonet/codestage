@@ -109,7 +109,7 @@ class Editor extends Component {
       )
     }
     return (
-      <Flex column style={{ width: '100%' }}>
+      <Flex column style={{ width: '100%', height: '100%' }}>
         <Flex flex="1">
           <Box width={300} mt={1}>
             <SegmentedControl>

@@ -7,7 +7,7 @@ import Editor from './Editor'
 
 function Main({ closeWindow, confirmSelection, ...rest }) {
   return (
-    <Flex>
+    <Flex style={{ width: '100vw', height: '100vh' }}>
       <Editor {...rest} onConfirmSelection={confirmSelection} onClose={closeWindow} />
     </Flex>
   )
