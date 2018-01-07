@@ -24,9 +24,10 @@ import codeHighlight from './codeHighlight'
 import configureStore from '../shared/store/createStore'
 import { setWindowVisibility, setWindowSize } from '../shared/actions/window'
 import { errorOccured, resetErrors } from '../shared/actions/errors'
+import { highlightComplete } from '../shared/actions/editor'
 import { windows, WindowSizes } from '../shared/constants/window'
 import { DEFAULT_SETTINGS } from '../shared/constants/defaults'
-import { HIGHLIGHT_COMPLETE, REDUX_ACTION } from '../shared/constants/events'
+import { REDUX_ACTION } from '../shared/constants/events'
 import execAppleScript from './executeAppleScript'
 
 const { name } = require('../../package.json')
@@ -38,6 +39,7 @@ const height = 600
 
 const initialState = {}
 const store = configureStore(initialState, 'main')
+global.mainStore = store // Provide a ref to hydrate renderer's stores
 
 ipcMain.on(REDUX_ACTION, (event, payload) => {
   store.dispatch(payload)
@@ -175,14 +177,7 @@ app.on('ready', async () => {
 
   async function highlightText(text) {
     const result = await codeHighlight(text, settings).catch(handleError)
-    Object.keys(windows).forEach(win => {
-      windows[win].webContents.send(
-        HIGHLIGHT_COMPLETE,
-        Object.assign({}, result, {
-          text
-        })
-      )
-    })
+    store.dispatch(highlightComplete(result))
     // Explictely write to `text` of clipboard the same value as before
     // in order not to trigger the clipboard watcher
     clipboard.write({

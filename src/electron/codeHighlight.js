@@ -12,6 +12,7 @@ export default async function codeHighlight(input, settings) {
     return {
       ...result,
       ...options,
+      text: stripped,
       language
     }
   } catch (error) {

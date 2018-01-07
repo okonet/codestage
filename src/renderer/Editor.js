@@ -210,8 +210,8 @@ class Editor extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  mode: state.editor.mode
+const mapStateToProps = ({ editor }) => ({
+  ...editor
 })
 
 const mapDispatchToProps = dispatch => ({

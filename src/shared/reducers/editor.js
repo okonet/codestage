@@ -1,8 +1,10 @@
-import { SET_MODE } from '../actions/editor'
+import { HIGHLIGHT_COMPLETE, SET_MODE } from '../actions/editor'
 import { EditorModes } from '../constants/editor'
 
 const initialState = {
-  mode: EditorModes.LANGUAGE
+  mode: EditorModes.LANGUAGE,
+  text: '',
+  html: ''
 }
 
 export default function window(state = initialState, action) {
@@ -11,6 +13,15 @@ export default function window(state = initialState, action) {
       return {
         ...state,
         mode: action.payload
+      }
+    }
+
+    case HIGHLIGHT_COMPLETE: {
+      const { html, text } = action.payload
+      return {
+        ...state,
+        html,
+        text
       }
     }
 
