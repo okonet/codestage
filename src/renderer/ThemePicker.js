@@ -8,7 +8,7 @@ const Wrapper = styled(Box)`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 10px;
-  grid-row-gap: 10px;
+  grid-row-gap: 20px;
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -19,11 +19,20 @@ const PreviewItem = styled.button`
   display: block;
   padding: 0;
   margin: 7px;
+  margin-bottom: 30px;
   width: 150px;
-  height: 100px;
+  height: 110px;
   border: none;
+  background: none;
   cursor: pointer;
   ${props => props.selected && `box-shadow: 0 0 0 4px blue;`};
+`
+
+const Label = styled.p`
+  position: absolute;
+  margin: 7px 0 0;
+  text-align: center;
+  width: 100%;
 `
 
 class ThemePicker extends Component {
@@ -74,6 +83,7 @@ class ThemePicker extends Component {
               language={language}
               fontface={fontface}
             />
+            <Label>{themesList[theme].caption}</Label>
           </PreviewItem>
         ))}
       </Wrapper>

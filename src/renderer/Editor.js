@@ -24,16 +24,6 @@ const PreviewWrapper = styled(Flex)`
   border-left-width: 1px;
 `
 
-const PreviewContainer = styled.div`
-  padding: 7vmin;
-  width: calc(1 * 100vmin);
-  height: calc(3/4 * 100vmin);
-  background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.35);
-  box-shadow: 0 2px 16px 2px rgba(0, 0, 0, 0.25);
-  box-sizing: border-box;
-`
-
 class Editor extends Component {
   static propTypes = {
     closeWindow: PropTypes.func.isRequired,
@@ -183,16 +173,14 @@ class Editor extends Component {
           </Box>
 
           <PreviewWrapper align="center" justify="center">
-            <PreviewContainer>
-              <Preview
-                value={text}
-                theme={themesList[theme]}
-                language={language}
-                fontface={fontface}
-                fontsize={fontsize}
-                showGutter={lineNumbers}
-              />
-            </PreviewContainer>
+            <Preview
+              value={text}
+              theme={themesList[theme]}
+              language={language}
+              fontface={fontface}
+              fontsize={fontsize}
+              showGutter={lineNumbers}
+            />
           </PreviewWrapper>
         </Flex>
         <Flex m={1} justify="flex-end">
