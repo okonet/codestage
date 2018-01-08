@@ -1,8 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 import { equals } from 'ramda'
 import { ArrowKeyStepper, AutoSizer, List } from 'react-virtualized'
-import { ListView, ListViewRow, ListViewHeader, Text } from 'react-desktop/macOs'
+import { Flex, Box } from 'grid-styled'
+import { ListViewRow, Text } from 'react-desktop/macOs'
 import SearchField from './SearchField'
+
+const ListHeader = Box.extend`
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+`
 
 export default class ItemsList extends Component {
   static propTypes = {
@@ -144,8 +149,8 @@ export default class ItemsList extends Component {
     const { query, items } = this.state
     const selectedIndex = this.getSelectedIndex()
     return (
-      <ListView>
-        <ListViewHeader padding={7}>
+      <Flex column flex="1" style={{ height: '100%' }}>
+        <ListHeader p={7}>
           <SearchField
             focusable={focusable}
             placeholder={`Filter ${heading}...`}
@@ -153,31 +158,33 @@ export default class ItemsList extends Component {
             onChange={this.onFilterChange}
             onKeyDown={this.onKeyDown}
           />
-        </ListViewHeader>
-        <AutoSizer>
-          {({ height, width }) => (
-            <ArrowKeyStepper
-              columnCount={1}
-              rowCount={items.length}
-              mode="cells"
-              ref={this.setRef}
-              onScrollToChange={this.onStepperChanged}
-            >
-              {({ onSectionRendered }) => (
-                <List
-                  width={width}
-                  height={height}
-                  rowCount={items.length}
-                  rowHeight={28}
-                  rowRenderer={this.rowRenderer}
-                  onSectionRendered={onSectionRendered}
-                  scrollToIndex={selectedIndex}
-                />
-              )}
-            </ArrowKeyStepper>
-          )}
-        </AutoSizer>
-      </ListView>
+        </ListHeader>
+        <Box flex="1">
+          <AutoSizer>
+            {({ height, width }) => (
+              <ArrowKeyStepper
+                columnCount={1}
+                rowCount={items.length}
+                mode="cells"
+                ref={this.setRef}
+                onScrollToChange={this.onStepperChanged}
+              >
+                {({ onSectionRendered }) => (
+                  <List
+                    width={width}
+                    height={height}
+                    rowCount={items.length}
+                    rowHeight={28}
+                    rowRenderer={this.rowRenderer}
+                    onSectionRendered={onSectionRendered}
+                    scrollToIndex={selectedIndex}
+                  />
+                )}
+              </ArrowKeyStepper>
+            )}
+          </AutoSizer>
+        </Box>
+      </Flex>
     )
   }
 }
