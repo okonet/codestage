@@ -8,7 +8,6 @@
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "premake": "npm run icon",
     "make": "electron-forge make",
     "pretest": "npm run lint",
     "test": "jest --coverage",
