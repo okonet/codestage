@@ -114,7 +114,7 @@ class Editor extends Component {
     }
     return (
       <Wrapper>
-        <Sidebar flex="0 0 250px" pt={1}>
+        <Sidebar flex="0 0 250px" pt={3}>
           <SegmentedControl>
             <SegmentedControlItem
               title="Language"

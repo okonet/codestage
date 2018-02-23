@@ -106,13 +106,15 @@ app.on('ready', async () => {
     width,
     height,
     center: true,
-    frame: true,
     maximizable: false,
     minimizable: false,
     fullscreenable: false,
     alwaysOnTop: true,
     skipTaskbar: true,
-    vibrancy: 'light',
+    frame: false,
+    transparent: true,
+    titleBarStyle: 'hiddenInset',
+    vibrancy: 'dark',
     show: false
   })
 
