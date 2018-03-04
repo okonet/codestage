@@ -82,3 +82,7 @@ Object {
   "type": "StyleSheet",
 }
 `;
+
+exports[`stripBackgroundForSelector should only remove background rules for a given selector 1`] = `"*{color:red}"`;
+
+exports[`stripBackgroundForSelector should remove background rules for a given selector 1`] = `".test{color:blue}"`;
