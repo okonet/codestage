@@ -2,19 +2,11 @@
 
 exports[`colorTableToRTF should return a string 1`] = `"{\\\\colortbl\\\\red255\\\\green0\\\\blue0;\\\\red0\\\\green100\\\\blue255;}"`;
 
-exports[`getCssAst should remove unparsed colors from AST 1`] = `"*{background:red}"`;
+exports[`getSafeCssText should remove unparsed colors from new CSS 1`] = `"*{background:red}*{background:#cf0}*{background:transparent}*{}*{}*{}"`;
 
-exports[`getCssAst should remove unparsed colors from AST 2`] = `"*{background:#cf0}"`;
+exports[`getSafeCssText should return a new CSS string for a given CSS text 1`] = `"*{color:red}"`;
 
-exports[`getCssAst should remove unparsed colors from AST 3`] = `"*{background:transparent}"`;
-
-exports[`getCssAst should remove unparsed colors from AST 4`] = `"*{}"`;
-
-exports[`getCssAst should remove unparsed colors from AST 5`] = `"*{}"`;
-
-exports[`getCssAst should remove unparsed colors from AST 6`] = `"*{}"`;
-
-exports[`getCssAst should return a unique list of theme colors 1`] = `
+exports[`getUniqueColors should return a unique list of all used colors 1`] = `
 Array [
   Object {
     "b": 0,
@@ -28,59 +20,6 @@ Array [
     "r": 0,
   },
 ]
-`;
-
-exports[`getCssAst should return an AST for a given CSS text 1`] = `
-Object {
-  "children": Array [
-    Object {
-      "block": Object {
-        "children": Array [
-          Object {
-            "important": false,
-            "loc": null,
-            "property": "color",
-            "type": "Declaration",
-            "value": Object {
-              "children": Array [
-                Object {
-                  "loc": null,
-                  "name": "red",
-                  "type": "Identifier",
-                },
-              ],
-              "loc": null,
-              "type": "Value",
-            },
-          },
-        ],
-        "loc": null,
-        "type": "Block",
-      },
-      "loc": null,
-      "selector": Object {
-        "children": Array [
-          Object {
-            "children": Array [
-              Object {
-                "loc": null,
-                "name": "*",
-                "type": "TypeSelector",
-              },
-            ],
-            "loc": null,
-            "type": "Selector",
-          },
-        ],
-        "loc": null,
-        "type": "SelectorList",
-      },
-      "type": "Rule",
-    },
-  ],
-  "loc": null,
-  "type": "StyleSheet",
-}
 `;
 
 exports[`stripBackgroundForSelector should only remove background rules for a given selector 1`] = `"*{color:red}"`;
