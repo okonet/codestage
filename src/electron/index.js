@@ -114,7 +114,7 @@ app.on('ready', async () => {
     frame: false,
     transparent: true,
     titleBarStyle: 'hiddenInset',
-    vibrancy: 'dark',
+    vibrancy: 'light',
     show: false
   })
 
