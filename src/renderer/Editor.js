@@ -47,7 +47,7 @@ class Editor extends Component {
     super()
     this.state = {
       fontface: fontface || preferences.fontface,
-      fontsize: fontsize || preferences.fontsize,
+      fontsize: Number(fontsize || preferences.fontsize),
       language: language || preferences.language || languagesList[0],
       theme: theme || preferences.theme || themesList[0],
       lineNumbers: preferences.lineNumbers,
