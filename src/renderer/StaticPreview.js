@@ -16,7 +16,9 @@ function StaticPreview({ html, fontface, theme, className }) {
   return (
     <PreviewContainer
       className={className}
-      initialContent="<!DOCTYPE html><html><head></head><body class=&quot;ace_static_highlight&quot;><div></div></body></html>"
+      initialContent={`<!DOCTYPE html><html><head></head><body class="${
+        theme.cssClass
+      }"><div></div></body></html>`}
     >
       <style>{`
 body {
@@ -24,7 +26,7 @@ body {
 }
 ${theme.cssText}
       `}</style>
-      <pre style={{ fontFamily: fontface, fontSize: '75%' }}>
+      <pre style={{ fontFamily: fontface, fontSize: '50%' }}>
         <code dangerouslySetInnerHTML={{ __html: html }} />
       </pre>
     </PreviewContainer>

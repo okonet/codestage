@@ -11,6 +11,7 @@ export const FontSizes = [32, 64, 128] // each fontsize value equals 1/2 in pt
 
 export const ThemePropType = PropTypes.shape({
   caption: PropTypes.string.isRequired,
+  cssClass: PropTypes.string.isRequired,
   cssText: PropTypes.string.isRequired,
   isDark: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
