@@ -5,7 +5,8 @@ export const DEFAULT_SETTINGS = Object.freeze({
     fontsize: 64, // 32pt
     theme: 'chrome',
     language: 'javascript',
-    lineNumbers: false
+    lineNumbers: false,
+    includeBackground: true
   },
   shortcut: 'Command+Alt+V',
   autopaste: true

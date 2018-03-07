@@ -50,7 +50,8 @@ class Editor extends Component {
       fontsize: fontsize || preferences.fontsize,
       language: language || preferences.language || languagesList[0],
       theme: theme || preferences.theme || themesList[0],
-      lineNumbers: preferences.lineNumbers
+      lineNumbers: preferences.lineNumbers,
+      includeBackground: preferences.includeBackground
     }
   }
 
@@ -83,9 +84,13 @@ class Editor extends Component {
     this.setState({ lineNumbers: event.target.checked })
   }
 
+  onBackgroundSettingChanged = event => {
+    this.setState({ includeBackground: event.target.checked })
+  }
+
   render() {
     const { closeWindow, mode, html, text, languagesList, themesList, changeMode } = this.props
-    const { fontface, fontsize, language, theme, lineNumbers } = this.state
+    const { fontface, fontsize, includeBackground, language, theme, lineNumbers } = this.state
 
     if (mode === EditorModes.THEME) {
       return (
@@ -154,6 +159,11 @@ class Editor extends Component {
                   onChange={this.onLineNumbersSettingChanged}
                   defaultChecked={lineNumbers}
                 />
+                <Checkbox
+                  label="Include background color"
+                  onChange={this.onBackgroundSettingChanged}
+                  defaultChecked={includeBackground}
+                />
               </Box>
             </SegmentedControlItem>
             <SegmentedControlItem
@@ -184,6 +194,7 @@ class Editor extends Component {
               fontface={fontface}
               fontsize={fontsize}
               showGutter={lineNumbers}
+              includeBackground={includeBackground}
             />
           </Flex>
           <Box m={2} style={{ textAlign: 'right' }}>
