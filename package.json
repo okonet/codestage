@@ -113,7 +113,8 @@
       "electronInstallerRedhat": {},
       "github_repository": {
         "owner": "okonet",
-        "name": "codestage"
+        "name": "codestage",
+        "prerelease": true
       }
     }
   }
